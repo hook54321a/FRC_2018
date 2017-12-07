@@ -1,9 +1,9 @@
-import org.usfirst.frc.falcons6443.robot.stealth_guided.WheelBasedReckoning;
+package reckoning;
 
 import java.util.Scanner;
 
 public class WheelBasedReckoningTest {
-    void doTest() {
+    public void doTest() {
         //Config Variables
 
         Scanner reader = new Scanner(System.in);

@@ -78,7 +78,7 @@ public class WheelBasedReckoning {
         return distance;
     }
 
-    public void print() {
-        System.out.println("Current Coordinates: (" + xPos + ", " + yPos + ", " + radians * 180.0d / Math.PI + ")");
+    public String toString() {
+        return "Current Coordinates: (" + xPos + ", " + yPos + ", " + radians * 180.0d / Math.PI + ")";
     }
 }

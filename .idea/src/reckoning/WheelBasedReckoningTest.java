@@ -7,6 +7,7 @@ public class WheelBasedReckoningTest {
         //Config Variables
 
         Scanner reader = new Scanner(System.in);
+
         System.out.println("Rotation Precision: ");
         int rotPreciseIn = reader.nextInt();
         System.out.println("Diameter of Wheel: ");
@@ -33,9 +34,9 @@ public class WheelBasedReckoningTest {
 
         reader.close();
 
-        WheelBasedReckoning wbrtest = new WheelBasedReckoning(rotPreciseIn, diameterIn, treadThickIn, trackIn, startXin, startYin, degreesIn);
-        double distMoved = wbrtest.updateCoords(rightPulseIn, leftPulseIn);
+        WheelBasedReckoning wbr = new WheelBasedReckoning(rotPreciseIn, diameterIn, treadThickIn, trackIn, startXin, startYin, degreesIn);
+        double distMoved = wbr.updateCoords(rightPulseIn, leftPulseIn);
         System.out.println("Distance Moved: " + distMoved);
-        wbrtest.print();
+        System.out.println(wbr.toString());
     }
 }

@@ -8,12 +8,12 @@ public class RealTimeModelTest {
     public void do_test() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        String default_img_path = "C:\\Users\\Gamerverise\\IdeaProjects\\FRC_2018\\.idea\\data_files\\FRC_2017_RoboMap.pnm";
+        System.out.println("Enter your username: ");
+        String username = scanner.nextLine();
+        String default_img_path = "C:\\Users\\" + username + "\\IdeaProjects\\FRC_2018\\.idea\\data_files\\FRC_2017_RoboMap.png";
 
         Pattern path_pattern = Pattern.compile(".*\\n");
-
         System.out.print("Path to image [" + default_img_path + "]: ");
-
         String img_path = scanner.nextLine();
 
         if (img_path.compareTo("") == 0)

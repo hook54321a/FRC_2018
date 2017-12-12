@@ -22,7 +22,7 @@ abstract class RoboGrid {
         init_blocks(height*width);
 
         for (int y = 0; y < height; y++) {
-            int row_start = y * height;
+            int row_start = y * width;
             for (int x = 0; x < width; x++)
                 set_block_from_pixel(row_start + x, pixels[row_start + x]);
         }
@@ -37,11 +37,12 @@ abstract class RoboGrid {
         int row_start = start_y * height;
 
         for (int x = start_x; x < width && block_count < num_blocks; x++, block_count++) {
+            System.out.println(x);
                 System.out.print(get_block_code(row_start + x));
         }
         System.out.println();
 
-        for (int y = start_x + 1; y < height; y++) {
+        for (int y = start_y + 1; y < height && block_count < num_blocks; y++) {
             row_start = y * height;
             for (int x = 0; x < width && block_count < num_blocks; x++, block_count++) {
                 System.out.print(get_block_code(row_start + x));
@@ -53,22 +54,24 @@ abstract class RoboGrid {
 
 class RoboMap extends RoboGrid {
 
-    static enum GridTypes {OBSTRUCTED, OPEN}
+    static enum BlockTypes {OBSTRUCTED, OPEN}
 
-    GridTypes[] blocks;    // [x, y] from [y*width + x]
+    BlockTypes[] blocks;    // [x, y] from [y*width + x]
 
     void init_blocks(int size) {
-        blocks = new GridTypes[size];
+        blocks = new BlockTypes[size];
     }
 
     void set_block_from_pixel(int block_num, int pixel_val) {
         switch (pixel_val) {
             case 0:
-                blocks[block_num] = GridTypes.OBSTRUCTED;
+                blocks[block_num] = BlockTypes.OBSTRUCTED;
                 break;
-            case 1:
-                blocks[block_num] = GridTypes.OPEN;
+            case 255:
+                blocks[block_num] = BlockTypes.OPEN;
                 break;
+            default:
+                throw new RuntimeException("Pixel color " + pixel_val + " does not map to any block type.");
         }
     }
 
@@ -89,21 +92,21 @@ class RoboMap extends RoboGrid {
 
 class MovingObject extends RoboGrid {
 
-    static enum GridTypes {EXTENT, VOID}
+    static enum BlockTypes {EXTENT, VOID}
 
-    GridTypes[] blocks;    // [x, y] from [y*width + x]
+    BlockTypes[] blocks;    // [x, y] from [y*width + x]
 
     void init_blocks(int size) {
-        blocks = new GridTypes[size];
+        blocks = new BlockTypes[size];
     }
 
     void set_block_from_pixel(int block_num, int pixel_val) {
         switch (pixel_val) {
             case 0:
-                blocks[block_num] = GridTypes.EXTENT;
+                blocks[block_num] = BlockTypes.EXTENT;
                 break;
-            case 1:
-                blocks[block_num] = GridTypes.VOID;
+            case 255:
+                blocks[block_num] = BlockTypes.VOID;
                 break;
         }
     }
@@ -124,26 +127,26 @@ class MovingObject extends RoboGrid {
 }
 
 class GridIntersection extends RoboGrid {
-    static enum GridTypes {JOINT, DISJOINT}
+    static enum BlockTypes {JOINT, DISJOINT}
 
     int origin_x;
     int origin_y;
 
-    GridTypes[] blocks;    // [x, y] from [y*width + x]
+    BlockTypes[] blocks;    // [x, y] from [y*width + x]
 
     // GridIntersection - finds the intersection of grids a and b where the origin of b is offset from a by delta_x and delta_y.
 
     void init_blocks(int size) {
-        blocks = new GridTypes[size];
+        blocks = new BlockTypes[size];
     }
 
     void set_block_from_pixel(int block_num, int pixel_val) {
         switch (pixel_val) {
-            case 0:
-                blocks[block_num] = GridTypes.DISJOINT;
+            case 255:
+                blocks[block_num] = BlockTypes.DISJOINT;
                 break;
-            case 1:
-                blocks[block_num] = GridTypes.JOINT;
+            case 0:
+                blocks[block_num] = BlockTypes.JOINT;
                 break;
         }
     }
@@ -218,7 +221,7 @@ class GridIntersection extends RoboGrid {
         width = a_end_x - a_start_x;
         height = a_end_y - a_start_y;
 
-        blocks = new GridTypes[width * height];
+        blocks = new BlockTypes[width * height];
 
         // Now compare the blocks of the intersection one-by-one
 
@@ -239,7 +242,7 @@ class Locator {
 
 public class RealTimeModel {
 
-    public static enum GridTypes {OBSTRUCTED, OPEN}
+    public static enum BlockTypes {OBSTRUCTED, OPEN}
 
     RoboMap map;
     Locator robot_coords;

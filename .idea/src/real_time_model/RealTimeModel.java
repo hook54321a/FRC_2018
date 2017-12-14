@@ -1,5 +1,6 @@
 package real_time_model;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.awt.image.*;
@@ -17,37 +18,46 @@ abstract class RoboGrid {
         Raster raster = image.getRaster();
         height = raster.getHeight();
         width = raster.getWidth();
-        int[] pixels = raster.getPixels(0, 0, width, height, (int [])null);
+
+        int num_bands = raster.getNumBands();
+        if (num_bands != 3)
+            throw new RuntimeException("Image must be RGB.");
+
+        Rectangle bounds = raster.getBounds();
+        if (bounds.x != 0 || bounds.y != 0)
+            throw new RuntimeException("Raster of RoboGrid image must have origin (0, 0).");
 
         init_blocks(height*width);
 
+        int [] rgb = new int[3];
         for (int y = 0; y < height; y++) {
             int row_start = y * width;
-            for (int x = 0; x < width; x++)
-                set_block_from_pixel(row_start + x, pixels[row_start + x]);
+            for (int x = 0; x < width; x++) {
+                raster.getPixel(x, y, rgb);
+                set_block_from_pixel(row_start + x, rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+            }
         }
     }
 
     abstract void init_blocks(int num_blocks);
-    abstract void set_block_from_pixel(int block_num, int pix_val);
+    abstract void set_block_from_pixel(int block_num, int Ox00rrggbb);
     abstract char get_block_code(int block_num);
 
     void print_range(int start_x, int start_y, int num_blocks) {
         int block_count = 0;
-        int row_start = start_y * height;
+        int row_start = start_y * width;
 
         for (int x = start_x; x < width && block_count < num_blocks; x++, block_count++) {
-            System.out.println(x);
-                System.out.print(get_block_code(row_start + x));
+            System.out.print(get_block_code(row_start + x));
         }
-        System.out.println();
+        System.out.println(" EOL");
 
         for (int y = start_y + 1; y < height && block_count < num_blocks; y++) {
-            row_start = y * height;
+            row_start = y * width;
             for (int x = 0; x < width && block_count < num_blocks; x++, block_count++) {
                 System.out.print(get_block_code(row_start + x));
             }
-            System.out.println();
+            System.out.println(" EOF");
         }
     }
 }
@@ -62,16 +72,16 @@ class RoboMap extends RoboGrid {
         blocks = new BlockTypes[size];
     }
 
-    void set_block_from_pixel(int block_num, int pixel_val) {
-        switch (pixel_val) {
-            case 0:
+    void set_block_from_pixel(int block_num, int Ox00rrggbb) {
+        switch (Ox00rrggbb) {
+            case 0x00000000:
                 blocks[block_num] = BlockTypes.OBSTRUCTED;
                 break;
-            case 255:
+            case 0x00ffffff:
                 blocks[block_num] = BlockTypes.OPEN;
                 break;
             default:
-                throw new RuntimeException("Pixel color " + pixel_val + " does not map to any block type.");
+                throw new RuntimeException("Pixel color " + Ox00rrggbb + " does not map to any RoboMap block type.");
         }
     }
 
@@ -81,8 +91,9 @@ class RoboMap extends RoboGrid {
                 return 'B';
             case OPEN:
                 return 'P';
+            default:
+                throw new RuntimeException("This code should never be reached.");
         }
-        return '_';
     }
 
     RoboMap(String img_path) throws IOException {
@@ -100,14 +111,16 @@ class MovingObject extends RoboGrid {
         blocks = new BlockTypes[size];
     }
 
-    void set_block_from_pixel(int block_num, int pixel_val) {
-        switch (pixel_val) {
-            case 0:
+    void set_block_from_pixel(int block_num, int Ox00rrggbb) {
+        switch (Ox00rrggbb) {
+            case 0x00000000:
                 blocks[block_num] = BlockTypes.EXTENT;
                 break;
-            case 255:
+            case 0x00ffffff:
                 blocks[block_num] = BlockTypes.VOID;
                 break;
+            default:
+                throw new RuntimeException("Pixel color " + Ox00rrggbb + " does not map to any MovingObject block type.");
         }
     }
 
@@ -117,8 +130,9 @@ class MovingObject extends RoboGrid {
                 return 'E';
             case VOID:
                 return 'V';
+            default:
+                throw new RuntimeException("This code should never be reached.");
         }
-        return '_';
     }
 
     MovingObject(String img_path) throws IOException {
@@ -140,14 +154,16 @@ class GridIntersection extends RoboGrid {
         blocks = new BlockTypes[size];
     }
 
-    void set_block_from_pixel(int block_num, int pixel_val) {
-        switch (pixel_val) {
-            case 255:
-                blocks[block_num] = BlockTypes.DISJOINT;
-                break;
-            case 0:
+    void set_block_from_pixel(int block_num, int Ox00rrggbb) {
+        switch (Ox00rrggbb) {
+            case 0x00000000:
                 blocks[block_num] = BlockTypes.JOINT;
                 break;
+            case 0x00ffffff:
+                blocks[block_num] = BlockTypes.DISJOINT;
+                break;
+            default:
+                throw new RuntimeException("Pixel color " + Ox00rrggbb + " does not map to any GridIntersection block type.");
         }
     }
 
@@ -157,8 +173,9 @@ class GridIntersection extends RoboGrid {
                 return 'J';
             case DISJOINT:
                 return 'D';
+            default:
+                throw new RuntimeException("This code should never be reached.");
         }
-        return '_';
     }
 
     GridIntersection(RoboGrid a, RoboGrid b, int delta_x, int delta_y) {

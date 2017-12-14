@@ -10,7 +10,7 @@ public class RealTimeModelTest {
 
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
-        String default_img_path = "C:\\Users\\" + username + "\\IdeaProjects\\FRC_2018\\.idea\\data_files\\FRC_2017_RoboMap.png";
+        String default_img_path = "C:\\Users\\" + username + "\\IdeaProjects\\FRC_2018\\.idea\\data_files\\RealTimeMap_Test.png";
 
         Pattern path_pattern = Pattern.compile(".*\\n");
         System.out.print("Path to image [" + default_img_path + "]: ");

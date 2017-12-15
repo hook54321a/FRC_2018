@@ -1,42 +1,99 @@
 package reckoning;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class WheelBasedReckoningTest {
-    public void doTest() {
+
+    // Config vars
+    int pulses_per_revolution;
+    double wheel_diameter;
+    double track;
+
+    // State vars
+    double start_x;
+    double start_y;
+    double start_direction;
+
+    // Test data
+    int right_pulses;
+    int left_pulses;
+
+    void input_from_console() {
         //Config Variables
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Rotation Precision: ");
-        int rotPreciseIn = reader.nextInt();
-        System.out.println("Diameter of Wheel: ");
-        int diameterIn = reader.nextInt();
-        System.out.println("Thickness of Tank Treads: ");
-        int treadThickIn = reader.nextInt();
-        System.out.println("Track: ");
-        int trackIn = reader.nextInt();
+        System.out.println("Rotation precision: ");
+        int pulses_per_revolution = reader.nextInt();
+        System.out.println("Wheel diameter: ");
+        double wheel_diameter = reader.nextDouble();
+        System.out.println("Track (on-center between front wheels (or rear wheels)): ");
+        double track = reader.nextDouble();
 
         // State Vars
 
-        System.out.println("Starting X-Position: ");
-        int startXin = reader.nextInt();
-        System.out.println("Starting Y-Position: ");
-        int startYin = reader.nextInt();
-        System.out.println("Angle of Direction: ");
-        int degreesIn = reader.nextInt();
+        System.out.println("Starting coordinates (x, y, direction) [0 0 0]: ");
+        double start_x = reader.nextDouble();
+        double start_y = reader.nextDouble();
+        double start_direction = reader.nextDouble();
 
         // Pulse Vars
 
-        System.out.println("Revolutions Moved (In a Straight Line): ");
-        int rightPulseIn = reader.nextInt();
-        int leftPulseIn = rightPulseIn;
+        System.out.println("Revolution pulses (left, right) [10 10]: ");
+        int right_pulses = reader.nextInt();
+        int left_pulses = reader.nextInt();
 
         reader.close();
+    }
 
-        WheelBasedReckoning wbr = new WheelBasedReckoning(rotPreciseIn, diameterIn, treadThickIn, trackIn, startXin, startYin, degreesIn);
-        double distMoved = wbr.updateCoords(rightPulseIn, leftPulseIn);
-        System.out.println("Distance Moved: " + distMoved);
+    void input_from_file(String path) {
+        //Config Variables
+
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Rotation precision: ");
+        int pulses_per_revolution = reader.nextInt();
+        System.out.println("Wheel diameter: ");
+        double wheel_diameter = reader.nextDouble();
+        System.out.println("Track (on-center between front wheels (or rear wheels)): ");
+        double track = reader.nextDouble();
+
+        // State Vars
+
+        System.out.println("Starting coordinates (x, y, direction) [0 0 0]: ");
+        double start_x = reader.nextDouble();
+        double start_y = reader.nextDouble();
+        double start_direction = reader.nextDouble();
+
+        // Pulse Vars
+
+        System.out.println("Revolution pulses (left, right) [10 10]: ");
+        int right_pulses = reader.nextInt();
+        int left_pulses = reader.nextInt();
+
+        reader.close();
+    }
+
+    void do_test(String[] args) throws IOException {
+        if (args[0] == null || args[0] == "console")
+            input_from_console();
+        else if (args[0] == "file" && args[1] != null)
+            input_from_file(args[1]);
+        else
+            throw new RuntimeException("Invalid test input specification.")
+
+        WheelBasedReckoning wbr = new WheelBasedReckoning(
+                pulses_per_revolution,
+                wheel_diameter,
+                track,
+                start_x,
+                start_y,
+                start_direction
+        );
+
+        double dist_moved = wbr.update_coords(left_pulses, right_pulses);
+        System.out.println("Distance moved: " + dist_moved);
         System.out.println(wbr.toString());
     }
 }

@@ -22,33 +22,17 @@ public class WheelBasedReckoningTest {
     void input_from_console() {
         //Config Variables
 
-        Scanner reader = new Scanner(System.in);
-
         System.out.println("Rotation precision: ");
-        int pulses_per_revolution = reader.nextInt();
         System.out.println("Wheel diameter: ");
-        double wheel_diameter = reader.nextDouble();
         System.out.println("Track (on-center between front wheels (or rear wheels)): ");
-        double track = reader.nextDouble();
-
-        // State Vars
-
         System.out.println("Starting coordinates (x, y, direction) [0 0 0]: ");
-        double start_x = reader.nextDouble();
-        double start_y = reader.nextDouble();
-        double start_direction = reader.nextDouble();
-
-        // Pulse Vars
-
         System.out.println("Revolution pulses (left, right) [10 10]: ");
-        int right_pulses = reader.nextInt();
-        int left_pulses = reader.nextInt();
-
-        reader.close();
     }
 
     void input_from_line_buffer(LineBuffer lines) {
         //Config Variables
+
+        ArgSpec[] args = {new ArgSpec{"rotation_precision", "Rotation precision: ", new Integer(0)}};
 
         Scanner reader = new Scanner(System.in);
 

@@ -14,7 +14,7 @@ public class ArgumentParser {
     static final Pattern INTEGER_RE = Pattern.compile("0 | [1-9][0-9]*");
     static final Pattern REAL_ISH_RE = Pattern.compile("(0 | [1-9][0-9]*)(\\.[0-9]*)?");
 
-    void parse(ArgSpec[] in_args, LineBuffer lines) {
+    public static void parse_args(LineBuffer lines, ArgSpec[] in_args) {
         HashMap<String, ArgSpec> args = new HashMap<String, ArgSpec>();
 
         for (int i = 0; i < in_args.length; i++)
@@ -26,17 +26,21 @@ public class ArgumentParser {
             String value = m.group(2);
             ArgSpec arg = args.get(name);
 
-            if (arg.parsed_value instanceof Integer) {
-                m = INTEGER_RE.matcher(value);
-                arg.parsed_value = Integer.parseInt(m.group());
-            } else if (arg.parsed_value instanceof Float) {
-                m = REAL_ISH_RE.matcher(value);
-                arg.parsed_value = Float.parseFloat(m.group());
-            } else if (arg.parsed_value instanceof Double) {
-                m = REAL_ISH_RE.matcher(value);
-                arg.parsed_value = Double.parseDouble(m.group());
-            } else
-                throw new RuntimeException("Unimplemented ArgSpec type.");
+            for (int j = 0; j < arg.parsed_values.length; j++) {
+                ArgSpec.Atom atom = arg.parsed_values[j];
+
+                if (atom.value instanceof Integer) {
+                    m = INTEGER_RE.matcher(value);
+                    atom.value = Integer.parseInt(m.group());
+                } else if (atom.value instanceof Float) {
+                    m = REAL_ISH_RE.matcher(value);
+                    atom.value = Float.parseFloat(m.group());
+                } else if (atom.value instanceof Double) {
+                    m = REAL_ISH_RE.matcher(value);
+                    atom.value = Double.parseDouble(m.group());
+                } else
+                    throw new RuntimeException("Unimplemented ArgSpec type.");
+            }
         }
     }
 }

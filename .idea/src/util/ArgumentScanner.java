@@ -3,29 +3,25 @@ package util;
 import java.util.Scanner;
 
 public class ArgumentScanner {
-    public static void read_args(ArgSpec[] args) {
-        Scanner scanner = new Scanner(System.in);
-
+    public static void scan_args(Scanner scanner, ArgSpec[] args) {
         for (int i = 0; i < args.length; i++) {
             ArgSpec arg = args[i];
 
             System.out.println(arg.prompt);
 
-            if (arg.parsed_value instanceof Integer)
-                arg.parsed_value = scanner.nextInt();
-            else if (arg.parsed_value instanceof Float)
-                arg.parsed_value = scanner.nextFloat();
-            else if (arg.parsed_value instanceof Double)
-                arg.parsed_value = scanner.nextDouble();
-            else if (arg.parsed_value instanceof ArgSpec.Pair) {
-                if (arg.parsed_value.v1 instanceof Integer)
-                    arg.parsed_value.v1 = scanner.nextInt();
-                else if (arg.parsed_value.v1 instanceof Float)
-                    arg.parsed_value.v1 = scanner.nextFloat();
-            } else
-                throw new RuntimeException("Unimplemented ArgSpec type.");
+            for (int j = 0; j < arg.parsed_values.length; j++)
+                read_atom(scanner, arg.parsed_values[j]);
         }
+    }
 
-        scanner.close();
+    static void read_atom(Scanner scanner, ArgSpec.Atom atom) {
+        if (atom.value instanceof Integer)
+            atom.value = scanner.nextInt();
+        else if (atom.value instanceof Float)
+            atom.value = scanner.nextFloat();
+        else if (atom.value instanceof Double)
+            atom.value = scanner.nextDouble();
+        else
+            throw new RuntimeException("Unimplemented ArgSpec type.");
     }
 }

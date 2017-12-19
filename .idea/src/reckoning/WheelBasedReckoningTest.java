@@ -3,67 +3,34 @@ package reckoning;
 import java.io.IOException;
 import java.util.Scanner;
 
+import util.*;
+
 public class WheelBasedReckoningTest {
 
-    // Config vars
-    int pulses_per_revolution;
-    double wheel_diameter;
-    double track;
+    public void do_test(Scanner scanner, LineBuffer lines) {
+        ArgSpec[] args = {
+                new ArgSpec("Rotation precision: ", "rotation_precision", new ArgSpec.Atom<Integer>()),
+                new ArgSpec("Wheel diameter: ", "wheel_diameter", new ArgSpec.Atom<Double>()),
+                new ArgSpec("Track (on-center between front wheels (or rear wheels)): ", "track", new ArgSpec.Atom<Double>()),
+                new ArgSpec("Starting coordinates (x, y, direction) [0 0 0]: ", "starting_coords", new ArgSpec.Atom<Double>(), new ArgSpec.Atom<Double>(), new ArgSpec.Atom<Double>()),
+                new ArgSpec("Revolution pulses (left, right) [10 10]: ", "revolution_pulses", new ArgSpec.Atom<Integer>(), new ArgSpec.Atom<Integer>())
+        };
 
-    // State vars
-    double start_x;
-    double start_y;
-    double start_direction;
-
-    // Test data
-    int right_pulses;
-    int left_pulses;
-
-    void input_from_console() {
-        //Config Variables
-
-        System.out.println("Rotation precision: ");
-        System.out.println("Wheel diameter: ");
-        System.out.println("Track (on-center between front wheels (or rear wheels)): ");
-        System.out.println("Starting coordinates (x, y, direction) [0 0 0]: ");
-        System.out.println("Revolution pulses (left, right) [10 10]: ");
-    }
-
-    void input_from_line_buffer(LineBuffer lines) {
-        //Config Variables
-
-        ArgSpec[] args = {new ArgSpec{"rotation_precision", "Rotation precision: ", new Integer(0)}};
-
-        Scanner reader = new Scanner(System.in);
-
-        System.out.println("Rotation precision: ");
-        int pulses_per_revolution = reader.nextInt();
-        System.out.println("Wheel diameter: ");
-        double wheel_diameter = reader.nextDouble();
-        System.out.println("Track (on-center between front wheels (or rear wheels)): ");
-        double track = reader.nextDouble();
-
-        // State Vars
-
-        System.out.println("Starting coordinates (x, y, direction) [0 0 0]: ");
-        double start_x = reader.nextDouble();
-        double start_y = reader.nextDouble();
-        double start_direction = reader.nextDouble();
-
-        // Pulse Vars
-
-        System.out.println("Revolution pulses (left, right) [10 10]: ");
-        int right_pulses = reader.nextInt();
-        int left_pulses = reader.nextInt();
-
-        reader.close();
-    }
-
-    public void do_test(LineBuffer lines) {
-        if (lines == null)
-            input_from_console();
+        if (scanner != null && lines == null)
+            ArgumentScanner.scan_args(scanner, args);
+        else if (scanner == null && lines != null)
+            ArgumentParser.parse_args(lines, args);
         else
-            input_from_line_buffer(lines);
+            throw new RuntimeException("Invalid test source specification.");
+
+        int pulses_per_revolution = (int)args[0].parsed_values[0].value;
+        double wheel_diameter = (double)args[1].parsed_values[0].value;
+        double track = (double)args[2].parsed_values[0].value;
+        double start_x = (double)args[3].parsed_values[0].value;
+        double start_y = (double)args[3].parsed_values[1].value;
+        double start_direction = (double)args[3].parsed_values[2].value;
+        int left_pulses = (int)args[4].parsed_values[0].value;
+        int right_pulses = (int)args[4].parsed_values[1].value;
 
         WheelBasedReckoning wbr = new WheelBasedReckoning(
                 pulses_per_revolution,

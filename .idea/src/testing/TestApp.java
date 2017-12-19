@@ -10,10 +10,15 @@ import util.*;
 public class TestApp {
     static enum InputSrc {CONSOLE, FILE};
 
-    static String[] tests = {
-            "WheelBasedReckoning",
-            "RealTimeModel",
-            "GUI"
+//    static String[] tests = {
+//            "WheelBasedReckoning",
+//            "RealTimeModel",
+//            "GUI"
+//    };
+
+    static Class[] tests = {
+            WheelBasedReckoningTest.class,
+            RealTimeModelTest.class
     };
 
     public static void main(String[] args)
@@ -29,9 +34,10 @@ public class TestApp {
             lines.print();
 
             String[] adj_args = {args[1], args[2]};
-            test.do_test(args);
-        }
+            test.do_test(null, lines);
 
+            return;
+        }
 
         System.out.println("Choose a test: ");
         System.out.println();
@@ -39,13 +45,13 @@ public class TestApp {
         for (int i = 0; i < tests.length; i++)
             System.out.println(i + ") " + tests[i]);
 
-        Scanner chooseTest = new Scanner(System.in);
-        int testNum = chooseTest.nextInt();
+        Scanner scanner = new Scanner(System.in);
+        int test_id = scanner.nextInt();
 
-        switch (testNum) {
+        switch (test_id) {
             case 0:
                 WheelBasedReckoningTest wbr_test = new WheelBasedReckoningTest();
-                wbr_test.do_test(args);
+                wbr_test.do_test(scanner, null);
                 break;
             case 1:
                 RealTimeModelTest rtm_test = new RealTimeModelTest();
@@ -55,6 +61,6 @@ public class TestApp {
                 throw new RuntimeException("Invalid test number.");
         }
 
-        chooseTest.close();
+        scanner.close();
     }
 }

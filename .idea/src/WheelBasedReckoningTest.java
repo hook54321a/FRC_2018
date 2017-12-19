@@ -1,5 +1,4 @@
-import org.usfirst.frc.falcons6443.robot.stealth_guided.WheelBasedReckoning;
-
+// import org.usfirst.frc.falcons6443.robot.stealth_guided.WheelBasedReckoning;
 import java.util.Scanner;
 
 public class WheelBasedReckoningTest {
@@ -27,9 +26,10 @@ public class WheelBasedReckoningTest {
 
         // Pulse Vars
 
-        System.out.println("Revolutions Moved (In a Straight Line): ");
+        System.out.println("Revolutions Moved On Right Wheel: ");
         int rightPulseIn = reader.nextInt();
-        int leftPulseIn = rightPulseIn;
+        System.out.println("Revolutions Moved On Left Wheel: ");
+        int leftPulseIn = reader.nextInt();
 
         reader.close();
 

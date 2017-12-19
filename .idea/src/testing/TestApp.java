@@ -10,13 +10,7 @@ import util.*;
 public class TestApp {
     static enum InputSrc {CONSOLE, FILE};
 
-//    static String[] tests = {
-//            "WheelBasedReckoning",
-//            "RealTimeModel",
-//            "GUI"
-//    };
-
-    static Class[] tests = {
+    static final Class[] tests = {
             WheelBasedReckoningTest.class,
             RealTimeModelTest.class
     };
@@ -24,43 +18,30 @@ public class TestApp {
     public static void main(String[] args)
             throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        if (args.length == 3 && args[1] == "file") {
+        if (args.length == 2) {
             System.out.println(args.toString());
 
             Class<TestBase> clazz = (Class<TestBase>)Class.forName(args[0]);
             TestBase test = clazz.newInstance();
 
-            LineBuffer lines = new LineBuffer(args[2]);
+            LineBuffer lines = new LineBuffer(args[1]);
             lines.print();
 
-            String[] adj_args = {args[1], args[2]};
             test.do_test(null, lines);
+        } else {
+            System.out.println("Choose a test: ");
+            System.out.println();
 
-            return;
+            for (int i = 0; i < tests.length; i++)
+                System.out.println(i + ") " + tests[i].getName());
+
+            Scanner scanner = new Scanner(System.in);
+            int test_id = scanner.nextInt();
+
+            TestBase test = (TestBase) tests[test_id].newInstance();
+            test.do_test(scanner, null);
+
+            scanner.close();
         }
-
-        System.out.println("Choose a test: ");
-        System.out.println();
-
-        for (int i = 0; i < tests.length; i++)
-            System.out.println(i + ") " + tests[i]);
-
-        Scanner scanner = new Scanner(System.in);
-        int test_id = scanner.nextInt();
-
-        switch (test_id) {
-            case 0:
-                WheelBasedReckoningTest wbr_test = new WheelBasedReckoningTest();
-                wbr_test.do_test(scanner, null);
-                break;
-            case 1:
-                RealTimeModelTest rtm_test = new RealTimeModelTest();
-                rtm_test.do_test(args);
-                break;
-            default:
-                throw new RuntimeException("Invalid test number.");
-        }
-
-        scanner.close();
     }
 }

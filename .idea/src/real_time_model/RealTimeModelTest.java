@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class RealTimeModelTest {
-    public void do_test() throws IOException {
+    public void do_test(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter your username: ");

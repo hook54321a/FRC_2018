@@ -72,13 +72,13 @@ public class WheelBasedReckoning {
 
         } else if (left_pulses == 0 && right_pulses != 0) {
             // Robot is making a simple turn with the left wheels fixed
-            throw new RuntimeException("Simple turning not yet implemented.")
+            throw new RuntimeException("Simple turning not yet implemented.");
         } else if (left_pulses != 0 && right_pulses == 0) {
             // Robot is making a simple turn with the right wheels fixed
-            throw new RuntimeException("Simple turning not yet implemented.")
+            throw new RuntimeException("Simple turning not yet implemented.");
         } else {
             // Robot is making a compound turn
-            throw new RuntimeException("Compound turning not yet implemented.")
+            throw new RuntimeException("Compound turning not yet implemented.");
         }
 
         return dist_moved;

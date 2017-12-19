@@ -47,7 +47,7 @@ public class WheelBasedReckoningTest {
         reader.close();
     }
 
-    void input_from_file(String path) {
+    void input_from_line_buffer(LineBuffer lines) {
         //Config Variables
 
         Scanner reader = new Scanner(System.in);
@@ -75,13 +75,11 @@ public class WheelBasedReckoningTest {
         reader.close();
     }
 
-    void do_test(String[] args) throws IOException {
-        if (args[0] == null || args[0] == "console")
+    public void do_test(LineBuffer lines) {
+        if (lines == null)
             input_from_console();
-        else if (args[0] == "file" && args[1] != null)
-            input_from_file(args[1]);
         else
-            throw new RuntimeException("Invalid test input specification.")
+            input_from_line_buffer(lines);
 
         WheelBasedReckoning wbr = new WheelBasedReckoning(
                 pulses_per_revolution,

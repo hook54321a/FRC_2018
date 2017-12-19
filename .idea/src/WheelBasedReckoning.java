@@ -34,10 +34,13 @@ public class WheelBasedReckoning {
     // State Vars
     double xPos;
     double yPos;
-    // double degrees;
+    double degrees;
     double radians;
+    double circumference;
 
     double distance;
+    double deltaX;
+    double deltaY;
 
     public WheelBasedReckoning(
             double rotPrecision,
@@ -50,13 +53,15 @@ public class WheelBasedReckoning {
             double degrees)
     {
         double adjDiameter = diameter + 2 * treadThickness;
-        double circumference = Math.PI * adjDiameter;
+        circumference = Math.PI * adjDiameter;
         distPerPulse = circumference / rotPrecision;
         this.track = track;
 
         this.xPos = xPos;
         this.yPos = yPos;
-        // this.degrees = degrees;
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
+        this.degrees = degrees;
         this.radians = degrees * Math.PI / 180.0d;
     }
 
@@ -64,15 +69,18 @@ public class WheelBasedReckoning {
         if (rightPulseCount == leftPulseCount) {
             // Robot is moving straight. Potentially, due to error, we can consider the robot to be going straight if the pulse counts are only slightly different, but maybe that doesn't really matter.
             distance = distPerPulse * rightPulseCount;
-            double deltaX = distance * Math.cos(radians);
-            double deltaY = distance * Math.sin(radians);
+            deltaX = distance * Math.cos(radians);
+            deltaY = distance * Math.sin(radians);
             xPos += deltaX;
             yPos += deltaY;
-        }
-
-         /* if (rightPulseCount == 0 && leftPulseCount > 0){
+        } else if (rightPulseCount == 0 && leftPulseCount > 0){
+            // Robot is turning with left wheel
             distance = distPerPulse * leftPulseCount;
-         } */
+            double cTurning = 2 * Math.PI * track; // circumference made when turning
+            degrees = 360 * cTurning / distance;
+            yPos += xPos * Math.sin(degrees);
+            xPos *= Math.cos(degrees);
+        }
         return distance;
     }
 

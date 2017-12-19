@@ -8,8 +8,6 @@ import real_time_model.RealTimeModelTest;
 import util.*;
 
 public class TestApp {
-    static enum InputSrc {CONSOLE, FILE};
-
     static final Class[] tests = {
             WheelBasedReckoningTest.class,
             RealTimeModelTest.class

@@ -15,13 +15,20 @@ public class ArgumentScanner {
     }
 
     static void read_atom(Scanner scanner, ArgSpec.Atom atom) {
-        if (atom.value instanceof Integer)
-            atom.value = scanner.nextInt();
-        else if (atom.value instanceof Float)
-            atom.value = scanner.nextFloat();
-        else if (atom.value instanceof Double)
-            atom.value = scanner.nextDouble();
-        else
-            throw new RuntimeException("Unimplemented ArgSpec type.");
+        String line = scanner.nextLine();
+
+        System.out.println("**" + line + "**");
+
+//        if (line == "")
+//            return;
+//
+//        if (atom.value instanceof Integer)
+//            atom.value = scanner.nextInt();
+//        else if (atom.value instanceof Float)
+//            atom.value = scanner.nextFloat();
+//        else if (atom.value instanceof Double)
+//            atom.value = scanner.nextDouble();
+//        else
+//            throw new RuntimeException("Unimplemented ArgSpec type.");
     }
 }

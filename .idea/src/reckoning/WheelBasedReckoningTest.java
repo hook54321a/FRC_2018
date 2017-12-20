@@ -4,16 +4,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import util.*;
+import testing.*;
 
-public class WheelBasedReckoningTest {
+public class WheelBasedReckoningTest extends TestBase {
 
     public void do_test(Scanner scanner, LineBuffer lines) {
         ArgSpec[] args = {
-                new ArgSpec("Rotation precision: ", "rotation_precision", new ArgSpec.Atom<Integer>()),
-                new ArgSpec("Wheel diameter: ", "wheel_diameter", new ArgSpec.Atom<Double>()),
-                new ArgSpec("Track (on-center between front wheels (or rear wheels)): ", "track", new ArgSpec.Atom<Double>()),
-                new ArgSpec("Starting coordinates (x, y, direction) [0 0 0]: ", "starting_coords", new ArgSpec.Atom<Double>(), new ArgSpec.Atom<Double>(), new ArgSpec.Atom<Double>()),
-                new ArgSpec("Revolution pulses (left, right) [10 10]: ", "revolution_pulses", new ArgSpec.Atom<Integer>(), new ArgSpec.Atom<Integer>())
+                new ArgSpec("rotation_precision", "Rotation precision [360]: ", 360),
+                new ArgSpec("wheel_diameter", "Wheel diameter [3]: ", 3d),
+                new ArgSpec("track", "Track (on-center between front wheels (or rear wheels)) [36]: ", 36d),
+                new ArgSpec("starting_coords", "Starting coordinates (x, y, direction) [0 0 0]: ", 0d, 0d, 0d),
+                new ArgSpec("revolution_pulses", "Revolution pulses (left, right) [10 10]: ", 10, 10)
         };
 
         if (scanner != null && lines == null)

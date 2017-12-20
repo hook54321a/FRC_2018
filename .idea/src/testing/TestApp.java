@@ -31,12 +31,12 @@ public class TestApp {
             System.out.println();
 
             for (int i = 0; i < tests.length; i++)
-                System.out.println(i + ") " + tests[i].getName());
+                System.out.println(i + ") " + tests[i].getSimpleName());
 
             Scanner scanner = new Scanner(System.in);
             int test_id = scanner.nextInt();
 
-            TestBase test = (TestBase) tests[test_id].newInstance();
+            TestBase test = (TestBase)tests[test_id].newInstance();
             test.do_test(scanner, null);
 
             scanner.close();

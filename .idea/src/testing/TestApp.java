@@ -16,31 +16,37 @@ public class TestApp {
     public static void main(String[] args)
             throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        if (args.length == 2) {
-            System.out.println(args.toString());
+//        if (args.length == 2) {
+//            System.out.println(args.toString());
+//
+//            Class<TestBase> clazz = (Class<TestBase>)Class.forName(args[0]);
+//            TestBase test = clazz.newInstance();
+//
+//            LineBuffer lines = new LineBuffer(args[1]);
+//            lines.print();
+//
+//            test.do_test(null, lines);
+//        } else {
 
-            Class<TestBase> clazz = (Class<TestBase>)Class.forName(args[0]);
-            TestBase test = clazz.newInstance();
+        System.out.println("Choose a test: ");
+        System.out.println();
 
-            LineBuffer lines = new LineBuffer(args[1]);
-            lines.print();
+        for (int i = 0; i < tests.length; i++)
+            System.out.println(i + ") " + tests[i].getSimpleName());
 
-            test.do_test(null, lines);
-        } else {
-            System.out.println("Choose a test: ");
-            System.out.println();
+        Scanner scanner = new Scanner(System.in);
+        int test_id = scanner.nextInt();
+        scanner.nextLine();                 // scanner.nextInt() does not consume the newline character.
 
-            for (int i = 0; i < tests.length; i++)
-                System.out.println(i + ") " + tests[i].getSimpleName());
+        System.out.print("File for test data [Press return to input data in the console]: ");
+        System.out.println();
 
-            Scanner scanner = new Scanner(System.in);
-            int test_id = scanner.nextInt();
-            scanner.nextLine();                 // scanner.nextInt() does not consume the newline character.
+        String test_data_path = scanner.nextLine();
 
-            TestBase test = (TestBase)tests[test_id].newInstance();
-            test.do_test(scanner, null);
+        TestBase test = (TestBase)tests[test_id].newInstance();
+        test.do_test(scanner, test_data_path);
 
-            scanner.close();
-        }
+        scanner.close();
+
     }
 }

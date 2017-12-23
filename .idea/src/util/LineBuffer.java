@@ -1,9 +1,10 @@
 package util;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class LineBuffer {
-    public String[] lines;
+    public LinkedList<String> lines;
 
     public LineBuffer(String path)
             throws FileNotFoundException, IOException
@@ -11,18 +12,18 @@ public class LineBuffer {
         File file = new File(path);
         FileReader file_reader = new FileReader(file);
         BufferedReader buffered_reader = new BufferedReader(file_reader);
-        StringBuffer string_buffer = new StringBuffer();
-        String line;
 
+        lines = new LinkedList<String>();
+
+        String line;
         for (int i = 0; (line = buffered_reader.readLine()) != null; i++)
-            lines[i] = line;
+            lines.add(line);
 
         file_reader.close();
     }
 
     public void print() {
-        for (int i = 0; i < lines.length; i++)
-            System.out.println(lines[i]);
+        System.out.print(lines.toString());
     }
 }
 

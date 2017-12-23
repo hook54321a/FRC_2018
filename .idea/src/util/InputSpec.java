@@ -56,4 +56,28 @@ public class InputSpec {
         this.prompt = prompt;
         this.parsed_values = new Atom[num_vals];
     }
+
+    public String to_string() {
+        String out = new String(parse_name + " = ");
+
+        int i = 0;
+        for (; i < parsed_values.length - 1; i++)
+            out += parsed_values[i].value.toString() + " ";
+
+        out += parsed_values[i].value.toString();
+
+        return out;
+    }
+
+    public static String array_to_string(InputSpec[] specs) {
+        String out = new String();
+
+        int i = 0;
+        for (; i < specs.length - 1; i++)
+            out += specs[i].to_string() + "\n";
+
+        out += specs[i].to_string();
+
+        return out;
+    }
 }

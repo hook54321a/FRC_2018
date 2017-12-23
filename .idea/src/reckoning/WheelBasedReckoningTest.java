@@ -1,5 +1,6 @@
 package reckoning;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,7 +9,9 @@ import testing.*;
 
 public class WheelBasedReckoningTest extends TestBase {
 
-    public void do_test(Scanner scanner, LineBuffer lines) {
+    public void do_test(Scanner scanner, String test_data_path)
+            throws IOException
+    {
         InputSpec[] input_specs = {
                 new InputSpec("rotation_precision", "Rotation precision [360]: ", 360),
                 new InputSpec("wheel_diameter", "Wheel diameter [3]: ", 3d),
@@ -17,12 +20,16 @@ public class WheelBasedReckoningTest extends TestBase {
                 new InputSpec("revolution_pulses", "Revolution pulses (left, right) [10 10]: ", 10, 10)
         };
 
-        if (scanner != null && lines == null)
-            InputScanner.scan_input(scanner, input_specs);
-        else if (scanner == null && lines != null)
+        if (test_data_path != null) {
+            BufferedReader lines = Misc.get_file_lines(test_data_path);
             InputParser.parse_lines(lines, input_specs);
-        else
-            throw new RuntimeException("Invalid test source specification.");
+            lines.close();
+
+            System.out.println();
+            System.out.println(InputSpec.array_to_string(input_specs));
+            System.out.println();
+        } else
+            InputScanner.scan_input(scanner, input_specs);
 
         int pulses_per_revolution = (int)input_specs[0].parsed_values[0].value;
         double wheel_diameter = (double)input_specs[1].parsed_values[0].value;
@@ -45,5 +52,6 @@ public class WheelBasedReckoningTest extends TestBase {
         double dist_moved = wbr.update_coords(left_pulses, right_pulses);
         System.out.println("Distance moved: " + dist_moved);
         System.out.println(wbr.toString());
+        System.out.println();
     }
 }

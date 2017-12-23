@@ -10,19 +10,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputParser {
-    static final Pattern ASSIGNMENT_RE = Pattern.compile("^(.*)=(.*)$");
-    static final Pattern NEXT_INT_RE = Pattern.compile("( \\t)*(0|[1-9][0-9]*)(.*)");
-    static final Pattern NEXT_REAL_ISH_RE = Pattern.compile("( \\t)*((0|[1-9][0-9]*)(\\.[0-9]*)?)(.*)");
+    static final Pattern ASSIGNMENT_RE = Pattern.compile("^[ \\t]*([A-Za-z_]+)[ \\t]*=(.*)");
+    static final Pattern NEXT_INT_RE = Pattern.compile("^[ \\t]*(0|[1-9][0-9]*)(.*)");
+    static final Pattern NEXT_REAL_ISH_RE = Pattern.compile("^[ \\t]*((0|[1-9][0-9]*)(\\.[0-9]*)?)(.*)");
 
-    public static void parse_lines(LineBuffer lines, InputSpec[] specs) {
-        HashMap<String, InputSpec> input = new HashMap<String, InputSpec>();
+    public static void parse_lines(BufferedReader lines, InputSpec[] specs)
+        throws IOException
+    {
+        HashMap<String, InputSpec> spec_table = new HashMap<String, InputSpec>();
 
         for (int i = 0; i < specs.length; i++)
-            input.put(specs[i].parse_name, specs[i]);
+            spec_table.put(specs[i].parse_name, specs[i]);
 
-        for (int i = 0; i < lines.lines.length; i++) {
-            Matcher m = ASSIGNMENT_RE.matcher(lines.lines[i]);
-            parse_values(m.group(2), input.get(m.group(1)));
+//        Pattern p = Pattern.compile("^( \t)*([A-Za-z]+)( \t)*=(.*)$");
+//        Pattern p = Pattern.compile("^( \\t)*([A-Za-z_]+)( \\t)*=(.*)$");
+//        Matcher q = p.matcher("ab_c =5\\n");
+//        q.matches();
+
+        String line;
+        for (int i = 0; (line = lines.readLine()) != null; i++) {
+            Matcher m = Misc.get_matches(ASSIGNMENT_RE, line);
+            parse_values(m.group(2), spec_table.get(m.group(1)));
         }
     }
 
@@ -34,20 +42,17 @@ public class InputParser {
             InputSpec.Atom atom = spec.parsed_values[i];
 
             if (atom.value instanceof Integer) {
-                Matcher m = NEXT_INT_RE.matcher(line);
-                boolean hmm = m.matches();
-                atom.value = Integer.parseInt(m.group(2));
-                line = m.group(3);
+                Matcher m = Misc.get_matches(NEXT_INT_RE, line);
+                atom.value = Integer.parseInt(m.group(1));
+                line = m.group(2);
             } else if (atom.value instanceof Float) {
-                Matcher m = NEXT_REAL_ISH_RE.matcher(line);
-                m.matches();
-                atom.value = Float.parseFloat(m.group(2));
-                line = m.group(5);
+                Matcher m = Misc.get_matches(NEXT_REAL_ISH_RE, line);
+                atom.value = Float.parseFloat(m.group(1));
+                line = m.group(4);
             } else if (atom.value instanceof Double) {
-                Matcher m = NEXT_REAL_ISH_RE.matcher(line);
-                m.matches();
-                atom.value = Double.parseDouble(m.group(2));
-                line = m.group(5);
+                Matcher m = Misc.get_matches(NEXT_REAL_ISH_RE, line);
+                atom.value = Double.parseDouble(m.group(1));
+                line = m.group(4);
             } else
                 throw new RuntimeException("Unimplemented InputSpec type.");
         }

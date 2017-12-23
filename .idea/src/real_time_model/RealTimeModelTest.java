@@ -16,7 +16,7 @@ public class RealTimeModelTest {
         System.out.print("Path to image [" + default_img_path + "]: ");
         String img_path = scanner.nextLine();
 
-        if (img_path.compareTo("") == 0)
+        if (img_path.equals(""))
             img_path = default_img_path;
 
         System.out.print("Block range to print [x y n]: ");

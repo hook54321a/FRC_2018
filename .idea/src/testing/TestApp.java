@@ -35,6 +35,7 @@ public class TestApp {
 
             Scanner scanner = new Scanner(System.in);
             int test_id = scanner.nextInt();
+            scanner.nextLine();                 // scanner.nextInt() does not consume the newline character.
 
             TestBase test = (TestBase)tests[test_id].newInstance();
             test.do_test(scanner, null);

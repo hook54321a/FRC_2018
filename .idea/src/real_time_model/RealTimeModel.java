@@ -43,22 +43,26 @@ abstract class RoboGrid {
     abstract void set_block_from_pixel(int block_num, int Ox00rrggbb);
     abstract char get_block_code(int block_num);
 
-    void print_range(int start_x, int start_y, int num_blocks) {
+    String sprint_range(int start_x, int start_y, int num_blocks) {
         int block_count = 0;
         int row_start = start_y * width;
 
+        String out = new String();
+
         for (int x = start_x; x < width && block_count < num_blocks; x++, block_count++) {
-            System.out.print(get_block_code(row_start + x));
+            out += get_block_code(row_start + x);
         }
-        System.out.println(" EOL");
+        out += " EOL\\n";
 
         for (int y = start_y + 1; y < height && block_count < num_blocks; y++) {
             row_start = y * width;
             for (int x = 0; x < width && block_count < num_blocks; x++, block_count++) {
-                System.out.print(get_block_code(row_start + x));
+                out += get_block_code(row_start + x);
             }
-            System.out.println(" EOF");
+            out += " EOF\\n";
         }
+
+        return out;
     }
 }
 
@@ -251,17 +255,31 @@ class GridIntersection extends RoboGrid {
 }
 
 class Locator {
+    MovingObject moving_object;
     int x;
     int y;
     float direction;    // angle in radians
-    MovingObject moving_object;
+
+    public Locator(MovingObject moving_object, int x, int y, float direction) {
+        this.moving_object = moving_object;
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+    }
 }
 
 public class RealTimeModel {
 
     public static enum BlockTypes {OBSTRUCTED, OPEN}
 
-    RoboMap map;
+    public RoboMap map;
     Locator robot_coords;
     LinkedList<Locator> tracked_objs;
+
+    RealTimeModel(String map_img_path, String robot_img_path) throws IOException {
+        map = new RoboMap(map_img_path);
+        MovingObject robot = new MovingObject(robot_img_path);
+        robot_coords = new Locator(robot, 0, 0, 0);
+        tracked_objs = new LinkedList<real_time_model.Locator>();
+    }
 }

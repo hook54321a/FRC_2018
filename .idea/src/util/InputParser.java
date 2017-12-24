@@ -22,11 +22,6 @@ public class InputParser {
         for (int i = 0; i < specs.length; i++)
             spec_table.put(specs[i].parse_name, specs[i]);
 
-//        Pattern p = Pattern.compile("^( \t)*([A-Za-z]+)( \t)*=(.*)$");
-//        Pattern p = Pattern.compile("^( \\t)*([A-Za-z_]+)( \\t)*=(.*)$");
-//        Matcher q = p.matcher("ab_c =5\\n");
-//        q.matches();
-
         String line;
         for (int i = 0; (line = lines.readLine()) != null; i++) {
             Matcher m = Misc.get_matches(ASSIGNMENT_RE, line);

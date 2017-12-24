@@ -20,16 +20,7 @@ public class WheelBasedReckoningTest extends TestBase {
                 new InputSpec("revolution_pulses", "Revolution pulses (left, right) [10 10]: ", 10, 10)
         };
 
-        if (test_data_path != null) {
-            BufferedReader lines = Misc.get_file_lines(test_data_path);
-            InputParser.parse_lines(lines, input_specs);
-            lines.close();
-
-            System.out.println();
-            System.out.println(InputSpec.array_to_string(input_specs));
-            System.out.println();
-        } else
-            InputScanner.scan_input(scanner, input_specs);
+        get_test_input(scanner, test_data_path, input_specs);
 
         int pulses_per_revolution = (int)input_specs[0].parsed_values[0].value;
         double wheel_diameter = (double)input_specs[1].parsed_values[0].value;

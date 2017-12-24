@@ -1,0 +1,5 @@
+rotation_precision =    45
+wheel_diameter =        5
+track =                 12
+starting_coords =       6 7 90
+revolution_pulses =     15 15

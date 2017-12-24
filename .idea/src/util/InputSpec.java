@@ -57,7 +57,7 @@ public class InputSpec {
         this.parsed_values = new Atom[num_vals];
     }
 
-    public String to_string() {
+    public String sprint() {
         String out = new String(parse_name + " = ");
 
         int i = 0;
@@ -69,14 +69,14 @@ public class InputSpec {
         return out;
     }
 
-    public static String array_to_string(InputSpec[] specs) {
+    public static String array_sprint(InputSpec[] specs) {
         String out = new String();
 
         int i = 0;
         for (; i < specs.length - 1; i++)
-            out += specs[i].to_string() + "\n";
+            out += specs[i].sprint() + "\n";
 
-        out += specs[i].to_string();
+        out += specs[i].sprint();
 
         return out;
     }

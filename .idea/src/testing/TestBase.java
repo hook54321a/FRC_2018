@@ -13,15 +13,16 @@ public abstract class TestBase {
     public void get_test_input(Scanner scanner, String test_data_path, InputSpec[] input_specs)
             throws IOException
     {
-        if (test_data_path != null) {
+        if (test_data_path.equals(""))
+            InputScanner.scan_input(scanner, input_specs);
+        else {
             BufferedReader lines = Misc.get_file_lines(test_data_path);
             InputParser.parse_lines(lines, input_specs);
             lines.close();
 
             System.out.println();
-            System.out.println(InputSpec.array_to_string(input_specs));
+            System.out.println(InputSpec.array_sprint(input_specs));
             System.out.println();
-        } else
-            InputScanner.scan_input(scanner, input_specs);
+        }
     }
 }

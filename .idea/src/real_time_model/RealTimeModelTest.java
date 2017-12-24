@@ -27,7 +27,7 @@ public class RealTimeModelTest extends TestBase {
                 "C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\Robot.png"
         );
 
-        rtm.map.sprint_range(x, y, n);
+        System.out.print(rtm.map.sprint_range(x, y, n));
     }
 }
 

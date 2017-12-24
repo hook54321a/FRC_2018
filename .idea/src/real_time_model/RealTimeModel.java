@@ -52,14 +52,14 @@ abstract class RoboGrid {
         for (int x = start_x; x < width && block_count < num_blocks; x++, block_count++) {
             out += get_block_code(row_start + x);
         }
-        out += " EOL\\n";
+        out += " EOL\n";
 
         for (int y = start_y + 1; y < height && block_count < num_blocks; y++) {
             row_start = y * width;
             for (int x = 0; x < width && block_count < num_blocks; x++, block_count++) {
                 out += get_block_code(row_start + x);
             }
-            out += " EOF\\n";
+            out += " EOL\n";
         }
 
         return out;

@@ -71,13 +71,14 @@ public class GUI extends Application
 
          */
 
-        // Need to calcuate the right size of the robot
-
         // Real dimensions in feet
         double field_height = 40;
         double field_width = 40 * map_aspect_ratio;
         double robot_width = 3;
         double robot_height = 3;
+
+        // Need to calcuate the right size of the robot sprite in pixels
+
 
         Rectangle robot = new Rectangle(150, 40, 50, 50);
         robot.setArcHeight(15);

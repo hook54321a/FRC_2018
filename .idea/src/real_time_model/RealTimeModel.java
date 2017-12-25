@@ -147,12 +147,7 @@ class MovingObject extends RoboGrid {
 class GridIntersection extends RoboGrid {
     static enum BlockTypes {JOINT, DISJOINT}
 
-    int origin_x;
-    int origin_y;
-
     BlockTypes[] blocks;    // [x, y] from [y*width + x]
-
-    // GridIntersection - finds the intersection of grids a and b where the origin of b is offset from a by delta_x and delta_y.
 
     void init_blocks(int size) {
         blocks = new BlockTypes[size];
@@ -181,6 +176,12 @@ class GridIntersection extends RoboGrid {
                 throw new RuntimeException("This code should never be reached.");
         }
     }
+
+    // Origin of the intersection relative to the origin of grid a
+    int origin_x;
+    int origin_y;
+
+    // GridIntersection - finds the intersection of grids a and b where the origin of b is offset from a by delta_x and delta_y.
 
     GridIntersection(RoboGrid a, RoboGrid b, int delta_x, int delta_y) {
 
@@ -248,7 +249,7 @@ class GridIntersection extends RoboGrid {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int z = 0;  // Placeholder
+                int z = 0;      // Placeholder
             }
         }
     }

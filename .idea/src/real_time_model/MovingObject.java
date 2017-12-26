@@ -1,6 +1,5 @@
 package real_time_model;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class MovingObject extends RoboGridImaged {

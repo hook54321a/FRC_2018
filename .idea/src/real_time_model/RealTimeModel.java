@@ -1,9 +1,7 @@
 package real_time_model;
 
-import java.awt.*;
 import java.io.*;
 import java.util.*;
-import java.awt.image.*;
 import javax.imageio.*;
 
 import util.*;

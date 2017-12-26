@@ -14,14 +14,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
 import java.util.regex.Pattern;
 
 import util.*;
 import real_time_model.*;
-
-//import java.awt.geom.RoundRectangle2D;
-//import java.util.Collection;
 
 public class GUI extends Application
 {
@@ -38,7 +34,7 @@ public class GUI extends Application
         double max_pane_width = primaryScreenBounds.getWidth() - 2 * win_border_thickness_px;
         double max_pane_height = primaryScreenBounds.getHeight() - win_title_bar_height_px - win_border_thickness_px;
 
-        BufferedImage map_img = Misc.load_image("file:\\C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\FRC_2018\\FRC_2017_RoboMap.png");
+        Image map_img = Misc.new_image("file:\\C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\FRC_2018\\FRC_2017_RoboMap.png");
 
         double map_aspect_ratio = map_img.getWidth() / map_img.getHeight();
         double console_aspect_ratio = (map_aspect_ratio * 1.33) / (map_img.getHeight() + (0.33 * map_aspect_ratio));

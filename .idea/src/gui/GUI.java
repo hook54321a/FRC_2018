@@ -5,19 +5,20 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-//import javafx.scene.control.Menu;
-//import javafx.scene.control.MenuBar;
-//import javafx.scene.control.MenuItem;
-//import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
-//import javafx.scene.input.KeyEvent;
-//import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.awt.image.BufferedImage;
+import java.util.regex.Pattern;
+
+import util.*;
+import real_time_model.*;
 
 //import java.awt.geom.RoundRectangle2D;
 //import java.util.Collection;
@@ -31,33 +32,33 @@ public class GUI extends Application
     @Override
     public void start(Stage stage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        double win_border_thickness = 10;
-        double win_title_bar_height = 50;
+        double win_border_thickness_px = 10;
+        double win_title_bar_height_px = 50;
 
-        double max_pane_width = primaryScreenBounds.getWidth() - 2 * win_border_thickness;
-        double max_pane_height = primaryScreenBounds.getHeight() - win_title_bar_height - win_border_thickness;
+        double max_pane_width = primaryScreenBounds.getWidth() - 2 * win_border_thickness_px;
+        double max_pane_height = primaryScreenBounds.getHeight() - win_title_bar_height_px - win_border_thickness_px;
 
-        Image map_image = new Image("file:\\C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\FRC_2018\\FRC_2017_RoboMap.png");
+        BufferedImage map_img = Misc.load_image("file:\\C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\FRC_2018\\FRC_2017_RoboMap.png");
 
-        double map_aspect_ratio = map_image.getWidth() / map_image.getHeight();
-        double console_aspect_ratio = (map_aspect_ratio * 1.33) / (map_image.getHeight() + (0.33 * map_aspect_ratio));
+        double map_aspect_ratio = map_img.getWidth() / map_img.getHeight();
+        double console_aspect_ratio = (map_aspect_ratio * 1.33) / (map_img.getHeight() + (0.33 * map_aspect_ratio));
         double max_pane_aspect_ratio = max_pane_width/max_pane_height;
 
-        double console_width;
-        double console_height;
+        double console_width_px;
+        double console_height_px;
 
         if (console_aspect_ratio >= max_pane_aspect_ratio) {
-            console_height = max_pane_height;
-            console_width = console_aspect_ratio * console_height;
+            console_height_px = max_pane_height;
+            console_width_px = console_aspect_ratio * console_height_px;
 
         }
         else {
-            console_width = max_pane_width;
-            console_height = console_width / console_aspect_ratio;
+            console_width_px = max_pane_width;
+            console_height_px = console_width_px / console_aspect_ratio;
         }
 
-        double map_width = console_width / 1.33;
-        double map_height = map_width / map_aspect_ratio;
+        double map_width_px = console_width_px / 1.33;
+        double map_height_px = map_width_px / map_aspect_ratio;
 
         /*
 
@@ -72,36 +73,33 @@ public class GUI extends Application
          */
 
         // Real dimensions in feet
-        double field_height = 40;
-        double field_width = 40 * map_aspect_ratio;
-        double robot_width = 3;
-        double robot_height = 3;
+        double field_height_ft = 40;
+        double field_width_ft = 40 * map_aspect_ratio;
+        double robot_width_ft = 3;
+        double robot_height_ft = 3;
 
-        // Need to calcuate the right size of the robot sprite in pixels
+        double robot_sprite_width_px = robot_width_ft*map_width_px/field_width_ft;
+        double robot_sprite_height_px = robot_sprite_width_px;              // Robot is a square
 
-
-        Rectangle robot = new Rectangle(150, 40, 50, 50);
-        robot.setArcHeight(15);
-        robot.setArcWidth(15);
-        robot.setStroke(Color.BLUE);
-        robot.setFill(Color.SLATEGRAY);
+        double robot_sprite_left_px = -(robot_sprite_width_px/2);
+        double robot_sprite_right_px = -(robot_sprite_height_px/2);
 
         // Need data rect size
 
-        Rectangle data = new Rectangle(0, 0 + map_height, map_width + (map_width * 0.33), map_height * 0.33);
+        Rectangle data = new Rectangle(0, 0 + map_height_px, map_width_px + (map_width_px * 0.33), map_height_px * 0.33);
         data.setFill(Color.CRIMSON);
 
         // Need data rect size
 
-        Rectangle controls = new Rectangle(0 + map_width, 0, map_width * 0.33, map_height);
+        Rectangle controls = new Rectangle(0 + map_width_px, 0, map_width_px * 0.33, map_height_px);
         controls.setFill(Color.CADETBLUE);
 
         // Need map size
-        Canvas map = new Canvas(console_width, console_height);
+        Canvas map = new Canvas(console_width_px, console_height_px);
         GraphicsContext map_gc = map.getGraphicsContext2D();
-        map_gc.drawImage(map_image, 0, 0, map_width, map_height);
+//        map_gc.drawImage(map_img, 0, 0, map_width_px, map_height_px);
 
-        Pane root = new Pane(map, controls, data, robot);
+        Pane root = new Pane(map, controls, data /*, robot*/);
 
         Scene scene = new Scene(root, max_pane_width, max_pane_height);
 
@@ -110,5 +108,19 @@ public class GUI extends Application
         stage.setTitle("ROBOTS DON'T QUIT");
 
         stage.show();
+    }
+}
+
+class RealTimeModelWidget extends Canvas {
+    RealTimeModel model;
+
+    RealTimeModelWidget(RealTimeModel model) {
+        this.model = model;
+    }
+
+    void draw() {
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.drawImage(model.map.src_image, 0, 0);
+        gc.drawImage(model.robot_coords.moving_object.src_image, 0, 0);
     }
 }

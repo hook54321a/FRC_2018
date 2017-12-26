@@ -18,10 +18,9 @@ public abstract class RoboGridImaged extends RoboGrid {
 
     public Image src_image;
 
-    RoboGridImaged(String img_path)
-        throws FileNotFoundException
+    RoboGridImaged(Image img)
     {
-        src_image = Misc.new_image(img_path);
+        src_image = img;
         init_grid();
     }
 
@@ -41,6 +40,7 @@ public abstract class RoboGridImaged extends RoboGrid {
         pixels.getPixels(0, 0, width, height, in_mem_px_format, px_buf, 0, 0);
 
         init_blocks(height*width);
+
 
         int[] rgb = new int[3];
         for (int y = 0; y < height; y++) {

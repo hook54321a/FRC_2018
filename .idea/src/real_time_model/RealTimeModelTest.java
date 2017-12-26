@@ -23,8 +23,8 @@ public class RealTimeModelTest extends TestBase {
         int n = (int)input_specs[0].parsed_values[2].value;
 
         RealTimeModel rtm = new RealTimeModel(
-                "C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\RealTimeMap_Test.png",
-                "C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\Robot.png"
+                Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\RealTimeMap_Test.png"),
+                Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\Robot.png")
         );
 
         System.out.print(rtm.map.sprint_range(x, y, n));

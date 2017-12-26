@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import util.*;
@@ -34,7 +35,7 @@ public class GUI extends Application
         double max_pane_width = primaryScreenBounds.getWidth() - 2 * win_border_thickness_px;
         double max_pane_height = primaryScreenBounds.getHeight() - win_title_bar_height_px - win_border_thickness_px;
 
-        Image map_img = Misc.new_image("file:\\C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\FRC_2018\\FRC_2017_RoboMap.png");
+        Image map_img = Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\RealTimeMap_Test.png");
 
         double map_aspect_ratio = map_img.getWidth() / map_img.getHeight();
         double console_aspect_ratio = (map_aspect_ratio * 1.33) / (map_img.getHeight() + (0.33 * map_aspect_ratio));
@@ -74,28 +75,31 @@ public class GUI extends Application
         double robot_width_ft = 3;
         double robot_height_ft = 3;
 
+        // On-screen dimensions in pixels
         double robot_sprite_width_px = robot_width_ft*map_width_px/field_width_ft;
         double robot_sprite_height_px = robot_sprite_width_px;              // Robot is a square
 
         double robot_sprite_left_px = -(robot_sprite_width_px/2);
         double robot_sprite_right_px = -(robot_sprite_height_px/2);
 
-        // Need data rect size
+        Image robot_img = Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\Robot.png");
 
-        Rectangle data = new Rectangle(0, 0 + map_height_px, map_width_px + (map_width_px * 0.33), map_height_px * 0.33);
-        data.setFill(Color.CRIMSON);
+        RealTimeModelWidget map = new RealTimeModelWidget(map_img, robot_img);
+        map.draw();
 
-        // Need data rect size
+//        // Need data rect size
+//
+//        Rectangle data = new Rectangle(0, 0 + map_height_px, map_width_px + (map_width_px * 0.33), map_height_px * 0.33);
+//        data.setFill(Color.CRIMSON);
+//
+//        // Need data rect size
+//
+//        Rectangle controls = new Rectangle(0 + map_width_px, 0, map_width_px * 0.33, map_height_px);
+//        controls.setFill(Color.CADETBLUE);
 
-        Rectangle controls = new Rectangle(0 + map_width_px, 0, map_width_px * 0.33, map_height_px);
-        controls.setFill(Color.CADETBLUE);
+        Pane root = new Pane(map);
 
-        // Need map size
-        Canvas map = new Canvas(console_width_px, console_height_px);
-        GraphicsContext map_gc = map.getGraphicsContext2D();
-//        map_gc.drawImage(map_img, 0, 0, map_width_px, map_height_px);
-
-        Pane root = new Pane(map, controls, data /*, robot*/);
+//        Pane root = new Pane(map, controls, data);
 
         Scene scene = new Scene(root, max_pane_width, max_pane_height);
 
@@ -110,8 +114,8 @@ public class GUI extends Application
 class RealTimeModelWidget extends Canvas {
     RealTimeModel model;
 
-    RealTimeModelWidget(RealTimeModel model) {
-        this.model = model;
+    RealTimeModelWidget(Image map_img, Image robot_img) {
+        this.model = new RealTimeModel(map_img, robot_img);
     }
 
     void draw() {

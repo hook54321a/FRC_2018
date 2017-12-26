@@ -1,5 +1,7 @@
 package real_time_model;
 
+import javafx.scene.image.Image;
+
 import java.io.IOException;
 
 public class MovingObject extends RoboGridImaged {
@@ -12,8 +14,8 @@ public class MovingObject extends RoboGridImaged {
         blocks = new BlockTypes[size];
     }
 
-    void set_block_from_pixel(int block_num, int Ox00rrggbb) {
-        switch (Ox00rrggbb) {
+    void set_block_from_pixel(int block_num, int Oxaarrggbb) {
+        switch (Oxaarrggbb) {
             case 0x00000000:
                 blocks[block_num] = BlockTypes.EXTENT;
                 break;
@@ -21,7 +23,7 @@ public class MovingObject extends RoboGridImaged {
                 blocks[block_num] = BlockTypes.VOID;
                 break;
             default:
-                throw new RuntimeException("Pixel color " + Ox00rrggbb + " does not map to any MovingObject block type.");
+                throw new RuntimeException("Pixel color " + Oxaarrggbb + " does not map to any MovingObject block type.");
         }
     }
 
@@ -36,7 +38,7 @@ public class MovingObject extends RoboGridImaged {
         }
     }
 
-    MovingObject(String img_path) throws IOException {
-        super(img_path);
+    MovingObject(Image img) {
+        super(img);
     }
 }

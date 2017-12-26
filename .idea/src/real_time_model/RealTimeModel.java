@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import javax.imageio.*;
 
+import javafx.scene.image.Image;
 import util.*;
 
 public class RealTimeModel {
@@ -14,9 +15,9 @@ public class RealTimeModel {
     public Locator robot_coords;
     LinkedList<Locator> tracked_objs;
 
-    RealTimeModel(String map_img_path, String robot_img_path) throws IOException {
-        map = new RoboMap(map_img_path);
-        MovingObject robot = new MovingObject(robot_img_path);
+    public RealTimeModel(Image map_img, Image robot_img) {
+        map = new RoboMap(map_img);
+        MovingObject robot = new MovingObject(robot_img);
         robot_coords = new Locator(robot, 0, 0, 0);
         tracked_objs = new LinkedList<real_time_model.Locator>();
     }

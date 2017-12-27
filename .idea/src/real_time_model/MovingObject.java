@@ -14,8 +14,8 @@ public class MovingObject extends RoboGridImaged {
         blocks = new BlockTypes[size];
     }
 
-    void set_block_from_pixel(int block_num, int Oxaarrggbb) {
-        switch (Oxaarrggbb) {
+    void set_block_from_pixel(int block_num, int Ox00rrggbb) {
+        switch (Ox00rrggbb) {
             case 0x00000000:
                 blocks[block_num] = BlockTypes.EXTENT;
                 break;
@@ -23,7 +23,7 @@ public class MovingObject extends RoboGridImaged {
                 blocks[block_num] = BlockTypes.VOID;
                 break;
             default:
-                throw new RuntimeException("Pixel color " + Oxaarrggbb + " does not map to any MovingObject block type.");
+                throw new RuntimeException("Pixel color " + Ox00rrggbb + " does not map to any MovingObject block type.");
         }
     }
 

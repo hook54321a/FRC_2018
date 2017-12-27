@@ -46,10 +46,10 @@ public abstract class RoboGridImaged extends RoboGrid {
         for (int y = 0; y < height; y++) {
             int row_start = y * width;
             for (int x = 0; x < width; x++)
-                set_block_from_pixel(row_start + x, px_buf[row_start + x]);
+                set_block_from_pixel(row_start + x, px_buf[row_start + x] & 0x00FFFFFF);
         }
     }
 
     abstract void init_blocks(int num_blocks);
-    abstract void set_block_from_pixel(int block_num, int Oxaarrggbb);      // Or 0x00rrggbb, since we are ignoring the alpha channel
+    abstract void set_block_from_pixel(int block_num, int Ox00rrggbb);      // Or 0x00rrggbb, since we are ignoring the alpha channel
 }

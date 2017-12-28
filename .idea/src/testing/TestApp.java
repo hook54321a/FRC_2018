@@ -16,18 +16,6 @@ public class TestApp {
     public static void main(String[] args)
             throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-//        if (args.length == 2) {
-//            System.out.println(args.toString());
-//
-//            Class<TestBase> clazz = (Class<TestBase>)Class.forName(args[0]);
-//            TestBase test = clazz.newInstance();
-//
-//            LineBuffer lines = new LineBuffer(args[1]);
-//            lines.print();
-//
-//            test.do_test(null, lines);
-//        } else {
-
         System.out.println("Choose a test: ");
         System.out.println();
 

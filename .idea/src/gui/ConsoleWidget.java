@@ -185,14 +185,14 @@ class ConsoleWidget extends Pane {
         requestLayout();
     }
 
-    protected void layoutChildren() {
-        for (int i=0, max=children.size(); i<max; i++) {
-            final Node node = children.get(i);
-            if (node.isResizable() && node.isManaged()) {
-                node.autosize();
-            }
-        }
-    }
+//    protected void layoutChildren() {
+//        for (int i=0, max=children.size(); i<max; i++) {
+//            final Node node = children.get(i);
+//            if (node.isResizable() && node.isManaged()) {
+//                node.autosize();
+//            }
+//        }
+//    }
 
     void draw() {
         map.draw();

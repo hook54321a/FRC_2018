@@ -4,6 +4,7 @@
 }
 
 .RealTimeModelWidget {
+    -fx-background-color: red;
     -fx-border-width:   10px;
     -fx-border-color:   green;
 }

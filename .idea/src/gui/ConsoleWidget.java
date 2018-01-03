@@ -63,18 +63,47 @@ class ConsoleWidget extends Pane {
     double data_panel_width_px;
     double data_panel_height_px;
 
-    double console_width_px;
-    double console_height_px;
+    public double width_px;
+    public double height_px;
 
     ////
 
     boolean show_camera_feed;
 
     ConsoleWidget() {
-        super();
+        getStyleClass().add("ConsoleWidget");
 
-        show_camera_feed = false;
+        show_camera_feed = true;
 
+        compute_layout();
+
+        setPrefSize(width_px, height_px);
+
+        map = new RealTimeModelWidget(0, 0, map_width_px, map_height_px);
+        camera_feed = new CameraFeedWidget(camera_panel_width_px, camera_panel_height_px);
+        controls = new ControlPanelWidget(control_panel_width_px, control_panel_height_px);
+        data = new DataPanelWidget(data_panel_width_px, data_panel_height_px);
+
+        getChildren().addAll(map, camera_feed, controls, data);
+    }
+
+    protected void layoutChildren() {
+        map.setWidth(map_width_px);
+        map.setHeight(map_height_px);
+
+        camera_feed.setPrefSize(camera_panel_width_px, camera_panel_height_px);
+        controls.setPrefSize(control_panel_width_px, control_panel_height_px);
+        data.setPrefSize(data_panel_width_px, data_panel_height_px);
+    }
+
+    void draw() {
+        map.draw();
+        camera_feed.draw();
+        controls.draw();
+        data.draw();
+    }
+
+    void compute_layout() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double win_border_thickness_px = 20;
         double win_title_bar_height_px = 60;
@@ -148,56 +177,26 @@ class ConsoleWidget extends Pane {
 
         // Calculate sizes in pixels
 
-        if (console_aspect_ratio >= max_pane_aspect_ratio)
-            console_height_px = console_width_px / console_aspect_ratio;
-        else
-            console_height_px = max_pane_height;
-
-        console_width_px = console_width_rel * console_height_px;
-
-        map_width_px = map_width_rel * console_height_px;
-        map_height_px = map_height_rel * console_height_px;
-
-        if (show_camera_feed) {
-            camera_panel_width_px = camera_panel_width_rel * console_height_px;
-            camera_panel_height_px = camera_panel_height_rel * console_height_px;
+        if (console_aspect_ratio >= max_pane_aspect_ratio) {
+            width_px = max_pane_width;
+            height_px = width_px / console_aspect_ratio;
+        } else {
+            height_px = max_pane_height;
+            width_px = height_px * console_aspect_ratio;
         }
 
-        control_panel_width_px = control_panel_width_rel * console_height_px;
-        control_panel_height_px = control_panel_height_rel * console_height_px;
+        map_width_px = map_width_rel * height_px;
+        map_height_px = map_height_rel * height_px;
 
-        data_panel_width_px = data_panel_width_rel * console_height_px;
-        data_panel_height_px = data_panel_height_rel * console_height_px;
+        if (show_camera_feed) {
+            camera_panel_width_px = camera_panel_width_rel * height_px;
+            camera_panel_height_px = camera_panel_height_rel * height_px;
+        }
 
-        map = new RealTimeModelWidget(0, 0, map_width_px, map_height_px);
-        camera_feed = new CameraFeedWidget();
-        controls = new ControlPanelWidget();
-        data = new DataPanelWidget();
+        control_panel_width_px = control_panel_width_rel * height_px;
+        control_panel_height_px = control_panel_height_rel * height_px;
 
-        // Not familiar enough with JavaFX. Not sure if I need to set Pref, Min, and Max
-
-        setPrefSize(console_width_px, console_height_px);
-        setMinSize(console_width_px, console_height_px);
-        setMaxSize(console_width_px, console_height_px);
-
-        getChildren().addAll(map, camera_feed, controls, data);
-
-        requestLayout();
-    }
-
-//    protected void layoutChildren() {
-//        for (int i=0, max=children.size(); i<max; i++) {
-//            final Node node = children.get(i);
-//            if (node.isResizable() && node.isManaged()) {
-//                node.autosize();
-//            }
-//        }
-//    }
-
-    void draw() {
-        map.draw();
-        camera_feed.draw();
-        controls.draw();
-        data.draw();
+        data_panel_width_px = data_panel_width_rel * height_px;
+        data_panel_height_px = data_panel_height_rel * height_px;
     }
 }

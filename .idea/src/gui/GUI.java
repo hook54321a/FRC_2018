@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -46,22 +48,34 @@ public class GUI extends Application {
     @Override
     public void start(Stage stage) {
 
+//        stage.setTitle("Hello World!");
+//        Button btn = new Button();
+//        btn.setText("Say 'Hello World'");
+//
+//        ObservableList<String> css = btn.getStylesheets();
+//        Object[] l = css.toArray();
+//
+//        StackPane root = new StackPane();
+//        root.getChildren().add(btn);
+//        stage.setScene(new Scene(root, 300, 250));
+//        stage.show();
+
         /*
 
-        WindowWidget
-            ConsoleWidget
-                RealTimeModelWidget
-                CameraFeedWidget
-                ControlPanelWidget
-                    ModeToggleWidget
-                    BarkButtonWidget
-                DataPaneWidget
-                    CoordinatesWidget
-                    SpeedometerWidget
-                    BatteryVoltageGraphWidget
+        WindowWidget                                    (no base class as yet)
+            ConsoleWidget                               (extends Pane > Region > Group > Parent > Node)
+                RealTimeModelWidget                     (extends Canvas > Node)
+                CameraFeedWidget                        (extends Pane > Region > Group > Parent > Node; need to integrate JavaCV)
+                ControlPanelWidget                      (extends VBox > Pane > Region > Group > Parent > Node)
+                    ModeToggleWidget                    (no base class as yet)
+                    BarkButtonWidget                    (no base class as yet)
+                DataPaneWidget                          (extends HBox > Pane > Region > Group > Parent > Node)
+                    CoordinatesWidget                   (extends HBox > Pane > Region > Group > Parent > Node)
+                    SpeedometerWidget                   (no base class as yet)
+                    BatteryVoltageGraphWidget           (no base class as yet)
         */
 
-        window = new WindowWidget(stage);
+         window = new WindowWidget(stage);
     }
 }
 

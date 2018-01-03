@@ -2,10 +2,10 @@ package gui;
 
 import javafx.scene.layout.Pane;
 
-class BatteryVoltageGraphWidget extends Pane {
+class BatteryVoltageGraphWidget {
 
     BatteryVoltageGraphWidget() {
-        super();
+
     }
 
     void draw() {

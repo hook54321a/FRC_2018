@@ -6,8 +6,9 @@ import javafx.scene.media.MediaPlayer;
 
 class CameraFeedWidget extends Pane {
 
-    CameraFeedWidget() {
-        super();
+    CameraFeedWidget(double width, double height) {
+        getStyleClass().add("CameraFeedWidget");
+        setPrefSize(width, height);
     }
 
     void draw() {

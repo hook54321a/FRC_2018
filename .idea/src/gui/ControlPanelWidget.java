@@ -6,10 +6,11 @@ class ControlPanelWidget extends VBox {
     ModeToggleWidget mode;
     BarkButtonWidget bark_button;
 
-    ControlPanelWidget() {
-        super();
+    ControlPanelWidget(double width, double height) {
+        getStyleClass().add("ControlPanelWidget");
+        setPrefSize(width, height);
 
-        mode = new ModeToggleWidget();
+        mode = new ModeToggleWidget(width, height);
         bark_button = new BarkButtonWidget();
     }
 

@@ -1,0 +1,24 @@
+.ConsoleWidget {
+    -fx-border-width:   10px;
+    -fx-border-color:   red;
+}
+
+.RealTimeModelWidget {
+    -fx-border-width:   10px;
+    -fx-border-color:   green;
+}
+
+.CameraFeedWidget {
+    -fx-border-width:   10px;
+    -fx-border-color:   blue;
+}
+
+.ControlPanelWidget {
+    -fx-border-width:   10px;
+    -fx-border-color:   green;
+}
+
+.DataPanelWidget {
+    -fx-border-width:   10px;
+    -fx-border-color:   purple;
+}

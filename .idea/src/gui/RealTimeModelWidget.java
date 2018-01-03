@@ -11,6 +11,7 @@ class RealTimeModelWidget extends Canvas {
     RealTimeModelWidget(double x, double y, double width, double height) {
         super(width, height);
         this.model = new RealTimeModel(GUI.map_img, GUI.robot_img);
+        getStyleClass().add("RealTimeModelWidget");
     }
 
     void draw() {

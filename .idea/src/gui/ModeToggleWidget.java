@@ -2,8 +2,9 @@ package gui;
 
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Pane;
 
-class ModeToggleWidget {
+class ModeToggleWidget extends Pane {
     RadioButton keyboard_mode;
     RadioButton Xbox_mode;
     RadioButton joystick_mode;
@@ -11,7 +12,9 @@ class ModeToggleWidget {
     RadioButton auto_mode;
     ToggleGroup mode;
 
-    ModeToggleWidget() {
+    ModeToggleWidget(double width, double height) {
+        setPrefSize(width, height);
+
         keyboard_mode = new RadioButton("T/O Keyboard");
         Xbox_mode = new RadioButton("T/O Xbox Controller");
         joystick_mode = new RadioButton("T/O Dual Joystick");
@@ -19,6 +22,7 @@ class ModeToggleWidget {
         auto_mode = new RadioButton("Autonomous");
 
         mode = new ToggleGroup();
+
         keyboard_mode.setToggleGroup(mode);
         Xbox_mode.setToggleGroup(mode);
         joystick_mode.setToggleGroup(mode);

@@ -23,12 +23,12 @@ class ControlPanelWidget extends TitledPane {
     MediaPlayer bark_player;
 
     ControlPanelWidget() {
-        getStyleClass().add("ControlPanelWidget");
+        getStyleClass().setAll("AEMBOT", "AEMBOT_Framed_Group");
 
         setText("Controls");
 
         vbox = new VBox();
-        vbox.getStyleClass().add("ControlPanelVBox");
+        vbox.getStyleClass().setAll("AEMBOT", "AEMBOT_VBox", "ControlPanelVBox");
 
         mode = new ModeToggleWidget();
         bark_button = new Button("Bark!");

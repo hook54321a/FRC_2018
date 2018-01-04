@@ -99,25 +99,26 @@ class ConsoleWidget extends Pane {
     protected void layoutChildren() {
         // We could do this layout statically in compute_layout because no part of the GUI is moveable or resizeable, but we do it here to follow the JavaFX framework.
 
-        layoutInArea(map,
-                map_x_px, map_y_px,
-                map_width_px, map_height_px,
-                0, HPos.CENTER, VPos.CENTER);
-
-        layoutInArea(camera_feed,
-                camera_panel_x_px, camera_panel_y_px,
-                camera_panel_width_px, camera_panel_height_px,
-                0, HPos.CENTER, VPos.CENTER);
+//        layoutInArea(map,
+//                map_x_px, map_y_px,
+//                map_width_px, map_height_px,
+//                0, HPos.CENTER, VPos.CENTER);
+//
+//        layoutInArea(camera_feed,
+//                camera_panel_x_px, camera_panel_y_px,
+//                camera_panel_width_px, camera_panel_height_px,
+//                0, HPos.CENTER, VPos.CENTER);
 
         layoutInArea(controls,
-                control_panel_x_px, control_panel_y_px,
+//                control_panel_x_px, control_panel_y_px,
+                1000, 100,
                 control_panel_width_px, control_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
 
-        layoutInArea(data,
-                data_panel_x_px, data_panel_y_px,
-                data_panel_width_px, data_panel_height_px,
-                0, HPos.CENTER, VPos.CENTER);
+//        layoutInArea(data,
+//                data_panel_x_px, data_panel_y_px,
+//                data_panel_width_px, data_panel_height_px,
+//                0, HPos.CENTER, VPos.CENTER);
     }
 
     void draw() {

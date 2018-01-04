@@ -1,9 +1,111 @@
+/*******************************************************************************
+*
+*   TitledPane CSS Classes from ???.java
+*
+*       titled-pane     TitledPane > Labeled
+*       content         StackPane
+*       title           TitleRegion > StackPane
+*       arrow-button    StackPane
+*       arrow           StackPane
+*
+********************************************************************************/
+
+.AEMBOT {
+    -AEMBOT_base_color:             cornflowerblue;
+    -AEMBOT_outer_border_color:     derive(-AEMBOT_base_color, -20%);
+    -AEMBOT_inner_border_color:     derive(-AEMBOT_base_color, 10%);
+
+    -AEMBOT_base_gradient:          linear-gradient(to bottom,
+                                                    -AEMBOT_outer_border_color,
+                                                    -AEMBOT_inner_border_color);
+
+    -AEMBOT_outer_border_gradient:  linear-gradient(to bottom,
+                                                    -AEMBOT_outer_border_color,
+                                                    -AEMBOT_inner_border_color);
+
+    -AEMBOT_inner_border_gradient:  linear-gradient(to bottom,
+                                                    -AEMBOT_inner_border_color,
+                                                    -AEMBOT_outer_border_color);
+
 /*
-.ConsoleWidget {
-    -fx-border-width:       10px;
-    -fx-border-color:       red;
-}
+    -AEMBOT_background_color:       derive(-AEMBOT_base_color, 30%);
 */
+
+    -AEMBOT_background_color:       -AEMBOT_inner_border_color;
+}
+
+.AEMBOT_Framed_Group {
+
+/*
+    -fx-skin:               ;
+*/
+
+    -fx-font:               bold 24 Arial;
+    -fx-text-fill:          black;
+
+    -fx-background-color:   transparent;
+
+    -fx-alignment:          center-left;
+    -fx-text-alignment:     left;
+    -fx-label-padding:      0;
+
+    -fx-animated:           false;
+    -fx-collapsible:        false;
+}
+
+.AEMBOT_Framed_Group > .title {
+    -fx-background-color:   -AEMBOT_outer_border_gradient,
+                            -AEMBOT_inner_border_gradient,
+                            -AEMBOT_base_gradient;
+
+    -fx-background-insets:  0 0 0 0, 1 1 1 1, 2 2 2 2;
+    -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
+
+    -fx-padding:            0.3333em 0 0.3333em 0.3333em;
+}
+
+.AEMBOT_Framed_Group > *.content {
+    -fx-background-color:   -AEMBOT_outer_border_gradient,
+                            -AEMBOT_inner_border_gradient,
+                            -AEMBOT_background_color;
+
+    -fx-background-insets:  -1 0 0 0, 0 1 1 1, 1 2 2 2;
+    -fx-background-radius:  0 0 5 5, 0 0 4 4, 0 0 3 3;
+
+    -fx-padding:            0;
+
+/*
+    -fx-padding:            20 10 20 10;
+*/
+
+/*
+    -fx-background-color:   -AEMBOT_inner_border_color,
+                            -AEMBOT_background_color;
+
+    -fx-background-insets:  0, 2;
+    -fx-background-radius:  0 0 5 5, 0 0 4 4;
+
+/*
+    -fx-border-color:       -AEMBOT_inner_border_color;
+    -fx-background-insets:  0, 1, 2;
+    -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
+
+    -fx-border-insets:      -1 0 0 0;
+    -fx-background-color:   linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
+*/
+}
+
+.AEMBOT_VBox {
+    -fx-border-width:       0;
+
+    -fx-spacing:            10px;
+    -fx-alignment:          top-center;
+    -fx-fill-width:         true;
+}
+
+ConsoleWidget {
+    -fx-background-color:   rgb(125, 125, 125);
+}
 
 .RealTimeModelWidget {
     -fx-border-width:       10px;
@@ -15,27 +117,7 @@
     -fx-border-color:       blue;
 }
 
-.ControlPanelWidget { /* TitledPane */
-    -fx-background-color:   red;
-
-/*
-    -fx-skin:               ;
-*/
-
-    -fx-alignment:          center;
-    -fx-text-alignment:     left;
-    -fx-label-padding:      0;
-
-    -fx-font:               bold 24 Arial;
-
-    -fx-animated:           false;
-    -fx-collapsible:        false;
-}
-
 .ControlPanelVBox {
-    -fx-border-width:       10px;
-    -fx-border-color:       cornflowerblue;
-
     -fx-spacing:            10px;
     -fx-alignment:          top-center;
     -fx-fill-width:         true;
@@ -51,129 +133,4 @@
 
     -fx-font:               bold 32 Arial;
     -fx-alignment:          center;
-}
-
-/**** Overrides of .titled-pane ****/
-
-/*
-
-titled-pane     TitledPane > Labeled
-content         StackPane
-title           TitleRegion > StackPane
-arrow-button    StackPane
-arrow           StackPane
-
-*/
-
-/*******************************************************************************
- *                                                                             *
- * JavaFX TitledPane                                                           *
- * (original)                                                                  *
- *                                                                             *
- ******************************************************************************/
-
-.titled-pane {
-    -fx-text-fill: -fx-text-base-color;
-}
-.titled-pane:focused {
-    -fx-color: -fx-base;
-}
-.titled-pane > .title {
-    -fx-background-color:
-        linear-gradient(to bottom,
-            derive(-fx-color,-15%) 95%,
-            derive(-fx-color,-25%) 100%
-        ),
-        -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0;
-    -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
-}
-/* alternative focus using the ring around the entire title area */
-/*.titled-pane:focused > .title {
-    -fx-background-color: -fx-faint-focus-color, -fx-focus-color, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0.7, 2, 3;
-}*/
-/* focus purely on the arrow */
-.titled-pane:focused > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-focus-color, -fx-mark-color;
-    -fx-background-insets: -1, 0;
-    -fx-effect: dropshadow(two-pass-box , -fx-focus-color, 5, 0.2 , 0, 0);
-}
-.titled-pane > .title > .arrow-button {
-    -fx-background-color: null;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.0em 0.583em 0.0em 0.0em; /* 0 7 0 0 */
-}
-.titled-pane > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
-    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
-    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
-}
-.titled-pane > .title:hover {
-    -fx-color: -fx-hover-base;
-}
-/* alternative content using a border and a grad to transparent background - why should TitledPane content have a colour? */
-.titled-pane > *.content {
-    -fx-border-color: -fx-box-border;
-    -fx-border-insets: -1 0 0 0;
-    -fx-background-color: linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
-}
-
-/*******************************************************************************
- *                                                                             *
- * AEMBOT TitledPane                                                           *
- *                                                                             *
- ******************************************************************************/
-
-.titled-pane {
-    -fx-text-fill:          black;
-}
-.titled-pane:focused {
-    -fx-color:              cornflowerblue;
-}
-.titled-pane > .title {
-    -fx-background-color:
-        linear-gradient(to bottom,
-            derive(-fx-color,-15%) 95%,
-            derive(-fx-color,-25%) 100%
-        ),
-        -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0;
-    -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
-}
-/* alternative focus using the ring around the entire title area */
-/*.titled-pane:focused > .title {
-    -fx-background-color: -fx-faint-focus-color, -fx-focus-color, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0.7, 2, 3;
-}*/
-/* focus purely on the arrow */
-.titled-pane:focused > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-focus-color, -fx-mark-color;
-    -fx-background-insets: -1, 0;
-    -fx-effect: dropshadow(two-pass-box , -fx-focus-color, 5, 0.2 , 0, 0);
-}
-.titled-pane > .title > .arrow-button {
-    -fx-background-color: null;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.0em 0.583em 0.0em 0.0em; /* 0 7 0 0 */
-}
-.titled-pane > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
-    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
-    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
-}
-.titled-pane > .title:hover {
-    -fx-color: -fx-hover-base;
-}
-/* alternative content using a border and a grad to transparent background - why should TitledPane content have a colour? */
-.titled-pane > *.content {
-    -fx-border-color: -fx-box-border;
-    -fx-border-insets: -1 0 0 0;
-    -fx-background-color: linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
 }

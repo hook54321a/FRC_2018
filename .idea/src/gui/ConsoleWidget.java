@@ -1,6 +1,9 @@
 package gui;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -51,15 +54,23 @@ class ConsoleWidget extends Pane {
 
     // Dimensions in pixels
 
+    double map_x_px;
+    double map_y_px;
     double map_width_px;
     double map_height_px;
 
+    double camera_panel_x_px;
+    double camera_panel_y_px;
     double camera_panel_width_px;
     double camera_panel_height_px;
 
+    double control_panel_x_px;
+    double control_panel_y_px;
     double control_panel_width_px;
     double control_panel_height_px;
 
+    double data_panel_x_px;
+    double data_panel_y_px;
     double data_panel_width_px;
     double data_panel_height_px;
 
@@ -75,25 +86,38 @@ class ConsoleWidget extends Pane {
 
         show_camera_feed = true;
 
+        map = new RealTimeModelWidget();
+        camera_feed = new CameraFeedWidget();
+        controls = new ControlPanelWidget();
+        data = new DataPanelWidget();
+
         compute_layout();
-
-        setPrefSize(width_px, height_px);
-
-        map = new RealTimeModelWidget(0, 0, map_width_px, map_height_px);
-        camera_feed = new CameraFeedWidget(camera_panel_width_px, camera_panel_height_px);
-        controls = new ControlPanelWidget(control_panel_width_px, control_panel_height_px);
-        data = new DataPanelWidget(data_panel_width_px, data_panel_height_px);
 
         getChildren().addAll(map, camera_feed, controls, data);
     }
 
     protected void layoutChildren() {
-        map.setWidth(map_width_px);
-        map.setHeight(map_height_px);
+        // We could do this layout statically in compute_layout because no part of the GUI is moveable or resizeable, but we do it here to follow the JavaFX framework.
 
-        camera_feed.setPrefSize(camera_panel_width_px, camera_panel_height_px);
-        controls.setPrefSize(control_panel_width_px, control_panel_height_px);
-        data.setPrefSize(data_panel_width_px, data_panel_height_px);
+        layoutInArea(map,
+                map_x_px, map_y_px,
+                map_width_px, map_height_px,
+                0, HPos.CENTER, VPos.CENTER);
+
+        layoutInArea(camera_feed,
+                camera_panel_x_px, camera_panel_y_px,
+                camera_panel_width_px, camera_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
+
+        layoutInArea(controls,
+                control_panel_x_px, control_panel_y_px,
+                control_panel_width_px, control_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
+
+        layoutInArea(data,
+                data_panel_x_px, data_panel_y_px,
+                data_panel_width_px, data_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
     }
 
     void draw() {
@@ -185,18 +209,33 @@ class ConsoleWidget extends Pane {
             width_px = height_px * console_aspect_ratio;
         }
 
+        map_x_px = 0;
+        map_y_px = 0;
         map_width_px = map_width_rel * height_px;
         map_height_px = map_height_rel * height_px;
 
         if (show_camera_feed) {
+            camera_panel_x_px = map_width_px;
+            camera_panel_y_px = 0;
             camera_panel_width_px = camera_panel_width_rel * height_px;
             camera_panel_height_px = camera_panel_height_rel * height_px;
         }
 
+        control_panel_x_px = map_width_px + camera_panel_width_px;
+        control_panel_y_px = 0;
         control_panel_width_px = control_panel_width_rel * height_px;
         control_panel_height_px = control_panel_height_rel * height_px;
 
+        data_panel_x_px = 0;
+        data_panel_y_px = map_height_px;
         data_panel_width_px = data_panel_width_rel * height_px;
         data_panel_height_px = data_panel_height_rel * height_px;
+
+        setPrefSize(width_px, height_px);
+
+        map.setPrefSize(map_width_px, map_height_px);
+        camera_feed.setPrefSize(camera_panel_width_px, camera_panel_height_px);
+        controls.setPrefSize(control_panel_width_px, control_panel_height_px);
+        data.setPrefSize(data_panel_width_px, data_panel_height_px);
     }
 }

@@ -12,9 +12,7 @@ class ModeToggleWidget extends Pane {
     RadioButton auto_mode;
     ToggleGroup mode;
 
-    ModeToggleWidget(double width, double height) {
-        setPrefSize(width, height);
-
+    ModeToggleWidget() {
         keyboard_mode = new RadioButton("T/O Keyboard");
         Xbox_mode = new RadioButton("T/O Xbox Controller");
         joystick_mode = new RadioButton("T/O Dual Joystick");

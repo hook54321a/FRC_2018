@@ -64,7 +64,7 @@ public class GUI extends Application {
 
         WindowWidget                                    (no base class as yet)
             ConsoleWidget                               (extends Pane > Region > Group > Parent > Node)
-                RealTimeModelWidget                     (extends Canvas > Node)
+                RealTimeModelWidget                     (extends Pane > Region > Group > Parent > Node)
                 CameraFeedWidget                        (extends Pane > Region > Group > Parent > Node; need to integrate JavaCV)
                 ControlPanelWidget                      (extends VBox > Pane > Region > Group > Parent > Node)
                     ModeToggleWidget                    (no base class as yet)
@@ -75,7 +75,7 @@ public class GUI extends Application {
                     BatteryVoltageGraphWidget           (no base class as yet)
         */
 
-         window = new WindowWidget(stage);
+        window = new WindowWidget(stage);
     }
 }
 

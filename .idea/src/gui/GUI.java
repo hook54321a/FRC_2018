@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -30,18 +31,15 @@ import util.*;
 import real_time_model.*;
 
 public class GUI extends Application {
-
     static Image map_img;
     static Image robot_img;
+    static Media bark_mp3;
 
     WindowWidget window;
 
     public static void main(String[] args)
         throws FileNotFoundException
     {
-        map_img = Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\RealTimeMap_Test.png");
-        robot_img = Misc.new_image("C:\\Users\\Gamerverise\\FRC_2018\\IdeaProjects\\FRC_2018\\.idea\\data_files\\Map\\Robot.png");
-
         Application.launch(args);
     }
 

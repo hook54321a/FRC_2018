@@ -15,11 +15,9 @@ import javafx.scene.text.Text;
 
 class ControlPanelWidget extends TitledPane {
     VBox vbox;
-//    Label heading;
     ModeToggleWidget mode;
     Button bark_button;
 
-    Media bark_mp3;
     MediaPlayer bark_player;
 
     ControlPanelWidget() {
@@ -33,16 +31,11 @@ class ControlPanelWidget extends TitledPane {
         mode = new ModeToggleWidget();
         bark_button = new Button("Bark!");
 
-//        heading = new Label("Controls");
-//        heading.getStyleClass().add("Heading");
-//        heading.setPrefWidth(Double.MAX_VALUE);
-
         vbox.getChildren().addAll(mode, bark_button);
 
         setContent(vbox);
 
-        bark_mp3 = new Media("file:///C:/Users/Gamerverise/FRC_2018/IdeaProjects/FRC_2018/.idea/data_files/Sounds/bark_sound.mp3");
-        bark_player = new MediaPlayer(bark_mp3);
+        bark_player = new MediaPlayer(GUI.bark_mp3);
     }
 
 //    protected void layoutChildren() {

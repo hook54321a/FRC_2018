@@ -13,7 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -40,8 +44,12 @@ class WindowWidget {
         try {
             BufferedReader lines = Misc.get_file_lines(perist_file_pathname);
             repo_path_name = lines.readLine();
-            repo_path_URI_string = new URL(repo_path_name).toString();
-        } catch (Exception e) {}
+            repo_path_URI_string = new File(repo_path_name).toURI().toString();
+        } catch (FileNotFoundException e) {
+            // It's okay if the persist file does not exist.
+        } catch (IOException e) {
+            // It's okay if the persist file can't be read.
+        }
 
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Directory of FRC_2018 Repository");
@@ -49,11 +57,11 @@ class WindowWidget {
         while (true) {
             try {
                 ObservableList<String> css = scene.getStylesheets();
-                css.add(repo_path_URI_string + "/.idea/src/gui/AEMBOT.css");
+                css.add(repo_path_URI_string + ".idea/src/gui/AEMBOT.css");
 
                 GUI.map_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\RealTimeMap_Test.png");
                 GUI.robot_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\Robot.png");
-                GUI.bark_mp3 = new Media(repo_path_URI_string + "/.idea/data_files/Sounds/bark_sound.mp3");
+                GUI.bark_mp3 = new Media(repo_path_URI_string + ".idea/data_files/Sounds/bark_sound.mp3");
 
                 List<String> lines = Arrays.asList(repo_path_name);
                 Path file = Paths.get(perist_file_pathname);

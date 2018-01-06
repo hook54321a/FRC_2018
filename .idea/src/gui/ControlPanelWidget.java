@@ -35,8 +35,7 @@ class ControlPanelWidget extends TitledPane {
 
         setContent(vbox);
 
-        bark_player = new MediaPlayer(new Media("file:///C:///Users/dad/IdeaProjects/FRC_2018/.idea/data_files/Sounds/bark_sound.mp3"));
-//        bark_player = new MediaPlayer(GUI.bark_mp3);
+        bark_player = new MediaPlayer(GUI.bark_mp3);
     }
 
 //    protected void layoutChildren() {

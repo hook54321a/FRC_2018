@@ -12,30 +12,31 @@
 
 .AEMBOT {
     -AEMBOT_base_color:             cornflowerblue;
-    -AEMBOT_outer_border_color:     derive(-AEMBOT_base_color, -20%);
-    -AEMBOT_inner_border_color:     derive(-AEMBOT_base_color, 10%);
+    -AEMBOT_dark_border_color:      derive(-AEMBOT_base_color, -20%);
+    -AEMBOT_light_border_color:     derive(-AEMBOT_base_color, 10%);
 
     -AEMBOT_base_gradient:          linear-gradient(to bottom,
-                                                    -AEMBOT_outer_border_color,
-                                                    -AEMBOT_inner_border_color);
+                                                    -AEMBOT_dark_border_color,
+                                                    -AEMBOT_light_border_color);
 
-    -AEMBOT_outer_border_gradient:  linear-gradient(to bottom,
-                                                    -AEMBOT_outer_border_color,
-                                                    -AEMBOT_inner_border_color);
+    -AEMBOT_dark_border_gradient:   linear-gradient(to bottom,
+                                                    -AEMBOT_dark_border_color,
+                                                    -AEMBOT_light_border_color);
 
-    -AEMBOT_inner_border_gradient:  linear-gradient(to bottom,
-                                                    -AEMBOT_inner_border_color,
-                                                    -AEMBOT_outer_border_color);
+    -AEMBOT_light_border_gradient:  linear-gradient(to bottom,
+                                                    -AEMBOT_light_border_color,
+                                                    -AEMBOT_dark_border_color);
 
+    -AEMBOT_title_bar_color:       derive(-AEMBOT_base_color, -10%);
+
+    -AEMBOT_background_color:       derive(-AEMBOT_base_color, 20%);
 /*
-    -AEMBOT_background_color:       derive(-AEMBOT_base_color, 30%);
+    -AEMBOT_background_color:       -AEMBOT_light_border_color;
+    -AEMBOT_background_color:       black;
 */
-
-    -AEMBOT_background_color:       -AEMBOT_inner_border_color;
 }
 
 .AEMBOT_Framed_Group {
-
 /*
     -fx-skin:               ;
 */
@@ -54,22 +55,22 @@
 }
 
 .AEMBOT_Framed_Group > .title {
-    -fx-background-color:   -AEMBOT_outer_border_gradient,
-                            -AEMBOT_inner_border_gradient,
-                            -AEMBOT_base_gradient;
+    -fx-background-color:   -AEMBOT_dark_border_gradient,
+                            -AEMBOT_light_border_gradient,
+                            -AEMBOT_title_bar_color;
 
-    -fx-background-insets:  0 0 0 0, 1 1 1 1, 2 2 2 2;
+    -fx-background-insets:  0 0 0 0, 1 1 0 1, 2 2 1 2;
     -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
 
     -fx-padding:            0.3333em 0 0.3333em 0.3333em;
 }
 
 .AEMBOT_Framed_Group > *.content {
-    -fx-background-color:   -AEMBOT_outer_border_gradient,
-                            -AEMBOT_inner_border_gradient,
+    -fx-background-color:   -AEMBOT_light_border_color,
+                            -AEMBOT_dark_border_color,
                             -AEMBOT_background_color;
 
-    -fx-background-insets:  -1 0 0 0, 0 1 1 1, 1 2 2 2;
+    -fx-background-insets:  0 0 0 0, 0 1 1 1, 0 2 2 2;
     -fx-background-radius:  0 0 5 5, 0 0 4 4, 0 0 3 3;
 
     -fx-padding:            0;
@@ -79,14 +80,14 @@
 */
 
 /*
-    -fx-background-color:   -AEMBOT_inner_border_color,
+    -fx-background-color:   -AEMBOT_light_border_color,
                             -AEMBOT_background_color;
 
     -fx-background-insets:  0, 2;
     -fx-background-radius:  0 0 5 5, 0 0 4 4;
 
 /*
-    -fx-border-color:       -AEMBOT_inner_border_color;
+    -fx-border-color:       -AEMBOT_light_border_color;
     -fx-background-insets:  0, 1, 2;
     -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
 

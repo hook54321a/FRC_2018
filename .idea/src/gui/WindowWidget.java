@@ -100,7 +100,7 @@ class WindowWidget {
 
         this.stage = stage;
 
-        stage.setTitle("AEMBOT Console");
+        stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
         stage.setResizable(false);
 
         stage.setMinWidth(console.width_px);

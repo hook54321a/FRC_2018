@@ -50,18 +50,44 @@ class WindowWidget {
 
         Rectangle2D primary_screen_bounds = Screen.getPrimary().getVisualBounds();
 
-        stage.setMinWidth(primary_screen_bounds.getWidth());
-        stage.setMinHeight(primary_screen_bounds.getHeight());
+        double primary_screen_width = primary_screen_bounds.getWidth();
+        double primary_screen_height = primary_screen_bounds.getHeight();
+        double primary_screen_aspect_ratio = primary_screen_width / primary_screen_height;
 
-        stage.setMaxWidth(primary_screen_bounds.getWidth());
-        stage.setMaxHeight(primary_scree);
+        console.compute_layout();
 
+        // Due to the thickness of the window decorations, the scene's aspect ratio will not quite
+        // match that of the console widget. It appears that there is no way in JavaFX to determine the
+        // thickness of the window decorations before showing the window, so there is no way to match
+        // the scene's aspect ratio to the console's aspect ratio before showing the window.
+        // As long as the window decorations are
+        // small enough relative to the console, this approximation of the scene's aspect ratio to the
+        // console's aspect ratio should be fine.
+        //
+        // We can resize the window after showing it if we want.
+
+        if (console.aspect_ratio >= primary_screen_aspect_ratio)
+            set_size(primary_screen_width, primary_screen_width / console.aspect_ratio);
+        else
+            set_size(primary_screen_height * console.aspect_ratio, primary_screen_height);
 
         console.requestLayout();
         console.draw();
         stage.show();
 
-        int x = 0;
+        double win_width_px = scene.getWindow().getWidth();
+        double win_height_px = scene.getWindow().getHeight();
+
+        double scene_width_px = scene.getWidth();
+        double scene_height_px = scene.getHeight();
+
+        double win_left_decoration_thickness_px = scene.getX();
+        double win_right_decoration_thickness_px = win_width_px - win_left_decoration_thickness_px - scene_width_px;
+
+        double win_top_decoration_thickness_px = scene.getY();
+        double win_bottom_decoration_thickness_px = win_height_px - win_top_decoration_thickness_px - win_height_px;
+
+//        set_size(primary_screen_width, primary_screen_width / console.aspect_ratio);
     }
 
     void locate_and_read_data_files() {
@@ -122,5 +148,13 @@ class WindowWidget {
                 continue;
             }
         }
+    }
+
+    void set_size(double width, double height) {
+        stage.setMinWidth(width);
+        stage.setMinHeight(height);
+
+        stage.setMaxWidth(width);
+        stage.setMaxHeight(height);
     }
 }

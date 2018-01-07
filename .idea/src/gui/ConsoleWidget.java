@@ -1,12 +1,12 @@
 package gui;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
+        import javafx.geometry.HPos;
+        import javafx.geometry.Insets;
+        import javafx.geometry.Rectangle2D;
+        import javafx.geometry.VPos;
+        import javafx.scene.Node;
+        import javafx.scene.layout.Pane;
+        import javafx.stage.Screen;
 
 class ConsoleWidget extends Pane {
 
@@ -50,9 +50,9 @@ class ConsoleWidget extends Pane {
     double data_panel_width_rel;
     double data_panel_height_rel;
 
-    double console_width_rel;
-    double console_height_rel;
-    double console_aspect_ratio;
+    double width_rel;
+    double height_rel;
+    double aspect_ratio;
 
     // Dimensions in pixels
 
@@ -127,15 +127,6 @@ class ConsoleWidget extends Pane {
     }
 
     void compute_layout() {
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        double win_border_thickness_px = 20;
-        double win_title_bar_height_px = 60;
-
-        double max_pane_width = primaryScreenBounds.getWidth() - 2 * win_border_thickness_px;
-        double max_pane_height = primaryScreenBounds.getHeight() - win_title_bar_height_px - win_border_thickness_px;
-
-        double max_pane_aspect_ratio = max_pane_width/max_pane_height;
-
         double map_img_width = GUI.map_img.getWidth();
         double map_img_height = GUI.map_img.getHeight();
         double map_aspect_ratio = map_img_width / map_img_height;
@@ -160,37 +151,41 @@ class ConsoleWidget extends Pane {
         data_panel_height_rel = control_panel_width_rel;
         data_panel_width_rel = map_width_rel + panel_spacing_rel + camera_panel_width_rel + panel_spacing_rel + control_panel_width_rel;
 
-        console_width_rel = panel_spacing_rel + data_panel_width_rel + panel_spacing_rel;
-        console_height_rel = panel_spacing_rel + map_height_rel + panel_spacing_rel + data_panel_height_rel + panel_spacing_rel;
-        console_aspect_ratio = console_width_rel / console_height_rel;
+        width_rel = panel_spacing_rel + data_panel_width_rel + panel_spacing_rel;
+        height_rel = panel_spacing_rel + map_height_rel + panel_spacing_rel + data_panel_height_rel + panel_spacing_rel;
+        aspect_ratio = width_rel / height_rel;
 
         // Normalize relative dimensions such that console height is 1
 
-        panel_spacing_rel /= console_height_rel;
+        panel_spacing_rel /= height_rel;
 
-        map_width_rel /= console_height_rel;
-        map_height_rel /= console_height_rel;
+        map_width_rel /= height_rel;
+        map_height_rel /= height_rel;
 
-        camera_panel_width_rel /= console_height_rel;
-        camera_panel_height_rel /= console_height_rel;
+        camera_panel_width_rel /= height_rel;
+        camera_panel_height_rel /= height_rel;
 
-        control_panel_width_rel /= console_height_rel;
-        control_panel_height_rel /= console_height_rel;
+        control_panel_width_rel /= height_rel;
+        control_panel_height_rel /= height_rel;
 
-        data_panel_width_rel /= console_height_rel;
-        data_panel_height_rel /= console_height_rel;
+        data_panel_width_rel /= height_rel;
+        data_panel_height_rel /= height_rel;
 
-        console_width_rel /= console_height_rel;
-        console_height_rel /= console_height_rel;       // console_height_rel is 1 as noted above
+        width_rel /= height_rel;
+        height_rel /= height_rel;       // height_rel is 1 as noted above
 
         // Calculate layout in pixels
 
-        if (console_aspect_ratio >= max_pane_aspect_ratio) {
-            width_px = max_pane_width;
-            height_px = width_px / console_aspect_ratio;
+        double scene_width = getScene().getWidth();
+        double scene_height = getScene().getHeight();
+        double scene_aspect_ratio = scene_width / scene_height;
+
+        if (aspect_ratio >= scene_aspect_ratio) {
+            width_px = scene_width;
+            height_px = width_px / aspect_ratio;
         } else {
-            height_px = max_pane_height;
-            width_px = height_px * console_aspect_ratio;
+            height_px = scene_height;
+            width_px = height_px * aspect_ratio;
         }
 
         panel_spacing_px = panel_spacing_rel * height_px;

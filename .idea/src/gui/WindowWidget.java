@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -35,8 +37,34 @@ class WindowWidget {
     ConsoleWidget console;
 
     WindowWidget(Stage stage) {
-        scene = new Scene(new Pane());
+        this.stage = stage;
 
+        console = new ConsoleWidget();
+        scene.setRoot(console);
+        stage.setScene(scene);
+
+        locate_and_read_data_files();
+
+        stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
+        stage.setResizable(false);
+
+        Rectangle2D primary_screen_bounds = Screen.getPrimary().getVisualBounds();
+
+        stage.setMinWidth(primary_screen_bounds.getWidth());
+        stage.setMinHeight(primary_screen_bounds.getHeight());
+
+        stage.setMaxWidth(primary_screen_bounds.getWidth());
+        stage.setMaxHeight(primary_scree);
+
+
+        console.requestLayout();
+        console.draw();
+        stage.show();
+
+        int x = 0;
+    }
+
+    void locate_and_read_data_files() {
         String perist_file_pathname = System.getProperty("user.dir") + "\\__path_to_FRC_2018_repository.txt";
         String repo_path_name = null;
         String repo_path_URI_string = null;
@@ -94,25 +122,5 @@ class WindowWidget {
                 continue;
             }
         }
-
-        console = new ConsoleWidget();
-        scene.setRoot(console);
-
-        this.stage = stage;
-
-        stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
-        stage.setResizable(false);
-
-        stage.setMinWidth(console.width_px);
-        stage.setMinHeight(console.height_px);
-
-        stage.setMaxWidth(console.getWidth());
-        stage.setMaxHeight(console.getHeight());
-
-        stage.setScene(scene);
-
-        console.requestLayout();
-        console.draw();
-        stage.show();
     }
 }

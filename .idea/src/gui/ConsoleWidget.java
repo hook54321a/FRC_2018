@@ -32,6 +32,8 @@ class ConsoleWidget extends Pane {
 
     // Relative dimensions
 
+    double panel_spacing_rel;
+
     double map_width_rel;
     double map_height_rel;
 
@@ -53,6 +55,8 @@ class ConsoleWidget extends Pane {
     double console_aspect_ratio;
 
     // Dimensions in pixels
+
+    double panel_spacing_px;
 
     double map_x_px;
     double map_y_px;
@@ -79,46 +83,40 @@ class ConsoleWidget extends Pane {
 
     ////
 
-    boolean show_camera_feed;
-
     ConsoleWidget() {
         getStyleClass().add("ConsoleWidget");
-
-        show_camera_feed = true;
 
         map = new RealTimeModelWidget();
         camera_feed = new CameraFeedWidget();
         controls = new ControlPanelWidget();
         data = new DataPanelWidget();
 
-        compute_layout();
-
         getChildren().addAll(map, camera_feed, controls, data);
     }
 
     protected void layoutChildren() {
-        // We could do this layout statically in compute_layout because no part of the GUI is moveable or resizeable, but we do it here to follow the JavaFX framework.
+        compute_layout();
 
-//        layoutInArea(map,
-//                map_x_px, map_y_px,
-//                map_width_px, map_height_px,
-//                0, HPos.CENTER, VPos.CENTER);
-//
-//        layoutInArea(camera_feed,
-//                camera_panel_x_px, camera_panel_y_px,
-//                camera_panel_width_px, camera_panel_height_px,
-//                0, HPos.CENTER, VPos.CENTER);
+        layoutInArea(map,
+                map_x_px, map_y_px,
+                map_width_px, map_height_px,
+                0, HPos.CENTER, VPos.CENTER);
+
+        layoutInArea(camera_feed,
+                camera_panel_x_px, camera_panel_y_px,
+                camera_panel_width_px, camera_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
 
         layoutInArea(controls,
-//                control_panel_x_px, control_panel_y_px,
-                1000, 100,
+                control_panel_x_px, control_panel_y_px,
+//                1000, 100,
                 control_panel_width_px, control_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
 
-//        layoutInArea(data,
-//                data_panel_x_px, data_panel_y_px,
-//                data_panel_width_px, data_panel_height_px,
-//                0, HPos.CENTER, VPos.CENTER);
+        layoutInArea(data,
+                data_panel_x_px, data_panel_y_px,
+                data_panel_width_px - 2, data_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
     }
 
     void draw() {
@@ -142,54 +140,39 @@ class ConsoleWidget extends Pane {
         double map_img_height = GUI.map_img.getHeight();
         double map_aspect_ratio = map_img_width / map_img_height;
 
-        // Calculate layout of widgets. Depends on whether or not we show the camera feed
-
         // Calculate sizes in relative dimensions with map height relative length of 1
 
-        if (show_camera_feed) {
-            map_height_rel = 1;
-            map_width_rel = map_aspect_ratio;
+        panel_spacing_rel = 0.01;
 
-            camera_x_resolution = 640;
-            camera_y_resolution = 480;
-            camera_aspect_ratio = camera_x_resolution / camera_y_resolution;
+        map_width_rel = map_aspect_ratio;
+        map_height_rel = 1;
 
-            camera_panel_height_rel = map_height_rel;
-            camera_panel_width_rel = camera_aspect_ratio * camera_panel_height_rel;
+        camera_x_resolution = 640;
+        camera_y_resolution = 480;
+        camera_aspect_ratio = camera_x_resolution / camera_y_resolution;
 
-            control_panel_height_rel = map_height_rel;
-            control_panel_width_rel = 0.20 * (map_width_rel + camera_panel_width_rel);
+        camera_panel_height_rel = map_height_rel;
+        camera_panel_width_rel = camera_aspect_ratio * camera_panel_height_rel;
 
-            data_panel_height_rel = control_panel_width_rel;
-            data_panel_width_rel = map_width_rel + camera_panel_width_rel + control_panel_width_rel;
+        control_panel_height_rel = map_height_rel;
+        control_panel_width_rel = 0.20 * (map_width_rel + camera_panel_width_rel);
 
-            console_width_rel = data_panel_width_rel;
-            console_height_rel = map_height_rel + data_panel_height_rel;
-            console_aspect_ratio = console_width_rel / console_height_rel;
-        } else {
-            map_width_rel = map_aspect_ratio;
-            map_height_rel = 1;
+        data_panel_height_rel = control_panel_width_rel;
+        data_panel_width_rel = map_width_rel + panel_spacing_rel + camera_panel_width_rel + panel_spacing_rel + control_panel_width_rel;
 
-            control_panel_width_rel = map_width_rel * 4/3d;
-            control_panel_height_rel = map_height_rel;
-
-            data_panel_width_rel = map_width_rel + control_panel_width_rel;
-            data_panel_height_rel = control_panel_width_rel;
-
-            console_width_rel = data_panel_width_rel;
-            console_height_rel = map_height_rel + data_panel_height_rel;
-            console_aspect_ratio = console_width_rel / console_height_rel;
-        }
+        console_width_rel = panel_spacing_rel + data_panel_width_rel + panel_spacing_rel;
+        console_height_rel = panel_spacing_rel + map_height_rel + panel_spacing_rel + data_panel_height_rel + panel_spacing_rel;
+        console_aspect_ratio = console_width_rel / console_height_rel;
 
         // Normalize relative dimensions such that console height is 1
+
+        panel_spacing_rel /= console_height_rel;
 
         map_width_rel /= console_height_rel;
         map_height_rel /= console_height_rel;
 
-        if (show_camera_feed) {
-            camera_panel_width_rel /= console_height_rel;
-            camera_panel_height_rel /= console_height_rel;
-        }
+        camera_panel_width_rel /= console_height_rel;
+        camera_panel_height_rel /= console_height_rel;
 
         control_panel_width_rel /= console_height_rel;
         control_panel_height_rel /= console_height_rel;
@@ -200,7 +183,7 @@ class ConsoleWidget extends Pane {
         console_width_rel /= console_height_rel;
         console_height_rel /= console_height_rel;       // console_height_rel is 1 as noted above
 
-        // Calculate sizes in pixels
+        // Calculate layout in pixels
 
         if (console_aspect_ratio >= max_pane_aspect_ratio) {
             width_px = max_pane_width;
@@ -210,25 +193,25 @@ class ConsoleWidget extends Pane {
             width_px = height_px * console_aspect_ratio;
         }
 
-        map_x_px = 0;
-        map_y_px = 0;
+        panel_spacing_px = panel_spacing_rel * height_px;
+
+        map_x_px = panel_spacing_px;
+        map_y_px = panel_spacing_px;
         map_width_px = map_width_rel * height_px;
         map_height_px = map_height_rel * height_px;
 
-        if (show_camera_feed) {
-            camera_panel_x_px = map_width_px;
-            camera_panel_y_px = 0;
-            camera_panel_width_px = camera_panel_width_rel * height_px;
-            camera_panel_height_px = camera_panel_height_rel * height_px;
-        }
+        camera_panel_x_px = panel_spacing_px + map_width_px + panel_spacing_px;
+        camera_panel_y_px = panel_spacing_px;
+        camera_panel_width_px = camera_panel_width_rel * height_px;
+        camera_panel_height_px = camera_panel_height_rel * height_px;
 
-        control_panel_x_px = map_width_px + camera_panel_width_px;
-        control_panel_y_px = 0;
+        control_panel_x_px = panel_spacing_px + map_width_px + panel_spacing_px + camera_panel_width_px + panel_spacing_px;
+        control_panel_y_px = panel_spacing_px;
         control_panel_width_px = control_panel_width_rel * height_px;
         control_panel_height_px = control_panel_height_rel * height_px;
 
-        data_panel_x_px = 0;
-        data_panel_y_px = map_height_px;
+        data_panel_x_px = panel_spacing_px;
+        data_panel_y_px = panel_spacing_px + map_height_px + panel_spacing_px;
         data_panel_width_px = data_panel_width_rel * height_px;
         data_panel_height_px = data_panel_height_rel * height_px;
 

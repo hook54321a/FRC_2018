@@ -30,10 +30,6 @@
     -AEMBOT_title_bar_color:       derive(-AEMBOT_base_color, -10%);
 
     -AEMBOT_background_color:       derive(-AEMBOT_base_color, 20%);
-/*
-    -AEMBOT_background_color:       -AEMBOT_light_border_color;
-    -AEMBOT_background_color:       black;
-*/
 }
 
 .AEMBOT_Framed_Group {
@@ -73,27 +69,9 @@
     -fx-background-insets:  0 0 0 0, 0 1 1 1, 0 2 2 2;
     -fx-background-radius:  0 0 5 5, 0 0 4 4, 0 0 3 3;
 
-    -fx-padding:            0;
+    /* FIXME: Should compute padding in relative dimensions */
 
-/*
-    -fx-padding:            20 10 20 10;
-*/
-
-/*
-    -fx-background-color:   -AEMBOT_light_border_color,
-                            -AEMBOT_background_color;
-
-    -fx-background-insets:  0, 2;
-    -fx-background-radius:  0 0 5 5, 0 0 4 4;
-
-/*
-    -fx-border-color:       -AEMBOT_light_border_color;
-    -fx-background-insets:  0, 1, 2;
-    -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
-
-    -fx-border-insets:      -1 0 0 0;
-    -fx-background-color:   linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
-*/
+    -fx-padding:            10;
 }
 
 .AEMBOT_VBox {

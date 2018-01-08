@@ -1,12 +1,33 @@
 package gui;
 
+        import javafx.collections.ObservableList;
         import javafx.geometry.HPos;
         import javafx.geometry.Insets;
         import javafx.geometry.Rectangle2D;
         import javafx.geometry.VPos;
         import javafx.scene.Node;
+        import javafx.scene.control.Alert;
+        import javafx.scene.control.Button;
+        import javafx.scene.control.ButtonType;
         import javafx.scene.layout.Pane;
+        import javafx.scene.media.Media;
+        import javafx.stage.DirectoryChooser;
         import javafx.stage.Screen;
+
+        import java.io.BufferedReader;
+        import java.io.File;
+        import java.io.FileNotFoundException;
+        import java.io.IOException;
+        import java.nio.charset.Charset;
+        import java.nio.file.Files;
+        import java.nio.file.Path;
+        import java.nio.file.Paths;
+        import java.util.Arrays;
+        import java.util.List;
+        import java.util.Optional;
+
+        import javafx.stage.Stage;
+        import util.*;
 
 class ConsoleWidget extends Pane {
 
@@ -22,6 +43,10 @@ class ConsoleWidget extends Pane {
 //
 //    double robot_sprite_left_px = -(robot_sprite_width_px/2);
 //    double robot_sprite_right_px = -(robot_sprite_height_px/2);
+
+    // Parent Widget
+
+    WindowWidget win_widget;
 
     // Sub-widgets
 
@@ -83,8 +108,10 @@ class ConsoleWidget extends Pane {
 
     ////
 
-    ConsoleWidget() {
+    ConsoleWidget(WindowWidget win_widget) {
         getStyleClass().add("ConsoleWidget");
+
+        this.win_widget = win_widget;
 
         map = new RealTimeModelWidget();
         camera_feed = new CameraFeedWidget();
@@ -117,6 +144,8 @@ class ConsoleWidget extends Pane {
                 data_panel_x_px, data_panel_y_px,
                 data_panel_width_px - 2, data_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
+
+        draw();
     }
 
     void draw() {
@@ -127,11 +156,14 @@ class ConsoleWidget extends Pane {
     }
 
     void compute_layout() {
+        compute_relative_layout();
+        compute_pixel_layout();
+    }
+
+    void compute_relative_layout() {
         double map_img_width = GUI.map_img.getWidth();
         double map_img_height = GUI.map_img.getHeight();
         double map_aspect_ratio = map_img_width / map_img_height;
-
-        // Calculate sizes in relative dimensions with map height relative length of 1
 
         panel_spacing_rel = 0.01;
 
@@ -173,11 +205,18 @@ class ConsoleWidget extends Pane {
 
         width_rel /= height_rel;
         height_rel /= height_rel;       // height_rel is 1 as noted above
+    }
 
-        // Calculate layout in pixels
-
+    void compute_pixel_layout() {
         double scene_width = getScene().getWidth();
         double scene_height = getScene().getHeight();
+
+        if (scene_width == 0)
+            scene_width = win_widget.pre_show_stage_width;
+
+        if (scene_height == 0)
+            scene_height = win_widget.pre_show_stage_height;
+
         double scene_aspect_ratio = scene_width / scene_height;
 
         if (aspect_ratio >= scene_aspect_ratio) {

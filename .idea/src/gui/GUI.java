@@ -35,6 +35,7 @@ import util.*;
 import real_time_model.*;
 
 public class GUI extends Application {
+    static Scene dummy_scene_to_load_and_hold_AEMBOT_stylesheet;
     static Image map_img;
     static Image robot_img;
     static Media bark_mp3;

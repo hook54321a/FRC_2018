@@ -1,7 +1,11 @@
 package gui;
 
+import com.sun.javafx.css.StyleManager;
+import com.sun.javafx.css.Stylesheet;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -36,25 +40,60 @@ class WindowWidget {
     Scene scene;
     ConsoleWidget console;
 
+    double pre_show_stage_width;
+    double pre_show_stage_height;
+
     WindowWidget(Stage stage) {
+        locate_and_read_data_files(stage, scene);
+
         this.stage = stage;
 
-        console = new ConsoleWidget();
-        scene.setRoot(console);
+        console = new ConsoleWidget(this);
+        scene = new Scene(console);
         stage.setScene(scene);
 
-        locate_and_read_data_files();
+        if (GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().size() != 1)
+            throw new RuntimeException("dummy_scene should only have one stylesheet.");
 
+        scene.getStylesheets().add(GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().get(0));
         stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
         stage.setResizable(false);
+
+        set_size(-1, -1, -1, -1);
+
+//        console.requestLayout();
+        stage.show();
+
+        double win_width_px = scene.getWindow().getWidth();
+        double win_height_px = scene.getWindow().getHeight();
+
+        double scene_width_px = scene.getWidth();
+        double scene_height_px = scene.getHeight();
+
+        // scene.getX() is two pixels two the right of the window border on my current setup
+
+        double win_left_decoration_thickness_px = scene.getX();
+        double win_right_decoration_thickness_px = win_width_px - win_left_decoration_thickness_px - scene_width_px;
+
+        double win_top_decoration_thickness_px = scene.getY();
+        double win_bottom_decoration_thickness_px = win_height_px - win_top_decoration_thickness_px - scene_height_px;
+
+//        set_size(win_left_decoration_thickness_px, win_right_decoration_thickness_px,
+//                 win_top_decoration_thickness_px, win_bottom_decoration_thickness_px);
+//
+//        console.requestLayout();
+    }
+
+    void set_size(double win_left_decoration_thickness, double win_right_decoration_thickness,
+                  double win_top_decoration_thickness, double win_bottom_decoration_thickness)
+    {
+        double max_scene_width;
+        double max_scene_height;
 
         Rectangle2D primary_screen_bounds = Screen.getPrimary().getVisualBounds();
 
         double primary_screen_width = primary_screen_bounds.getWidth();
         double primary_screen_height = primary_screen_bounds.getHeight();
-        double primary_screen_aspect_ratio = primary_screen_width / primary_screen_height;
-
-        console.compute_layout();
 
         // Due to the thickness of the window decorations, the scene's aspect ratio will not quite
         // match that of the console widget. It appears that there is no way in JavaFX to determine the
@@ -66,31 +105,36 @@ class WindowWidget {
         //
         // We can resize the window after showing it if we want.
 
-        if (console.aspect_ratio >= primary_screen_aspect_ratio)
-            set_size(primary_screen_width, primary_screen_width / console.aspect_ratio);
+        if (win_left_decoration_thickness == -1 || win_right_decoration_thickness == -1)
+            max_scene_width = primary_screen_width - 50;
         else
-            set_size(primary_screen_height * console.aspect_ratio, primary_screen_height);
+            max_scene_width = primary_screen_width - win_left_decoration_thickness - win_right_decoration_thickness;
 
-        console.requestLayout();
-        console.draw();
-        stage.show();
+        if (win_top_decoration_thickness == -1 || win_bottom_decoration_thickness == -1)
+            max_scene_height = primary_screen_width - 50;
+        else
+            max_scene_height = primary_screen_height - win_top_decoration_thickness - win_bottom_decoration_thickness;
 
-        double win_width_px = scene.getWindow().getWidth();
-        double win_height_px = scene.getWindow().getHeight();
+        double max_scene_aspect_ratio = max_scene_width / max_scene_height;
 
-        double scene_width_px = scene.getWidth();
-        double scene_height_px = scene.getHeight();
+        console.compute_relative_layout();
 
-        double win_left_decoration_thickness_px = scene.getX();
-        double win_right_decoration_thickness_px = win_width_px - win_left_decoration_thickness_px - scene_width_px;
+        if (console.aspect_ratio >= max_scene_aspect_ratio) {
+            pre_show_stage_width = max_scene_width;
+            pre_show_stage_height = max_scene_width / console.aspect_ratio;
+        } else {
+            pre_show_stage_width = max_scene_height * console.aspect_ratio;
+            pre_show_stage_height = max_scene_height;
+        }
 
-        double win_top_decoration_thickness_px = scene.getY();
-        double win_bottom_decoration_thickness_px = win_height_px - win_top_decoration_thickness_px - win_height_px;
+        stage.setMinWidth(pre_show_stage_width);
+        stage.setMinHeight(pre_show_stage_height);
 
-//        set_size(primary_screen_width, primary_screen_width / console.aspect_ratio);
+        stage.setMaxWidth(pre_show_stage_width);
+        stage.setMaxHeight(pre_show_stage_height);
     }
 
-    void locate_and_read_data_files() {
+    void locate_and_read_data_files(Stage stage, Scene scene) {
         String perist_file_pathname = System.getProperty("user.dir") + "\\__path_to_FRC_2018_repository.txt";
         String repo_path_name = null;
         String repo_path_URI_string = null;
@@ -110,9 +154,12 @@ class WindowWidget {
 
         while (true) {
             try {
-                ObservableList<String> css = scene.getStylesheets();
-                css.add(repo_path_URI_string + ".idea/src/gui/AEMBOT.css");
+                // There is no way to manipulate stylesheets independently of Scenes and Parents, so we gotta
+                // do this dummy_scene_to_load_and_hold_AEMBOT_stylesheet shiz.
 
+                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet = new Scene(new Group());
+
+                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().add(repo_path_URI_string + ".idea/src/gui/AEMBOT.css");
                 GUI.map_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\RealTimeMap_Test.png");
                 GUI.robot_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\Robot.png");
                 GUI.bark_mp3 = new Media(repo_path_URI_string + ".idea/data_files/Sounds/bark_sound.mp3");
@@ -148,13 +195,5 @@ class WindowWidget {
                 continue;
             }
         }
-    }
-
-    void set_size(double width, double height) {
-        stage.setMinWidth(width);
-        stage.setMinHeight(height);
-
-        stage.setMaxWidth(width);
-        stage.setMaxHeight(height);
     }
 }

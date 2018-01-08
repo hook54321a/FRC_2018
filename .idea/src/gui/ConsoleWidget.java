@@ -136,7 +136,6 @@ class ConsoleWidget extends Pane {
 
         layoutInArea(controls,
                 control_panel_x_px, control_panel_y_px,
-//                1000, 100,
                 control_panel_width_px, control_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
 
@@ -156,6 +155,7 @@ class ConsoleWidget extends Pane {
     }
 
     void compute_layout() {
+
         compute_relative_layout();
         compute_pixel_layout();
     }
@@ -208,44 +208,50 @@ class ConsoleWidget extends Pane {
     }
 
     void compute_pixel_layout() {
-        double scene_width = getScene().getWidth();
-        double scene_height = getScene().getHeight();
+        double scene_width_px = getScene().getWidth();
+        double scene_height_px = getScene().getHeight();
 
-        if (scene_width == 0)
-            scene_width = win_widget.pre_show_stage_width;
+        if (scene_width_px == 0)
+            scene_width_px = win_widget.scene_width_px;
 
-        if (scene_height == 0)
-            scene_height = win_widget.pre_show_stage_height;
+        if (scene_height_px == 0)
+            scene_height_px = win_widget.scene_height_px;
 
-        double scene_aspect_ratio = scene_width / scene_height;
+        double scene_aspect_ratio = scene_width_px / scene_height_px;
+        double scene_width_overage_indent_adj_px;
+        double scene_height_overage_indent_adj_px;
 
         if (aspect_ratio >= scene_aspect_ratio) {
-            width_px = scene_width;
+            width_px = scene_width_px;
             height_px = width_px / aspect_ratio;
+            scene_width_overage_indent_adj_px = 0;
+            scene_height_overage_indent_adj_px = (scene_height_px - height_px) / 2;
         } else {
-            height_px = scene_height;
+            height_px = scene_height_px;
             width_px = height_px * aspect_ratio;
+            scene_width_overage_indent_adj_px = (scene_width_px - width_px) / 2;
+            scene_height_overage_indent_adj_px = 0;
         }
 
         panel_spacing_px = panel_spacing_rel * height_px;
 
-        map_x_px = panel_spacing_px;
-        map_y_px = panel_spacing_px;
+        map_x_px = scene_width_overage_indent_adj_px + panel_spacing_px;
+        map_y_px = scene_height_overage_indent_adj_px + panel_spacing_px;
         map_width_px = map_width_rel * height_px;
         map_height_px = map_height_rel * height_px;
 
-        camera_panel_x_px = panel_spacing_px + map_width_px + panel_spacing_px;
-        camera_panel_y_px = panel_spacing_px;
+        camera_panel_x_px = scene_width_overage_indent_adj_px + panel_spacing_px + map_width_px + panel_spacing_px;
+        camera_panel_y_px = scene_height_overage_indent_adj_px + panel_spacing_px;
         camera_panel_width_px = camera_panel_width_rel * height_px;
         camera_panel_height_px = camera_panel_height_rel * height_px;
 
-        control_panel_x_px = panel_spacing_px + map_width_px + panel_spacing_px + camera_panel_width_px + panel_spacing_px;
-        control_panel_y_px = panel_spacing_px;
+        control_panel_x_px = scene_width_overage_indent_adj_px + panel_spacing_px + map_width_px + panel_spacing_px + camera_panel_width_px + panel_spacing_px;
+        control_panel_y_px = scene_height_overage_indent_adj_px + panel_spacing_px;
         control_panel_width_px = control_panel_width_rel * height_px;
         control_panel_height_px = control_panel_height_rel * height_px;
 
-        data_panel_x_px = panel_spacing_px;
-        data_panel_y_px = panel_spacing_px + map_height_px + panel_spacing_px;
+        data_panel_x_px = scene_width_overage_indent_adj_px + panel_spacing_px;
+        data_panel_y_px = scene_height_overage_indent_adj_px + panel_spacing_px + map_height_px + panel_spacing_px;
         data_panel_width_px = data_panel_width_rel * height_px;
         data_panel_height_px = data_panel_height_rel * height_px;
 

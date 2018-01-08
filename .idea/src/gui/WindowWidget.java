@@ -40,8 +40,8 @@ class WindowWidget {
     Scene scene;
     ConsoleWidget console;
 
-    double pre_show_stage_width;
-    double pre_show_stage_height;
+    double scene_width_px;
+    double scene_height_px;
 
     WindowWidget(Stage stage) {
         locate_and_read_data_files(stage, scene);
@@ -61,7 +61,6 @@ class WindowWidget {
 
         set_size(-1, -1, -1, -1);
 
-//        console.requestLayout();
         stage.show();
 
         double win_width_px = scene.getWindow().getWidth();
@@ -78,60 +77,69 @@ class WindowWidget {
         double win_top_decoration_thickness_px = scene.getY();
         double win_bottom_decoration_thickness_px = win_height_px - win_top_decoration_thickness_px - scene_height_px;
 
-//        set_size(win_left_decoration_thickness_px, win_right_decoration_thickness_px,
-//                 win_top_decoration_thickness_px, win_bottom_decoration_thickness_px);
-//
-//        console.requestLayout();
+        set_size(win_left_decoration_thickness_px, win_right_decoration_thickness_px,
+                 win_top_decoration_thickness_px, win_bottom_decoration_thickness_px);
     }
 
-    void set_size(double win_left_decoration_thickness, double win_right_decoration_thickness,
-                  double win_top_decoration_thickness, double win_bottom_decoration_thickness)
+    void set_size(double win_left_decoration_thickness_px, double win_right_decoration_thickness_px,
+                  double win_top_decoration_thickness_px, double win_bottom_decoration_thickness_px)
     {
-        double max_scene_width;
-        double max_scene_height;
+        if (win_left_decoration_thickness_px == -1)
+            win_left_decoration_thickness_px = 15;      // Heuristic
+
+        if (win_right_decoration_thickness_px == -1)
+            win_right_decoration_thickness_px = 15;     // Heuristic
+
+        if (win_top_decoration_thickness_px == -1)
+            win_top_decoration_thickness_px = 15*5;     // Heuristic
+
+        if (win_bottom_decoration_thickness_px == -1)
+            win_bottom_decoration_thickness_px = 15;    // Heuristic
 
         Rectangle2D primary_screen_bounds = Screen.getPrimary().getVisualBounds();
 
-        double primary_screen_width = primary_screen_bounds.getWidth();
-        double primary_screen_height = primary_screen_bounds.getHeight();
+        double primary_screen_width_px = primary_screen_bounds.getWidth();
+        double primary_screen_height_px = primary_screen_bounds.getHeight();
 
-        // Due to the thickness of the window decorations, the scene's aspect ratio will not quite
-        // match that of the console widget. It appears that there is no way in JavaFX to determine the
-        // thickness of the window decorations before showing the window, so there is no way to match
-        // the scene's aspect ratio to the console's aspect ratio before showing the window.
-        // As long as the window decorations are
-        // small enough relative to the console, this approximation of the scene's aspect ratio to the
-        // console's aspect ratio should be fine.
-        //
-        // We can resize the window after showing it if we want.
+        double max_scene_width_px = primary_screen_width_px - win_left_decoration_thickness_px - win_right_decoration_thickness_px;
+        double max_scene_height_px = primary_screen_height_px - win_top_decoration_thickness_px - win_bottom_decoration_thickness_px;
 
-        if (win_left_decoration_thickness == -1 || win_right_decoration_thickness == -1)
-            max_scene_width = primary_screen_width - 50;
-        else
-            max_scene_width = primary_screen_width - win_left_decoration_thickness - win_right_decoration_thickness;
-
-        if (win_top_decoration_thickness == -1 || win_bottom_decoration_thickness == -1)
-            max_scene_height = primary_screen_width - 50;
-        else
-            max_scene_height = primary_screen_height - win_top_decoration_thickness - win_bottom_decoration_thickness;
-
-        double max_scene_aspect_ratio = max_scene_width / max_scene_height;
+        double max_scene_aspect_ratio = max_scene_width_px / max_scene_height_px;
 
         console.compute_relative_layout();
 
+        // Due to the thickness of the window decorations, the stage's aspect ratio will not quite
+        // match that of the console widget. It appears that there is no way in JavaFX to determine the
+        // thickness of the window decorations before showing the window, so there is no way to match
+        // the stage's aspect ratio to the console's aspect ratio before showing the window.
+        // As long as the window decorations are
+        // small enough relative to the console, this approximation of the stage's aspect ratio to the
+        // console's aspect ratio should be fine.
+        //
+        // We can resize the window after showing it if we want. We do.
+
+        double stage_width_px;
+        double stage_height_px;
+
         if (console.aspect_ratio >= max_scene_aspect_ratio) {
-            pre_show_stage_width = max_scene_width;
-            pre_show_stage_height = max_scene_width / console.aspect_ratio;
+            scene_width_px = max_scene_width_px;
+            scene_height_px = scene_width_px / console.aspect_ratio;
+
+            stage_width_px = primary_screen_width_px;
+            stage_height_px = win_top_decoration_thickness_px + scene_width_px * console.aspect_ratio + win_bottom_decoration_thickness_px;
         } else {
-            pre_show_stage_width = max_scene_height * console.aspect_ratio;
-            pre_show_stage_height = max_scene_height;
+            scene_width_px = max_scene_height_px * console.aspect_ratio;
+            scene_height_px = max_scene_height_px;
+
+            stage_width_px = win_left_decoration_thickness_px + primary_screen_height_px / console.aspect_ratio + win_right_decoration_thickness_px;
+            stage_height_px = primary_screen_height_px;
         }
 
-        stage.setMinWidth(pre_show_stage_width);
-        stage.setMinHeight(pre_show_stage_height);
+        stage.setMinWidth(stage_width_px);
+        stage.setMinHeight(stage_height_px);
 
-        stage.setMaxWidth(pre_show_stage_width);
-        stage.setMaxHeight(pre_show_stage_height);
+        stage.setMaxWidth(stage_width_px);
+        stage.setMaxHeight(stage_height_px);
     }
 
     void locate_and_read_data_files(Stage stage, Scene scene) {

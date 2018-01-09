@@ -40,8 +40,8 @@ class WindowWidget {
     Scene scene;
     ConsoleWidget console;
 
-    double scene_width_px;
-    double scene_height_px;
+    double best_guess_scene_width_px;
+    double best_guess_scene_height_px;
 
     WindowWidget(Stage stage) {
         locate_and_read_data_files(stage, scene);
@@ -108,28 +108,44 @@ class WindowWidget {
 
         console.compute_relative_layout();
 
-        // Due to the thickness of the window decorations, the stage's aspect ratio will not quite
-        // match that of the console widget. It appears that there is no way in JavaFX to determine the
-        // thickness of the window decorations before showing the window, so there is no way to match
-        // the stage's aspect ratio to the console's aspect ratio before showing the window.
-        // As long as the window decorations are
-        // small enough relative to the console, this approximation of the stage's aspect ratio to the
-        // console's aspect ratio should be fine.
+        // Dimensions of the ConsoleWidget, Scene, and Window (Stage)
         //
-        // We can resize the window after showing it if we want. We do.
+        // Here are our requirements(-ish/desires):
+        //
+        //      * ConsoleWidget has a fixed aspect ratio
+        //      * ConsoleWidget and Scene should be the same size
+        //      * ConsoleWidget should fill the window (exluding the window decorations)
+        //      * Window should be the width and/or height of the monitor while preserving the
+        //        aspect ratio of the ConsoleWidget
+        //
+        // To meet these requirements, we need to know the thicknesses of the window decorations,
+        // and set the size of the window so that its undecorated area fits the constraints.
+        //
+        // Dimensions are Guesses
+        //
+        // Our scene dimensions are only guesses because in JavaFX, there is no way to determine the
+        // thicknesses of the window decorations accurately. Before showing the window, JavaFX does not even
+        // report the thicknesses. After the window is shown, JavaFX reports wrong information for the thicknesses
+        // in our current system.
+        //
+        // The thicknesses reported by JavaFX are only a few pixels off, so they are good enough. Our
+        // conservative guesses/approximations of the thicknesses are not as good, so immediately after
+        // showing the window, we resize it. Then the JavaFX engine redoes the layout and redraws the window. On
+        // our current system, this method leads to a slight jumping visual effect in the layout of the window.
+        // And of course, the final size of the ConsoleWidget is not quite maximized--just off by a few pixels.
 
         double stage_width_px;
         double stage_height_px;
 
         if (console.aspect_ratio >= max_scene_aspect_ratio) {
-            scene_width_px = max_scene_width_px;
-            scene_height_px = scene_width_px / console.aspect_ratio;
+            best_guess_scene_width_px = max_scene_width_px;
+            best_guess_scene_height_px = best_guess_scene_width_px / console.aspect_ratio;
 
             stage_width_px = primary_screen_width_px;
-            stage_height_px = win_top_decoration_thickness_px + scene_width_px * console.aspect_ratio + win_bottom_decoration_thickness_px;
+            stage_height_px = win_top_decoration_thickness_px + best_guess_scene_width_px * console.aspect_ratio + win_bottom_decoration_thickness_px;
         } else {
-            scene_width_px = max_scene_height_px * console.aspect_ratio;
-            scene_height_px = max_scene_height_px;
+            best_guess_scene_width_px = max_scene_height_px * console.aspect_ratio;
+            best_guess_scene_height_px = max_scene_height_px;
 
             stage_width_px = win_left_decoration_thickness_px + primary_screen_height_px / console.aspect_ratio + win_right_decoration_thickness_px;
             stage_height_px = primary_screen_height_px;

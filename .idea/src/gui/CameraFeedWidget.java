@@ -9,8 +9,4 @@ class CameraFeedWidget extends Pane {
     CameraFeedWidget() {
         getStyleClass().add("AEMBOT_CameraFeedWidget");
     }
-
-    void draw() {
-
-    }
 }

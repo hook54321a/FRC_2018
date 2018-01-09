@@ -144,7 +144,12 @@ class ConsoleWidget extends Pane {
                 data_panel_width_px - 2, data_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
 
-        draw();
+        map.layout();
+        camera_feed.layout();
+        controls.layout();
+        data.layout();
+
+//        draw();
     }
 
     void draw() {

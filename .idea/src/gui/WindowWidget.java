@@ -142,12 +142,12 @@ class WindowWidget {
             best_guess_scene_height_px = best_guess_scene_width_px / console.aspect_ratio;
 
             stage_width_px = primary_screen_width_px;
-            stage_height_px = win_top_decoration_thickness_px + best_guess_scene_width_px * console.aspect_ratio + win_bottom_decoration_thickness_px;
+            stage_height_px = win_top_decoration_thickness_px + best_guess_scene_width_px / console.aspect_ratio + win_bottom_decoration_thickness_px;
         } else {
             best_guess_scene_width_px = max_scene_height_px * console.aspect_ratio;
             best_guess_scene_height_px = max_scene_height_px;
 
-            stage_width_px = win_left_decoration_thickness_px + primary_screen_height_px / console.aspect_ratio + win_right_decoration_thickness_px;
+            stage_width_px = win_left_decoration_thickness_px + primary_screen_height_px * console.aspect_ratio + win_right_decoration_thickness_px;
             stage_height_px = primary_screen_height_px;
         }
 

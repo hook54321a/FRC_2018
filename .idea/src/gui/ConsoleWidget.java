@@ -150,12 +150,11 @@ class ConsoleWidget extends Pane {
     void draw() {
         map.draw();
         camera_feed.draw();
-        controls.draw();
-        data.draw();
+//        controls.draw();
+//        data.draw();
     }
 
     void compute_layout() {
-
         compute_relative_layout();
         compute_pixel_layout();
     }
@@ -165,7 +164,7 @@ class ConsoleWidget extends Pane {
         double map_img_height = GUI.map_img.getHeight();
         double map_aspect_ratio = map_img_width / map_img_height;
 
-        panel_spacing_rel = 0.01;
+        panel_spacing_rel = 0.03;
 
         map_width_rel = map_aspect_ratio;
         map_height_rel = 1;
@@ -212,10 +211,10 @@ class ConsoleWidget extends Pane {
         double scene_height_px = getScene().getHeight();
 
         if (scene_width_px == 0)
-            scene_width_px = win_widget.scene_width_px;
+            scene_width_px = win_widget.best_guess_scene_width_px;
 
         if (scene_height_px == 0)
-            scene_height_px = win_widget.scene_height_px;
+            scene_height_px = win_widget.best_guess_scene_height_px;
 
         double scene_aspect_ratio = scene_width_px / scene_height_px;
         double scene_width_overage_indent_adj_px;

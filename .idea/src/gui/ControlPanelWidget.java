@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 
 class ControlPanelWidget extends TitledPane {
     VBox vbox;
+
     ModeToggleWidget mode;
     Button bark_button;
 
@@ -36,18 +37,6 @@ class ControlPanelWidget extends TitledPane {
         setContent(vbox);
 
         bark_player = new MediaPlayer(GUI.bark_mp3);
-    }
-
-//    protected void layoutChildren() {
-//        layoutInArea(heading,
-//                map_x_px, map_y_px,
-//                map_width_px, map_height_px,
-//                0, HPos.CENTER, VPos.CENTER);
-//    }
-
-    void draw() {
-//        mode.draw();
-//        bark_button.draw();
     }
 
     void bark() {

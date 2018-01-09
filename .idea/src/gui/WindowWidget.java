@@ -79,6 +79,8 @@ class WindowWidget {
 
         set_size(win_left_decoration_thickness_px, win_right_decoration_thickness_px,
                  win_top_decoration_thickness_px, win_bottom_decoration_thickness_px);
+
+        System.out.print(Misc.JavaFX_node_tree_debug(console, 0));
     }
 
     void set_size(double win_left_decoration_thickness_px, double win_right_decoration_thickness_px,
@@ -197,7 +199,7 @@ class WindowWidget {
                 ButtonType yes_button_type = new ButtonType("Yes");
                 ButtonType quit_button_type = new ButtonType("Quit");
 
-                alert.getButtonTypes().setAll(yes_button_type, quit_button_type);
+                alert.getButtonTypes().addAll(yes_button_type, quit_button_type);
 
                 Button yes_button = (Button)alert.getDialogPane().lookupButton(yes_button_type);
                 yes_button.setDefaultButton(true);

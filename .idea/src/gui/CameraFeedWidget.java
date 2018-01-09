@@ -7,7 +7,7 @@ import javafx.scene.media.MediaPlayer;
 class CameraFeedWidget extends Pane {
 
     CameraFeedWidget() {
-        getStyleClass().add("CameraFeedWidget");
+        getStyleClass().add("AEMBOT_CameraFeedWidget");
     }
 
     void draw() {

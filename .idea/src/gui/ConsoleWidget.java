@@ -109,7 +109,7 @@ class ConsoleWidget extends Pane {
     ////
 
     ConsoleWidget(WindowWidget win_widget) {
-        getStyleClass().add("ConsoleWidget");
+        getStyleClass().add("AEMBOT_ConsoleWidget");
 
         this.win_widget = win_widget;
 

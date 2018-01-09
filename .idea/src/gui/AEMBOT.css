@@ -93,27 +93,27 @@
 *
 ********************************************************************************/
 
-ConsoleWidget {
+.AEMBOT_ConsoleWidget {
     -fx-background-color:   rgb(125, 125, 125);
 }
 
-.RealTimeModelWidget {
+.AEMBOT_RealTimeModelWidget {
     -fx-border-width:       10px;
     -fx-border-color:       green;
 }
 
-.CameraFeedWidget {
+.AEMBOT_CameraFeedWidget {
     -fx-border-width:       10px;
     -fx-border-color:       blue;
 }
 
-.ControlPanelVBox {
+.AEMBOT_ControlPanelWidget_VBox {
     -fx-spacing:            10px;
     -fx-alignment:          top-center;
     -fx-fill-width:         true;
 }
 
-.AEMBOT_DataPanelWidget > HBox {
+.AEMBOT_DataPanelWidget > .AEMBOT_DataPanelWidget_HBox {
 
     /**** Node Properties ****/
 
@@ -179,13 +179,6 @@ ConsoleWidget {
     -fx-spacing:            50;
     -fx-alignment:          center;
     -fx-fill-height:        false;
-}
-
-.Heading {
-    -fx-background-color:   cornflowerblue;
-
-    -fx-font:               bold 32 Arial;
-    -fx-alignment:          center;
 }
 
 /*******************************************************************************

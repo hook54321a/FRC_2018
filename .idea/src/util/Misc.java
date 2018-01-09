@@ -1,5 +1,7 @@
 package util;
 
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
@@ -32,5 +34,24 @@ public class Misc {
         throws FileNotFoundException
     {
         return new Image(new FileInputStream(path));
+    }
+
+    public static String spaces(int n) {
+        String spaces = new String();
+
+        for (int i = 0; i < n; i++)
+            spaces += " ";
+
+        return spaces;
+    }
+
+    public static String JavaFX_node_tree_debug(Node node, int tree_level) {
+        String node_info = spaces(tree_level) + "ID: " + node.getId() + " Classes: " + node.getStyleClass().toString() + "\n";
+
+        if (node instanceof Parent)
+            for (Node child : ((Parent) node).getChildrenUnmodifiable())
+                node_info += JavaFX_node_tree_debug(child, tree_level + 1);
+
+        return node_info;
     }
 }

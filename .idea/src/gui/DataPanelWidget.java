@@ -14,12 +14,12 @@ class DataPanelWidget extends TitledPane {
     BatteryVoltageGraphWidget voltage;
 
     DataPanelWidget() {
-        getStyleClass().setAll("AEMBOT", "AEMBOT_Framed_Group");
+        getStyleClass().addAll("AEMBOT", "AEMBOT_Framed_Group", "AEMBOT_DataPanelWidget");
 
         setText("Readouts");
 
         hbox = new HBox();
-        hbox.getStyleClass().setAll("AEMBOT", "AEMBOT_VBox", "DataPanelHBox");
+        hbox.getStyleClass().addAll("AEMBOT", "AEMBOT_HBox", "AEMBOT_DataPanelWidget_HBox");
 
         coords = new CoordinatesWidget();
         voltage = new BatteryVoltageGraphWidget();

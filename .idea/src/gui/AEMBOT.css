@@ -113,7 +113,7 @@
     -fx-fill-width:         true;
 }
 
-.AEMBOT_DataPanelWidget > .AEMBOT_DataPanelWidget_HBox {
+.AEMBOT_DataPanelWidget > .content > .AEMBOT_DataPanelWidget_TilePane {
 
     /**** Node Properties ****/
 
@@ -134,10 +134,7 @@
     /**** Region Properties ****/
 
     -fx-region-background:      null;
-/*
     -fx-background-color:       transparent;
-*/
-    -fx-background-color:       red;
     -fx-background-insets: 	    0;
     -fx-background-radius: 	    0;
 
@@ -174,11 +171,17 @@
     -fx-pref-width:             -1;
     -fx-max-width:              -1;
 
-    /**** HBox Properties ****/
+    /**** TilePane Properties ****/
 
-    -fx-spacing:            50;
-    -fx-alignment:          center;
-    -fx-fill-height:        false;
+    -fx-orientation:            horizontal;
+    -fx-pref-rows:              0;
+    -fx-pref-columns:           0;
+    -fx-pref-tile-width:        -1;
+    -fx-pref-tile-height:       -1;
+    -fx-hgap:                   0;
+    -fx-vgap:                   0;
+    -fx-alignment:              center;
+    -fx-tile-alignment:         center;
 }
 
 /*******************************************************************************

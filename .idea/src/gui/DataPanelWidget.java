@@ -1,14 +1,28 @@
 package gui;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.event.EventDispatcher;
+import javafx.geometry.*;
+import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Effect;
+import javafx.scene.input.InputMethodRequests;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.transform.Transform;
+
+import static javafx.scene.layout.Priority.ALWAYS;
 
 class DataPanelWidget extends TitledPane {
 
-    HBox hbox;
+    TilePane tiles;
 
     CoordinatesWidget coords;
     BatteryVoltageGraphWidget voltage;
@@ -18,14 +32,28 @@ class DataPanelWidget extends TitledPane {
 
         setText("Readouts");
 
-        hbox = new HBox();
-        hbox.getStyleClass().addAll("AEMBOT", "AEMBOT_HBox", "AEMBOT_DataPanelWidget_HBox");
+        tiles = new TilePane();
+        tiles.getStyleClass().addAll("AEMBOT", "AEMBOT_TilePane", "AEMBOT_DataPanelWidget_TilePane");
+
+        tiles.setPrefRows(1);
+        tiles.setPrefColumns(2);
 
         coords = new CoordinatesWidget();
         voltage = new BatteryVoltageGraphWidget();
 
-        hbox.getChildren().addAll(coords, voltage);
+        tiles.getChildren().addAll(coords, voltage);
 
-        setContent(hbox);
+        setContent(tiles);
+    }
+
+    protected void layoutChildren() {
+        Orientation bias = getContentBias();
+        boolean isr = isResizable();
+
+        double tile_side_length = getContent().prefHeight(-1);
+        tile_side_length = 200;
+
+        tiles.setPrefTileWidth(tile_side_length);
+        tiles.setPrefTileHeight(tile_side_length);
     }
 }

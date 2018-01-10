@@ -54,7 +54,7 @@ public class GUI extends Application {
     public static void main(String[] args)
         throws FileNotFoundException
     {
-        Application.launch(args);
+        launch(args);
     }
 
     @Override

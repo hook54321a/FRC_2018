@@ -18,6 +18,8 @@ class RealTimeModelWidget extends Pane {
     }
 
     protected void layoutChildren() {
+        super.layoutChildren();
+
         map.relocate(0, 0);
 
         // A Canvas cannot be resized with Node.resize or Node.resizeRelocate because Canvas.isResizable returns false--

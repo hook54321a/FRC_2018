@@ -122,6 +122,8 @@ class ConsoleWidget extends Pane {
     }
 
     protected void layoutChildren() {
+        super.layout();
+
         compute_layout();
 
         layoutInArea(map,
@@ -153,8 +155,8 @@ class ConsoleWidget extends Pane {
     }
 
     void draw() {
-        map.draw();
-        camera_feed.draw();
+//        map.draw();
+//        camera_feed.draw();
 //        controls.draw();
 //        data.draw();
     }

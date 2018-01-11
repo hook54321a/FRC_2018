@@ -27,7 +27,7 @@ class ControlPanelWidget extends TitledPane {
     MediaPlayer bark_player;
 
     ControlPanelWidget() {
-        getStyleClass().addAll("AEMBOT", "AEMBOT_Framed_Group", "AEMBOT_ControlPanelWidget");
+        getStyleClass().addAll("AEMBOT", "AEMBOT_TitledPane", "AEMBOT_ControlPanelWidget");
 
         setText("Controls");
 

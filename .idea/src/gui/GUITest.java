@@ -46,7 +46,7 @@ public class GUITest extends Application {
 //                .otherwise(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY))));
 
         Scene scene = new Scene(root, 300, 250);
-        scene.getStylesheets().add("file:///C:/Users/Gamerverise/FRC_2018/IdeaProjects/FRC_2018/.idea/src/gui/AEMBOT.css");
+        scene.getStylesheets().add("file:///C:/Users/Gamerverise/FRC_2018/IdeaProjects/FRC_2018/.idea/src/gui/AEMBOT.debug.css");
 
         primaryStage.setTitle("Hellyo World!");
         primaryStage.setScene(scene);

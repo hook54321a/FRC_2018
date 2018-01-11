@@ -1,0 +1,14 @@
+.yo {
+    -fx-background-color:       green;
+    -fx-cursor:                 crosshair;
+}
+
+.yo > .content > .yoyo {
+    -fx-background-color:       red;
+    -fx-cursor:                 crosshair;
+}
+
+.tog {
+    -fx-background-color:       blue;
+    -fx-cursor:                 crosshair;
+}

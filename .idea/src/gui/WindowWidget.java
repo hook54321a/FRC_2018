@@ -56,6 +56,7 @@ class WindowWidget {
             throw new RuntimeException("dummy_scene should only have one stylesheet.");
 
         scene.getStylesheets().add(GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().get(0));
+
         stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
         stage.setResizable(false);
 

@@ -1,0 +1,7 @@
+@import "AEMBOT_Region.css"
+
+.AEMBOT_Chart {
+    -fx-legend-side         bottom;
+    -fx-legend-visible      true;
+    -fx-title-side 	Side    top;
+}

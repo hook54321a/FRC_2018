@@ -1,0 +1,5 @@
+@import "AEMBOT_ValueAxis.css"
+
+.AEMBOT_NumberAxis {
+    -fx-tick-unit       5;
+}

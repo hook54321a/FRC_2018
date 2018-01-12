@@ -61,6 +61,12 @@
     -fx-border-color:       blue;
 }
 
+@import "AEMBOT_TitledPane"
+
+.AEMBOT_ControlPanelWidget {
+    -fx-collapsible     false;
+}
+
 .AEMBOT_ControlPanelWidget > .content > .AEMBOT_ControlPanelWidget_TilePane {
 
     /**** Node Properties ****/

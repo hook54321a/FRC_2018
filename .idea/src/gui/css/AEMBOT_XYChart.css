@@ -1,6 +1,8 @@
-@import "AEMBOT_Chart.css"
+/*
+    XYChart > Chart
+*/
 
-.AEMBOT_Chart {
+.AEMBOT_XYChart {
     -fx-alternative-column-fill-visible     true;
     -fx-alternative-row-fill-visible        true;
     -fx-horizontal-grid-lines-visible       true;

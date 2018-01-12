@@ -1,4 +1,6 @@
-@import "AEMBOT_Pane.css"
+/*
+    TilePane > Pane
+*/
 
 .AEMBOT_TilePane {
     -fx-orientation         horizontal;

@@ -1,4 +1,6 @@
-@import "AEMBOT_Labeled.css"
+/*
+    TitledPane > Labeled
+*/
 
 .AEMBOT_TitledPane {
     -fx-animated        true;

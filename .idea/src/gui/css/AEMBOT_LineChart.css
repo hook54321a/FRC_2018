@@ -1,4 +1,6 @@
-@import "AEMBOT_LineChart.css"
+/*
+    LineChart > XYChart
+*/
 
 .AEMBOT_LineChart {
     -fx-create-symbols      true;

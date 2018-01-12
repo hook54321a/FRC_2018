@@ -1,4 +1,6 @@
-@import "AEMBOT_Parent.css"
+/*
+    Region > Parent
+*/
 
 .AEMBOT_Region {
     -fx-region-background:      null;

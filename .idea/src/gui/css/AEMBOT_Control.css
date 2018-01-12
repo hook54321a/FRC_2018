@@ -1,4 +1,6 @@
-@import "AEMBOT_Region.css"
+/*
+    Control > Region
+*/
 
 .AEMBOT_Control {
     -fx-skin                   null;

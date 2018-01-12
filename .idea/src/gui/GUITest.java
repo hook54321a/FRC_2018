@@ -36,7 +36,7 @@ public class GUITest extends Application {
         root.setBottom(hbox);
 
         Scene scene = new Scene(root, 300, 250);
-        String stylesheet_URI = new File("C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\.idea\\src\\gui\\AEMBOT.debug.css").toURI().toString();
+        String stylesheet_URI = new File("C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\.idea\\src\\gui\\css\\AEMBOT.debug.css").toURI().toString();
 
         scene.getStylesheets().add(stylesheet_URI);
 

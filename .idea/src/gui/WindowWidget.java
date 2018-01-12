@@ -186,7 +186,7 @@ class WindowWidget {
 
                 GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet = new Scene(new Group());
 
-                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().add(repo_path_URI_string + ".idea/src/gui/AEMBOT.css");
+                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().add(repo_path_URI_string + ".idea/src/gui/css/AEMBOT.css");
                 GUI.map_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\RealTimeMap_Test.png");
                 GUI.robot_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\Robot.png");
                 GUI.bark_mp3 = new Media(repo_path_URI_string + ".idea/data_files/Sounds/bark_sound.mp3");

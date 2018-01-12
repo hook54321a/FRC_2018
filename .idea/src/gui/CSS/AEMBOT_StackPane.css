@@ -1,0 +1,6 @@
+@import "AEMBOT_Pane.css"
+
+.AEMBOT_StackPane {
+    -fx-alignment       top-left;
+}
+

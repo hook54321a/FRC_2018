@@ -1,0 +1,6 @@
+@import "AEMBOT_Region.css"
+
+.AEMBOT_Control {
+    -fx-skin                   null;
+    -fx-focus-traversable 	   true;
+}

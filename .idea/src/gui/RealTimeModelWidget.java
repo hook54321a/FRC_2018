@@ -11,7 +11,7 @@ class RealTimeModelWidget extends Pane {
     Canvas map;
 
     RealTimeModelWidget() {
-        getStyleClass().add("AEMBOT_RealTimeModelWidget");
+        getStyleClass().addAll("AEMBOT", "AEMBOT_Pane", "AEMBOT_RealTimeModelWidget");
 
         model = new RealTimeModel(GUI.map_img, GUI.robot_img);
         map = new Canvas();

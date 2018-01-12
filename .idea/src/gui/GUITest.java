@@ -15,12 +15,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class GUITest extends Application {
-
-    static Background bg;
-    static int __x;
 
     @Override
     public void start(Stage primaryStage) {
@@ -37,22 +35,14 @@ public class GUITest extends Application {
         hbox.setAlignment(Pos.CENTER);
         root.setBottom(hbox);
 
-//        vbox.styleProperty().bind(Bindings.when(toggle.selectedProperty())
-//                .then("-fx-background-color: cornflowerblue;")
-//                .otherwise("-fx-background-color: white;"));
-
-//        tiles.backgroundProperty().bind(Bindings.when(toggle.selectedProperty())
-//                .then(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)))
-//                .otherwise(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY))));
-
         Scene scene = new Scene(root, 300, 250);
-        scene.getStylesheets().add("file:///C:/Users/Gamerverise/FRC_2018/IdeaProjects/FRC_2018/.idea/src/gui/AEMBOT.debug.css");
+        String stylesheet_URI = new File("C:\\Users\\Gamerverise Q J\\IdeaProjects\\FRC_2018\\.idea\\src\\gui\\AEMBOT.debug.css").toURI().toString();
+
+        scene.getStylesheets().add(stylesheet_URI);
 
         primaryStage.setTitle("Hellyo World!");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        System.out.println(controls.getBackground().toString());
     }
 
     public static void main(String[] args)
@@ -72,19 +62,17 @@ class ControlPanelWidgetTest extends TitledPane {
     MediaPlayer bark_player;
 
     public ControlPanelWidgetTest() {
-//        getStyleClass().addAll("AEMBOT", "AEMBOT_Framed_Group", "AEMBOT_ControlPanelWidget");
-        getStyleClass().addAll("yo");
+        getStyleClass().addAll("AEMBOT", "AEMBOT_TitledPane", "AEMBOT_ControlPanelWidget");
 
         setText("Controls");
 
         tiles = new TilePane();
-//        tiles.getStyleClass().addAll("AEMBOT", "AEMBOT_TilePane", "AEMBOT_ControlPanelWidget_TilePane");
-        tiles.getStyleClass().addAll("yoyo");
+        tiles.getStyleClass().addAll("AEMBOT", "AEMBOT_TilePane", "AEMBOT_ControlPanelWidget_TilePane");
 
 //        tiles.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        GUITest.bg = tiles.getBackground();
-        GUITest.bg = new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY));
-        GUITest.__x = 5;
+//        GUITest.bg = tiles.getBackground();
+//        GUITest.bg = new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY));
+//        GUITest.__x = 5;
 
         mode = new ModeToggleWidget();
         bark_button = new Button("Bark! Test");

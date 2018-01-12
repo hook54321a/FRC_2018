@@ -234,10 +234,9 @@ class AEMBOTStylesheets {
     static String URI_relative_prefix = ".idea/src/gui/css/AEMBOT";
 
     static public String URI_filenames[] = {
-            "placeholder for AEMBOT.css, because it does not follow the AEMBOT_ naming convention",
+            "",                 // Special case for AEMBOT.css, because it does not follow the AEMBOT_ naming convention
             "Axis",
             "Chart",
-            "ConsoleWidget",
             "Control",
             "Labeled",
             "LineChart",
@@ -258,7 +257,7 @@ class AEMBOTStylesheets {
     static String[] get_URIs(String URI_absolute_prefix) {
         String URIs[] = new String[URI_filenames.length];
 
-        URIs[0] = URI_absolute_prefix + URI_relative_prefix + ".css";
+        URIs[0] = URI_absolute_prefix + URI_relative_prefix + URI_suffix;
         for (int i = 1; i < URI_filenames.length; i++)
             URIs[i] = URI_absolute_prefix + URI_relative_prefix + "_" + URI_filenames[i] + URI_suffix;
 

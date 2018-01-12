@@ -3,8 +3,12 @@
 */
 
 .AEMBOT_Region {
+/*
+    // Documentation says -fx-region-background cannot be set directly from CSS. When I, it caused things to break.
+
     -fx-region-background:      null;
-    -fx-background-color:       red;
+*/
+    -fx-background-color:       yellow;
     -fx-background-insets: 	    0;
     -fx-background-radius: 	    0;
 
@@ -13,8 +17,12 @@
     -fx-background-repeat:      repeat repeat;
     -fx-background-size:        auto auto;
 
+/*
+    // Documentation says -fx-region-background cannot be set directly from CSS. When I, it caused things to break.
+
     -fx-region-border:          null;
-    -fx-border-color:           red;
+*/
+    -fx-border-color:           black;
     -fx-border-insets:          null;
     -fx-border-radius:          null;
     -fx-border-style:           null;
@@ -30,8 +38,13 @@
     -fx-scale-shape:            true;
     -fx-shape:                  null;
     -fx-snap-to-pixel:          true;
+/*
+    // -fx-region-background and -fx-region-border are duplicated here in the documentation.
+    // See above for more information.
+
     -fx-region-background:      null;
     -fx-region-border:          null;
+*/
 
     -fx-min-height:             -1;
     -fx-pref-height:            -1;

@@ -45,15 +45,15 @@
 *
 ********************************************************************************/
 
-@import "AEMBOT_TitledPane.css"
-
 .AEMBOT_ConsoleWidget {
-    -fx-background-color:   rgb(125, 125, 125);
+    -fx-border-color:           green;
+    -fx-border-width:           10;
+    -fx-background-color:       rgb(125, 125, 125);
 }
 
 .AEMBOT_RealTimeModelWidget {
-    -fx-border-width:       10px;
-    -fx-border-color:       green;
+    -fx-border-width:           10px;
+    -fx-border-color:           green;
 }
 
 .AEMBOT_CameraFeedWidget {
@@ -61,15 +61,13 @@
     -fx-border-color:       blue;
 }
 
-@import "AEMBOT_TitledPane"
-
 .AEMBOT_ControlPanelWidget {
-    -fx-collapsible     false;
+    -fx-collapsible:    false;
 }
 
 .AEMBOT_ControlPanelWidget > .content > .AEMBOT_ControlPanelWidget_TilePane {
 
-    /**** Node Properties ****/
+    /**** Node Properties ***
 
     -fx-blend-mode:         null;
     -fx-cursor:             null;

@@ -36,6 +36,8 @@ import java.util.Optional;
 import util.*;
 
 class WindowWidget {
+    AEMBOTStylesheets stylesheets = new AEMBOTStylesheets();
+
     Stage stage;
     Scene scene;
     ConsoleWidget console;
@@ -52,10 +54,7 @@ class WindowWidget {
         scene = new Scene(console);
         stage.setScene(scene);
 
-        if (GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().size() != 1)
-            throw new RuntimeException("dummy_scene should only have one stylesheet.");
-
-        scene.getStylesheets().add(GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().get(0));
+        scene.getStylesheets().addAll(GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets());
 
         stage.setTitle("AEMBOT Console -- ROBOTS DON'T QUIT!");
         stage.setResizable(false);
@@ -81,7 +80,7 @@ class WindowWidget {
         set_size(win_left_decoration_thickness_px, win_right_decoration_thickness_px,
                  win_top_decoration_thickness_px, win_bottom_decoration_thickness_px);
 
-        System.out.print(Misc.JavaFX_node_tree_debug(console, 0));
+//        System.out.print(Misc.JavaFX_node_tree_debug(console, 0));
     }
 
     void set_size(double win_left_decoration_thickness_px, double win_right_decoration_thickness_px,
@@ -180,20 +179,26 @@ class WindowWidget {
         chooser.setTitle("Directory of FRC_2018 Repository");
 
         while (true) {
+
             try {
                 // There is no way to manipulate stylesheets independently of Scenes and Parents, so we gotta
                 // do this dummy_scene_to_load_and_hold_AEMBOT_stylesheet shiz.
 
                 GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet = new Scene(new Group());
 
-                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet.getStylesheets().add(repo_path_URI_string + ".idea/src/gui/css/AEMBOT.css");
+                GUI.dummy_scene_to_load_and_hold_AEMBOT_stylesheet
+                        .getStylesheets().addAll(AEMBOTStylesheets.get_URIs(repo_path_URI_string));
+
                 GUI.map_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\RealTimeMap_Test.png");
                 GUI.robot_img = Misc.new_image(repo_path_name + ".idea\\data_files\\Map\\Robot.png");
                 GUI.bark_mp3 = new Media(repo_path_URI_string + ".idea/data_files/Sounds/bark_sound.mp3");
 
-                List<String> lines = Arrays.asList(repo_path_name);
-                Path file = Paths.get(perist_file_pathname);
-                Files.write(file, lines, Charset.forName("UTF-8"));
+                Files.write(
+                        Paths.get(perist_file_pathname),
+                        Arrays.asList(repo_path_name),
+                        Charset.forName("UTF-8")
+                );
+
                 break;
             } catch (Exception e){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -222,5 +227,41 @@ class WindowWidget {
                 continue;
             }
         }
+    }
+}
+
+class AEMBOTStylesheets {
+    static String URI_relative_prefix = ".idea/src/gui/css/AEMBOT";
+
+    static public String URI_filenames[] = {
+            "placeholder for AEMBOT.css, because it does not follow the AEMBOT_ naming convention",
+            "Axis",
+            "Chart",
+            "ConsoleWidget",
+            "Control",
+            "Labeled",
+            "LineChart",
+            "Node",
+            "NumberAxis",
+            "Pane",
+            "Parent",
+            "Region",
+            "StackPane",
+            "TilePane",
+            "TitledPane",
+            "ValueAxis",
+            "XYChart"
+    };
+
+    static String URI_suffix = ".css";
+
+    static String[] get_URIs(String URI_absolute_prefix) {
+        String URIs[] = new String[URI_filenames.length];
+
+        URIs[0] = URI_absolute_prefix + URI_relative_prefix + ".css";
+        for (int i = 1; i < URI_filenames.length; i++)
+            URIs[i] = URI_absolute_prefix + URI_relative_prefix + "_" + URI_filenames[i] + URI_suffix;
+
+        return URIs;
     }
 }

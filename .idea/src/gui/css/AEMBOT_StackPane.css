@@ -3,6 +3,6 @@
 */
 
 .AEMBOT_StackPane {
-    -fx-alignment       top-left;
+    -fx-alignment:      top-left;
 }
 

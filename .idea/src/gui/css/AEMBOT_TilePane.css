@@ -3,13 +3,13 @@
 */
 
 .AEMBOT_TilePane {
-    -fx-orientation         horizontal;
-    -fx-pref-rows           5;
-    -fx-pref-columns        5;
-	-fx-pref-tile-width     -1;
-	-fx-pref-tile-height    -1;
-	-fx-hgap                0;
-	-fx-vgap                0;
-	-fx-alignment           top-left;
-	-fx-tile-alignment      center;
+    -fx-orientation:        horizontal;
+    -fx-pref-rows:          5;
+    -fx-pref-columns:       5;
+    -fx-pref-tile-width:    -1;
+    -fx-pref-tile-height:   -1;
+    -fx-hgap:               0;
+    -fx-vgap:               0;
+    -fx-alignment:          top-left;
+    -fx-tile-alignment:     center;
 }

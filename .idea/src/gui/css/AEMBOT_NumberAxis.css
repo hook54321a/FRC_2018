@@ -3,5 +3,5 @@
 */
 
 .AEMBOT_NumberAxis {
-    -fx-tick-unit       5;
+    -fx-tick-unit:      5;
 }

@@ -3,6 +3,6 @@
 */
 
 .AEMBOT_Control {
-    -fx-skin                   null;
-    -fx-focus-traversable 	   true;
+    -fx-skin:                  null;
+    -fx-focus-traversable:     true;
 }

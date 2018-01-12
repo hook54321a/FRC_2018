@@ -1,0 +1,5 @@
+.AEMBOT_ConsoleWidget {
+/*
+    At the time of this writing, ConsoleWidget extends Pane, which has no properties of its own.
+*/
+}

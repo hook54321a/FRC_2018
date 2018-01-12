@@ -3,8 +3,8 @@
 */
 
 .AEMBOT_TitledPane {
-    -fx-animated        true;
-    -fx-collapsible     true;
+    -fx-animated:       true;
+    -fx-collapsible:    true;
 }
 
 /*

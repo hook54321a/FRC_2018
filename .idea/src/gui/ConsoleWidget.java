@@ -113,8 +113,8 @@ class ConsoleWidget extends Pane {
                 "AEMBOT",
                 "AEMBOT_Node",
 // When AEMBOT_Region and AEMBOT_ConsoleWidget are used together, things break
-                "AEMBOT_Region"
-//                "AEMBOT_ConsoleWidget"
+                "AEMBOT_ConsoleWidget"
+//                "AEMBOT_Region"
         );
 
         this.win_widget = win_widget;

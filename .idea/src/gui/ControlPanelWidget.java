@@ -39,35 +39,56 @@ class ControlPanelWidget extends TitledPane {
 
         setText("Controls");
 
-//        tiles = new TilePane();
-//        tiles.getStyleClass().addAll("AEMBOT", "AEMBOT_TilePane", "AEMBOT_ControlPanelWidget_TilePane");
-//
-//        tiles.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-//
+        tiles = new TilePane();
+        tiles.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Pane",
+                "AEMBOT_TilePane",
+                "AEMBOT_ControlPanelWidget_TilePane"
+        );
+
+        tiles.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+
 //        mode = new ModeToggleWidget();
-//        bark_button = new Button("Bark!");
-//        water_button = new Button("Water Challenge!");
-//
-//        Region children[] = {mode, bark_button, water_button};
-//        tiles.setPrefRows(children.length);
-//
-//        tiles.getChildren().addAll(children);
-//
-//        setContent(tiles);
-//
-//        bark_player = new MediaPlayer(GUI.bark_mp3);
+
+        bark_button = new Button("Bark!");
+        bark_button.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
+                "AEMBOT_Button"
+        );
+
+        water_button = new Button("Water Challenge!");
+        water_button.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
+                "AEMBOT_Button"
+        );
+
+        Region children[] = {bark_button, water_button};
+
+        tiles.setPrefRows(children.length);
+        tiles.getChildren().addAll(children);
+
+        setContent(tiles);
+
+        bark_player = new MediaPlayer(GUI.bark_mp3);
     }
 
     @Override
     protected void layoutChildren() {
-//        super.layoutChildren();
-//
-//        layoutInArea(tiles,
-//                0, 0,
-//                getWidth(), getHeight(),
-//                0, HPos.CENTER, VPos.CENTER);
-//
-//        tiles.layout();
+        layoutInArea(tiles,
+                0, 0,
+                getWidth(), getHeight(),
+                0, HPos.CENTER, VPos.CENTER);
     }
 
     void bark() {

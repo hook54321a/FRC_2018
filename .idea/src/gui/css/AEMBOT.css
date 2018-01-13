@@ -45,89 +45,52 @@
 *
 ********************************************************************************/
 
+/******************************************
+ ****
+ **** ConsoleWidget
+ ****
+ ******************************************/
+
 .AEMBOT_ConsoleWidget {
-    -fx-border-color:           green;
-    -fx-border-width:           10;
     -fx-background-color:       rgb(125, 125, 125);
 }
 
+/******************************************
+ ****
+ **** RealTimeModelWidget
+ ****
+ ******************************************/
+
 .AEMBOT_RealTimeModelWidget {
     -fx-border-width:           10px;
-    -fx-border-color:           green;
+    -fx-border-color:           black;
 }
+
+/******************************************
+ ****
+ **** CameraFeedWidget
+ ****
+ ******************************************/
 
 .AEMBOT_CameraFeedWidget {
     -fx-border-width:       10px;
-    -fx-border-color:       blue;
+    -fx-border-color:       black;
 }
+
+/******************************************
+ ****
+ **** ControlPanelWidget
+ ****
+ ******************************************/
 
 .AEMBOT_ControlPanelWidget {
     -fx-collapsible:    false;
 }
 
 .AEMBOT_ControlPanelWidget > .content > .AEMBOT_ControlPanelWidget_TilePane {
-
-    /**** Node Properties ***
-
-    -fx-blend-mode:         null;
-    -fx-cursor:             null;
-    -fx-effect:             null;
-    -fx-focus-traversable: 	false;
-    -fx-opacity:            1.0;
-    -fx-rotate:             0;
-    -fx-scale-x:            1;
-    -fx-scale-y:            1;
-    -fx-scale-z:            1;
-    -fx-translate-x:        0;
-    -fx-translate-y:        0;
-    -fx-translate-z:        0;
-    visibility:             visible;
-
-    /**** Region Properties ****/
-
-    -fx-region-background:      null;
-    -fx-background-color:       red;
-    -fx-background-insets: 	    0;
-    -fx-background-radius: 	    0;
-
-    -fx-background-image:       null;
-    -fx-background-position:    0% 0%;
-    -fx-background-repeat:      repeat repeat;
-    -fx-background-size:        auto auto;
-
-    -fx-region-border:          null;
-    -fx-border-color:           red;
-    -fx-border-insets:          null;
-    -fx-border-radius:          null;
-    -fx-border-style:           null;
-    -fx-border-width:           10;
-    -fx-border-image-source:    null;
-    -fx-border-image-insets:    0;
-    -fx-border-image-repeat:    repeat repeat;
-    -fx-border-image-slice:     100%;
-    -fx-border-image-width:     1;
-
-    -fx-padding:                0;
-    -fx-position-shape:         true;
-    -fx-scale-shape:            true;
-    -fx-shape:                  null;
-    -fx-snap-to-pixel:          true;
-    -fx-region-background:      null;
-    -fx-region-border:          null;
-
-    -fx-min-height:             -1;
-    -fx-pref-height:            -1;
-    -fx-max-height:             -1;
-
-    -fx-min-width:              -1;
-    -fx-pref-width:             -1;
-    -fx-max-width:              -1;
-
-    /**** TilePane Properties ****/
-
     -fx-orientation:            vertical;
     -fx-pref-rows:              0;
-    -fx-pref-columns:           0;
+    -fx-pref-columns:           1;
     -fx-pref-tile-width:        -1;
     -fx-pref-tile-height:       -1;
     -fx-hgap:                   0;
@@ -136,65 +99,17 @@
     -fx-tile-alignment:         center;
 }
 
+/******************************************
+ ****
+ **** DataPanelWidget
+ ****
+ ******************************************/
+
+.AEMBOT_DataPanelWidget {
+    -fx-collapsible:    false;
+}
+
 .AEMBOT_DataPanelWidget > .content > .AEMBOT_DataPanelWidget_TilePane {
-
-    /**** Node Properties ****/
-
-    -fx-blend-mode:         null;
-    -fx-cursor:             null;
-    -fx-effect:             null;
-    -fx-focus-traversable: 	false;
-    -fx-opacity:            1.0;
-    -fx-rotate:             0;
-    -fx-scale-x:            1;
-    -fx-scale-y:            1;
-    -fx-scale-z:            1;
-    -fx-translate-x:        0;
-    -fx-translate-y:        0;
-    -fx-translate-z:        0;
-    visibility:             visible;
-
-    /**** Region Properties ****/
-
-    -fx-region-background:      null;
-    -fx-background-color:       transparent;
-    -fx-background-insets: 	    0;
-    -fx-background-radius: 	    0;
-
-    -fx-background-image:       null;
-    -fx-background-position:    0% 0%;
-    -fx-background-repeat:      repeat repeat;
-    -fx-background-size:        auto auto;
-
-    -fx-region-border:          null;
-    -fx-border-color:           null;
-    -fx-border-insets:          null;
-    -fx-border-radius:          null;
-    -fx-border-style:           null;
-    -fx-border-width:           null;
-    -fx-border-image-source:    null;
-    -fx-border-image-insets:    0;
-    -fx-border-image-repeat:    repeat repeat;
-    -fx-border-image-slice:     100%;
-    -fx-border-image-width:     1;
-
-    -fx-padding:                0;
-    -fx-position-shape:         true;
-    -fx-scale-shape:            true;
-    -fx-shape:                  null;
-    -fx-snap-to-pixel:          true;
-    -fx-region-background:      null;
-    -fx-region-border:          null;
-
-    -fx-min-height:             -1;
-    -fx-pref-height:            -1;
-    -fx-max-height:             -1;
-
-    -fx-min-width:              -1;
-    -fx-pref-width:             -1;
-    -fx-max-width:              -1;
-
-    /**** TilePane Properties ****/
 
     -fx-orientation:            horizontal;
     -fx-pref-rows:              0;
@@ -223,66 +138,8 @@
     -fx-grid-lines-visible: true;
 }
 
+/*
 .AEMBOT_TilePaneWidget_TilePane {
-
-    /**** Node Properties ****/
-
-    -fx-blend-mode:         null;
-    -fx-cursor:             null;
-    -fx-effect:             null;
-    -fx-focus-traversable: 	false;
-    -fx-opacity:            1.0;
-    -fx-rotate:             0;
-    -fx-scale-x:            1;
-    -fx-scale-y:            1;
-    -fx-scale-z:            1;
-    -fx-translate-x:        0;
-    -fx-translate-y:        0;
-    -fx-translate-z:        0;
-    visibility:             visible;
-
-    /**** Region Properties ****/
-
-    -fx-region-background:      null;
-    -fx-background-color:       red;
-    -fx-background-insets: 	    0;
-    -fx-background-radius: 	    0;
-
-    -fx-background-image:       null;
-    -fx-background-position:    0% 0%;
-    -fx-background-repeat:      repeat repeat;
-    -fx-background-size:        auto auto;
-
-    -fx-region-border:          null;
-    -fx-border-color:           red;
-    -fx-border-insets:          null;
-    -fx-border-radius:          null;
-    -fx-border-style:           null;
-    -fx-border-width:           10;
-    -fx-border-image-source:    null;
-    -fx-border-image-insets:    0;
-    -fx-border-image-repeat:    repeat repeat;
-    -fx-border-image-slice:     100%;
-    -fx-border-image-width:     1;
-
-    -fx-padding:                0;
-    -fx-position-shape:         true;
-    -fx-scale-shape:            true;
-    -fx-shape:                  null;
-    -fx-snap-to-pixel:          true;
-    -fx-region-background:      null;
-    -fx-region-border:          null;
-
-    -fx-min-height:             -1;
-    -fx-pref-height:            -1;
-    -fx-max-height:             -1;
-
-    -fx-min-width:              -1;
-    -fx-pref-width:             -1;
-    -fx-max-width:              -1;
-
-    /**** TilePane Properties ****/
-
     -fx-orientation:            vertical;
     -fx-pref-rows:              0;
     -fx-pref-columns:           0;
@@ -293,3 +150,4 @@
     -fx-alignment:              center;
     -fx-tile-alignment:         center;
 }
+*/

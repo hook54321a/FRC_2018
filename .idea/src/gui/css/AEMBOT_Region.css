@@ -8,7 +8,7 @@
 
     -fx-region-background:      null;
 */
-    -fx-background-color:       yellow;
+    -fx-background-color:       transparent;
     -fx-background-insets: 	    0;
     -fx-background-radius: 	    0;
 
@@ -22,11 +22,11 @@
 
     -fx-region-border:          null;
 */
-    -fx-border-color:           black;
+    -fx-border-color:           null;
     -fx-border-insets:          null;
     -fx-border-radius:          null;
     -fx-border-style:           null;
-    -fx-border-width:           10;
+    -fx-border-width:           null;
     -fx-border-image-source:    null;
     -fx-border-image-insets:    0;
     -fx-border-image-repeat:    repeat repeat;

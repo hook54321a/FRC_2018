@@ -205,7 +205,7 @@ class WindowWidget {
                 ButtonType yes_button_type = new ButtonType("Yes");
                 ButtonType quit_button_type = new ButtonType("Quit");
 
-                alert.getButtonTypes().addAll(yes_button_type, quit_button_type);
+                alert.getButtonTypes().setAll(quit_button_type, yes_button_type);
 
                 Button yes_button = (Button)alert.getDialogPane().lookupButton(yes_button_type);
                 yes_button.setDefaultButton(true);
@@ -234,22 +234,39 @@ class AEMBOTStylesheets {
     static String URI_relative_prefix = ".idea/src/gui/css/AEMBOT";
 
     static public String URI_filenames[] = {
-            "",                 // Special case for AEMBOT.css, because it does not follow the AEMBOT_ naming convention
-            "Axis",
-            "Chart",
-            "Control",
-            "Labeled",
-            "LineChart",
+            /****
+             **** IMPORTANT! These stylesheets must be listed in order of preference desired, from
+             ****            lowest precedence to highest! (Lowest precedence is most generic stylesheet, and
+             ****            highest precedence is most specific stylesheet.)
+             ****            and lowest precedence is most generic stylesheet.)
+             ****
+            */
+
             "Node",
-            "NumberAxis",
-            "Pane",
             "Parent",
             "Region",
+
+            "Pane",
             "StackPane",
             "TilePane",
+
+            "Control",
+            "Labeled",
             "TitledPane",
+
+            "Chart",
+            "LineChart",
+            "XYChart",
+
+            "Axis",
             "ValueAxis",
-            "XYChart"
+            "NumberAxis",
+
+            "Shape",
+            "Font",
+            "Text",
+
+            "",                  // Special case for AEMBOT.css, because it does not follow the AEMBOT_ naming convention
     };
 
     static String URI_suffix = ".css";
@@ -257,9 +274,9 @@ class AEMBOTStylesheets {
     static String[] get_URIs(String URI_absolute_prefix) {
         String URIs[] = new String[URI_filenames.length];
 
-        URIs[0] = URI_absolute_prefix + URI_relative_prefix + URI_suffix;
-        for (int i = 1; i < URI_filenames.length; i++)
+        for (int i = 0; i < URI_filenames.length - 1; i++)
             URIs[i] = URI_absolute_prefix + URI_relative_prefix + "_" + URI_filenames[i] + URI_suffix;
+        URIs[URI_filenames.length - 1] = URI_absolute_prefix + URI_relative_prefix + URI_suffix;
 
         return URIs;
     }

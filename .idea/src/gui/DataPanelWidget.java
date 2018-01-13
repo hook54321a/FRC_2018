@@ -28,7 +28,15 @@ class DataPanelWidget extends TitledPane {
     BatteryVoltageGraphWidget voltage;
 
     DataPanelWidget() {
-        getStyleClass().addAll("AEMBOT", "AEMBOT_TitledPane", "AEMBOT_DataPanelWidget");
+        getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
+                "AEMBOT_TitledPane",
+                "AEMBOT_DataPanelWidget"
+        );
 
         setText("Readouts");
 

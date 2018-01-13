@@ -63,7 +63,7 @@ class ControlPanelWidget extends TitledPane {
                 "AEMBOT_Button"
         );
 
-        water_button = new Button("Water Challenge");
+        water_button = new Button("Water Challenge!");
         water_button.getStyleClass().addAll(
                 "AEMBOT",
                 "AEMBOT_Node",

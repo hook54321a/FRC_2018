@@ -28,60 +28,59 @@ class ControlPanelWidget extends TitledPane {
 
     ControlPanelWidget() {
         getStyleClass().setAll(
-//                "AEMBOT",
-//                "AEMBOT_Node",
-//                "AEMBOT_Region",
-//                "AEMBOT_Control",
-//                "AEMBOT_Labeled",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
                 "AEMBOT_TitledPane",
-                "AEMBOT_ControlPanelWidget"
+                "AEMBOT_ControlPanelWidget",
+                "AEMBOT"
         );
 
         setText("Controls");
 
-//        tiles = new TilePane();
-//        tiles.getStyleClass().addAll(
-//                "AEMBOT",
-//                "AEMBOT_Node",
-//                "AEMBOT_Region",
-//                "AEMBOT_Pane",
-//                "AEMBOT_TilePane",
-//                "AEMBOT_ControlPanelWidget_TilePane"
-//        );
-//
-////        tiles.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-//
-////        mode = new ModeToggleWidget();
-//
-//        bark_button = new Button("Bark!");
-////        bark_button.getStyleClass().addAll(
-////                "AEMBOT",
-////                "AEMBOT_Node",
-////                "AEMBOT_Region",
-////                "AEMBOT_Control",
-////                "AEMBOT_Labeled",
-////                "AEMBOT_Button"
-////        );
-//
-//        water_button = new Button("Water Challenge!");
-////        water_button.getStyleClass().addAll(
-////                "AEMBOT",
-////                "AEMBOT_Node",
-////                "AEMBOT_Region",
-////                "AEMBOT_Control",
-////                "AEMBOT_Labeled",
-////                "AEMBOT_Button"
-////        );
-//
-//        Region children[] = {bark_button, water_button};
-//
-//        tiles.setPrefColumns(1);
-//        tiles.setPrefRows(children.length);
-//        tiles.getChildren().addAll(children);
-//
-//        setContent(tiles);
-//
-//        bark_player = new MediaPlayer(GUI.bark_mp3);
+        tiles = new TilePane();
+        tiles.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Pane",
+                "AEMBOT_TilePane"
+        );
+
+//        mode = new ModeToggleWidget();
+
+        bark_button = new Button("Bark!");
+        bark_button.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
+                "AEMBOT_ButtonBase",
+                "AEMBOT_Button"
+        );
+
+        water_button = new Button("Water Challenge!");
+        water_button.getStyleClass().addAll(
+                "AEMBOT",
+                "AEMBOT_Node",
+                "AEMBOT_Region",
+                "AEMBOT_Control",
+                "AEMBOT_Labeled",
+                "AEMBOT_ButtonBase",
+                "AEMBOT_Button"
+        );
+
+        Region children[] = {bark_button, water_button};
+
+        tiles.setPrefColumns(1);
+        tiles.setPrefRows(children.length);
+        tiles.getChildren().addAll(children);
+
+        setContent(tiles);
+
+        bark_player = new MediaPlayer(GUI.bark_mp3);
     }
 
     void bark() {

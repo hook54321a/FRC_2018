@@ -1,0 +1,13 @@
+/*
+    Button > ButtonBase
+*/
+
+.AEMBOT_ButtonBase {
+    /* Button has no properties of its own. */
+}
+
+.AEMBOT_Button:cancel {
+}
+
+.AEMBOT_Button:default {
+}

@@ -110,15 +110,10 @@ class ConsoleWidget extends Pane {
 
     ConsoleWidget(WindowWidget win_widget) {
         getStyleClass().addAll(
-                "AEMBOT",
-                "AEMBOT_ConsoleWidget",
+                "AEMBOT_Node",
                 "AEMBOT_Region",
-                "AEMBOT_Node"
-// FIXME
-// When AEMBOT_Region and AEMBOT_ConsoleWidget are used together, things break
-// --Or-- When AEMBOT_Region and AEMBOT_ConsoleWidget are used together, AEMBOT_Region always takes precedence
-// Depending on what system is used??
-// --Or-- Not?
+                "AEMBOT_ConsoleWidget",
+                "AEMBOT"
         );
 
         this.win_widget = win_widget;
@@ -128,8 +123,7 @@ class ConsoleWidget extends Pane {
         controls = new ControlPanelWidget();
         data = new DataPanelWidget();
 
-//        getChildren().addAll(map, camera_feed, controls, data);
-        getChildren().addAll(map, camera_feed, controls);
+        getChildren().addAll(map, camera_feed, controls, data);
     }
 
     protected void layoutChildren() {
@@ -150,13 +144,10 @@ class ConsoleWidget extends Pane {
                 control_panel_width_px, control_panel_height_px,
                 0, HPos.CENTER, VPos.CENTER);
 
-//        layoutInArea(data,
-//                data_panel_x_px, data_panel_y_px,
-//                data_panel_width_px - 2, data_panel_height_px,
-//                0, HPos.CENTER, VPos.CENTER);
-//
-//        map.layout();
-//        camera_feed.layout();
+        layoutInArea(data,
+                data_panel_x_px, data_panel_y_px,
+                data_panel_width_px, data_panel_height_px,
+                0, HPos.CENTER, VPos.CENTER);
 
 //        draw();
     }

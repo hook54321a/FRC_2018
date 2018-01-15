@@ -2,11 +2,6 @@
     TitledPane > Labeled
 */
 
-.AEMBOT_TitledPane {
-    -fx-animated:       false;
-    -fx-collapsible:    false;
-}
-
 /*
     TitledPane structure from:
         "External Libraries/jfxrt.jar/com/sun/javafx/scene/control/skin/TitledPaneSkin.java"
@@ -22,13 +17,7 @@
        // Probably, content can be any sub-type of Node, and it gets its CSS info when created--before it is
        // passed to the TitledPane.
 
-       contentContainer > content         no CSS class    (Node)
-*/
-
-/*
-    // Could use this to further customize the titleRegion, arrowRegion, arrow, and contentContainer
-
-    @import "AEMBOT_StackPane.css"
+       contentContainer > [anonymous]     no CSS class    (Node)
 */
 
 /*
@@ -38,16 +27,22 @@
 */
 
 .AEMBOT_TitledPane {
-    -fx-text-fill:              black;
-}
+    /**** Node ****/
+    /* Using defaults. */
 
-/*
-.titled-pane:focused {
-    -fx-color: -fx-base;
-}
+    /**** Region ****/
+    /* Note: -fx-background-color only sets the color of the title area. */
+    /* Using defaults. */
 
-.AEMBOT_TitledPane:focused {
-    -fx-color: -fx-base;
+    /**** Control ****/
+    /* Using defaults. */
+
+    /**** Labeled ****/
+    -fx-font:           bold 22 Arial;
+
+    /**** TitledPane ****/
+    -fx-animated:       false;
+    -fx-collapsible:    false;
 }
 
 /*
@@ -61,83 +56,27 @@
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0;
     -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
+/*
 }
 */
 
 .AEMBOT_TitledPane > .title {
-/*
-    -fx-background-color:       -AEMBOT_title_bar_color, -AEMBOT_dark_border_color, -AEMBOT_light_border_color;
-*/
-    -fx-background-color:       green, green, green;
-    -fx-background-insets:      0, 1, 2;
-    -fx-background-radius:      3 3 0 0, 2 2 0 0, 1 1 0 0;
-    -fx-padding:                0.3333em 0.75em 0.3333em 0.75em;
+    /**** Node ****/
+    /* Using defaults.*/
+
+    /**** Region ****/
+    -fx-background-color:       -AEMBOT_dark_border_gradient,
+                                -AEMBOT_light_border_gradient,
+                                -AEMBOT_title_bar_color;
+
+    -fx-background-insets:      0 0 0 0, 1 1 0 1, 2 2 1 2;
+    -fx-background-radius:      5 5 0 0, 4 4 0 0, 3 3 0 0;
+
+    -fx-padding:                0.3333em    0    0.3333em 0.3333em;
+
+    /**** StackPane ****/
+    /* TitledPane manages the StackPane of the title area. */
 }
-
-/* alternative focus using the ring around the entire title area */
-/*.titled-pane:focused > .title {
-    -fx-background-color: -fx-faint-focus-color, -fx-focus-color, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0, 0.7, 2, 3;
-}*/
-/* focus purely on the arrow */
-
-/*
-.titled-pane:focused > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-focus-color, -fx-mark-color;
-    -fx-background-insets: -1, 0;
-    -fx-effect: dropshadow(two-pass-box , -fx-focus-color, 5, 0.2 , 0, 0);
-}
-*/
-
-.AEMBOT_TitledPane:focused > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-focus-color, -fx-mark-color;
-    -fx-background-insets: -1, 0;
-    -fx-effect: dropshadow(two-pass-box , -fx-focus-color, 5, 0.2 , 0, 0);
-}
-
-/*
-.titled-pane > .title > .arrow-button {
-    -fx-background-color: null;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.0em 0.583em 0.0em 0.0em; /* 0 7 0 0 */
-}
-*/
-
-.AEMBOT_TitledPane > .title > .arrow-button {
-    -fx-background-color: null;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.0em 0.583em 0.0em 0.0em; /* 0 7 0 0 */
-}
-
-/*
-.titled-pane > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
-    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
-    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
-}
-*/
-
-.AEMBOT_TitledPane > .title > .arrow-button > .arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-    -fx-background-insets: 1 0 -1 0, 0;
-    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
-    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
-}
-
-/*
-.titled-pane > .title:hover {
-    -fx-color: -fx-hover-base;
-}
-*/
-
-.AEMBOT_TitledPane > .title:hover {
-    -fx-color: -fx-hover-base;
-}
-
-/* alternative content using a border and a grad to transparent background - why should TitledPane content have a colour? */
 
 /*
 .titled-pane > *.content {
@@ -147,8 +86,22 @@
 }
 */
 
-.AEMBOT_TitledPane > *.content {
-    -fx-border-color: -fx-box-border;
-    -fx-border-insets: -1 0 0 0;
-    -fx-background-color: linear-gradient(from 0px 0px to 0px 5px, derive(-fx-background, -6%), -fx-background);
+.AEMBOT_TitledPane > .content {
+    /**** Node ****/
+    /* Using defaults. */
+
+    /**** Region ****/
+    -fx-background-color:       -AEMBOT_light_border_color,
+                                -AEMBOT_dark_border_color,
+                                -AEMBOT_blue_background_color;
+    -fx-background-insets:      -1 0 0 0, -1 1 1 1, -2 2 2 2;
+    -fx-background-radius:      0 0 5 5, 0 0 4 4 , 0 0 3 3;
+
+    -fx-border-color:           null;
+    -fx-border-insets:          null;
+
+    -fx-padding:                3;  /*FIXME*/
+
+    /**** StackPane ****/
+    -fx-alignment:              center;
 }

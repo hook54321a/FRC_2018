@@ -73,8 +73,8 @@
  ******************************************/
 
 .AEMBOT_CameraFeedWidget {
-    -fx-border-width:       10px;
-    -fx-border-color:       black;
+    -fx-border-width:           10px;
+    -fx-border-color:           black;
 }
 
 /******************************************
@@ -84,7 +84,158 @@
  ******************************************/
 
 .AEMBOT_ControlPanelWidget {
-    -fx-collapsible:    false;
+    -fx-background-color:   blue;
+}
+
+.AEMBOT_ControlPanelWidget > .title {
+    /**** Node ****/
+
+/*
+    -fx-blend-mode:         null;
+    -fx-cursor:             null;
+    -fx-effect:             null;
+    -fx-focus-traversable: 	false;
+    -fx-opacity:            1.0;
+    -fx-rotate:             0;
+    -fx-scale-x:            1;
+    -fx-scale-y:            1;
+    -fx-scale-z:            1;
+    -fx-translate-x:        0;
+    -fx-translate-y:        0;
+    -fx-translate-z:        0;
+    visibility:             visible;
+*/
+
+    /**** Region ****/
+
+/*
+    -fx-background-color:       transparent;
+    -fx-background-insets: 	    0;
+    -fx-background-radius: 	    0;
+
+    -fx-background-image:       null;
+    -fx-background-position:    0% 0%;
+    -fx-background-repeat:      repeat repeat;
+    -fx-background-size:        auto auto;
+
+    -fx-border-color:           null;
+    -fx-border-insets:          null;
+    -fx-border-radius:          null;
+    -fx-border-style:           null;
+    -fx-border-width:           null;
+    -fx-border-image-source:    null;
+    -fx-border-image-insets:    0;
+    -fx-border-image-repeat:    repeat repeat;
+    -fx-border-image-slice:     100%;
+    -fx-border-image-width:     1;
+
+    -fx-padding:                0;
+    -fx-position-shape:         true;
+    -fx-scale-shape:            true;
+    -fx-shape:                  null;
+    -fx-snap-to-pixel:          true;
+
+    -fx-min-height:             -1;
+    -fx-pref-height:            -1;
+    -fx-max-height:             -1;
+
+    -fx-min-width:              -1;
+    -fx-pref-width:             -1;
+    -fx-max-width:              -1;
+*/
+
+    /**************************/
+
+/*
+    -fx-background-color:
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0;
+    -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
+*/
+
+/*
+    -fx-background-color:   -AEMBOT_dark_border_gradient,
+                            -AEMBOT_light_border_gradient,
+                            -AEMBOT_title_bar_color;
+
+    -fx-background-insets:  0 0 0 0, 1 1 0 1, 2 2 1 2;
+    -fx-background-radius:  5 5 0 0, 4 4 0 0, 3 3 0 0;
+
+    -fx-padding:            0.3333em 0 0.3333em 0.3333em;
+*/
+
+    /**************************/
+
+    /**** StackPane ****/
+
+/*
+    -fx-alignment:      top-left;
+*/
+    -fx-background-color:   green;
+}
+
+.AEMBOT_ControlPanelWidget > .content {
+    /**** Node ****/
+
+/*
+        -fx-blend-mode:         null;
+        -fx-cursor:             null;
+        -fx-effect:             null;
+        -fx-focus-traversable: 	false;
+        -fx-opacity:            1.0;
+        -fx-rotate:             0;
+        -fx-scale-x:            1;
+        -fx-scale-y:            1;
+        -fx-scale-z:            1;
+        -fx-translate-x:        0;
+        -fx-translate-y:        0;
+        -fx-translate-z:        0;
+        visibility:             visible;
+*/
+
+    /**** Region ****/
+/*
+
+    -fx-background-color:       -AEMBOT_background_color;
+    -fx-background-insets: 	    0;
+    -fx-background-radius: 	    0;
+
+    -fx-background-image:       null;
+    -fx-background-position:    0% 0%;
+    -fx-background-repeat:      repeat repeat;
+    -fx-background-size:        auto auto;
+
+    -fx-border-color:           null;
+    -fx-border-insets:          null;
+    -fx-border-radius:          null;
+    -fx-border-style:           null;
+    -fx-border-width:           null;
+    -fx-border-image-source:    null;
+    -fx-border-image-insets:    0;
+    -fx-border-image-repeat:    repeat repeat;
+    -fx-border-image-slice:     100%;
+    -fx-border-image-width:     1;
+
+    -fx-padding:                0;
+    -fx-position-shape:         true;
+    -fx-scale-shape:            true;
+    -fx-shape:                  null;
+    -fx-snap-to-pixel:          true;
+
+    -fx-min-height:             -1;
+    -fx-pref-height:            -1;
+    -fx-max-height:             -1;
+
+    -fx-min-width:              -1;
+    -fx-pref-width:             -1;
+    -fx-max-width:              -1;
+*/
+
+    /**** StackPane ****/
+
+    -fx-alignment:              center;
+
+    -fx-background-color:   green;
 }
 
 .AEMBOT_ControlPanelWidget > .content > .AEMBOT_ControlPanelWidget_TilePane {

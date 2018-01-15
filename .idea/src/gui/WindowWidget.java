@@ -274,9 +274,10 @@ class AEMBOTStylesheets {
     static String[] get_URIs(String URI_absolute_prefix) {
         String URIs[] = new String[URI_filenames.length];
 
-        for (int i = 0; i < URI_filenames.length - 1; i++)
+        int i;
+        for (i = 0; i < URI_filenames.length - 1; i++)
             URIs[i] = URI_absolute_prefix + URI_relative_prefix + "_" + URI_filenames[i] + URI_suffix;
-        URIs[URI_filenames.length - 1] = URI_absolute_prefix + URI_relative_prefix + URI_suffix;
+        URIs[i] = URI_absolute_prefix + URI_relative_prefix + URI_suffix;
 
         return URIs;
     }

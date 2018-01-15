@@ -53,18 +53,4 @@ class DataPanelWidget extends TitledPane {
 
         setContent(tiles);
     }
-
-    protected void layoutChildren() {
-//        RegionProperties p = new RegionProperties(tiles);
-//
-//        GUI.set_region_geometry(tiles, 0, 0, getWidth(), getHeight());
-//
-//        RegionProperties q = new RegionProperties(tiles);
-
-        double tile_side_length = getContent().prefHeight(-1);
-        tile_side_length = 200;
-
-        tiles.setPrefTileWidth(tile_side_length);
-        tiles.setPrefTileHeight(tile_side_length);
-    }
 }

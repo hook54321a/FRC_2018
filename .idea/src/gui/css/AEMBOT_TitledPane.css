@@ -32,14 +32,25 @@
 
     /**** Region ****/
     /* Note: -fx-background-color only sets the color of the title area. */
-    /* Using defaults. */
+
+/*
+    Reverting to Modena
+    -AEMBOT_TitledPane_outer_border_color:         rgb(50, 100, 160);
+    -AEMBOT_TitledPane_inner_border_color:         rgb(80, 140, 200);
+    -AEMBOT_TitledPane_title_color:                rgb(160, 160, 160);
+    -AEMBOT_TitledPane_background_color:           rgb(180, 220, 255);
+    -AEMBOT_TitledPane_background_color:           rgb(50, 100, 160);
+    -AEMBOT_TitledPane_title_color:                rgb(110, 190, 255);
+*/
 
     /**** Control ****/
     /* Using defaults. */
 
     /**** Labeled ****/
-    -fx-font:           bold 22 Arial;
-
+/*
+    Reverting to Modena
+    -fx-font:           bold 24 Arial;
+*/
     /**** TitledPane ****/
     -fx-animated:       false;
     -fx-collapsible:    false;
@@ -65,14 +76,16 @@
     /* Using defaults.*/
 
     /**** Region ****/
-    -fx-background-color:       -AEMBOT_dark_border_gradient,
-                                -AEMBOT_light_border_gradient,
-                                -AEMBOT_title_bar_color;
-
-    -fx-background-insets:      0 0 0 0, 1 1 0 1, 2 2 1 2;
+/*
+    Reverting to Modena
+    -fx-background-color:       -AEMBOT_TitledPane_outer_border_color,
+                                -AEMBOT_TitledPane_inner_border_color,
+                                -AEMBOT_TitledPane_title_color;
+    -fx-background-insets:      0 0 0 0, 2 2 0 2, 7 7 2 7;
     -fx-background-radius:      5 5 0 0, 4 4 0 0, 3 3 0 0;
 
-    -fx-padding:                0.3333em    0    0.3333em 0.3333em;
+    -fx-padding:                13 0 7 15;
+*/
 
     /**** StackPane ****/
     /* TitledPane manages the StackPane of the title area. */
@@ -91,16 +104,22 @@
     /* Using defaults. */
 
     /**** Region ****/
-    -fx-background-color:       -AEMBOT_light_border_color,
-                                -AEMBOT_dark_border_color,
-                                -AEMBOT_blue_background_color;
-    -fx-background-insets:      -1 0 0 0, -1 1 1 1, -2 2 2 2;
-    -fx-background-radius:      0 0 5 5, 0 0 4 4 , 0 0 3 3;
+/*
+    Reverting to Modena
+    -fx-background-color:       -AEMBOT_TitledPane_outer_border_color,
+                                -AEMBOT_TitledPane_inner_border_color,
+                                -AEMBOT_TitledPane_background_color;
+*/
 
+    -fx-background-insets:      0 1 1 1;    /* Fixes minor bug in Modena */
+    -fx-background-radius:      0 0 2 2;
+    -fx-border-radius:          0 0 3 3;
+
+/*
+    Reverting to Modena
     -fx-border-color:           null;
     -fx-border-insets:          null;
-
-    -fx-padding:                3;  /*FIXME*/
+*/
 
     /**** StackPane ****/
     -fx-alignment:              center;

@@ -2,6 +2,8 @@
     Text > Shape
 */
 
+FAIL: Using Modena defaults
+
 .AEMBOT_Text {
 /*
     -fx-font:                       Font.DEFAULT;       // Font.DEFAULT is not actually valid CSS. The default font comes from the Font class in Java, apparently.

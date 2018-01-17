@@ -1,6 +1,20 @@
 /* FIXME: Font sizes should be relative. */
 
+/*
+    Modified CSS
+        Axis
+        Chart
+        LineChart
+        NumberAxis
+        TilePane
+        TitledPane
+        ValueAxis
+        XYChart
+*/
+
 .AEMBOT {
+/*
+    Reverting to Modena
     -AEMBOT_base_blue_color:            cornflowerblue;
     -AEMBOT_dark_border_color:          derive(-AEMBOT_base_blue_color, -20%);
     -AEMBOT_light_border_color:         derive(-AEMBOT_base_blue_color, 10%);
@@ -21,7 +35,8 @@
 
     -AEMBOT_blue_background_color:      derive(-AEMBOT_base_blue_color, 20%);
 
-    -AEMBOT_gray_background_color:      rgb(125, 125, 125);
+    -AEMBOT_gray_background_color:      rgb(128, 128, 128);
+*/
 }
 
 /*******************************************************************************
@@ -60,7 +75,7 @@
     /* Using defaults.*/
 
     /**** Region ****/
-    -fx-background-color:       -AEMBOT_gray_background_color;
+    -fx-background-color:       rgb(130, 130, 130);
 }
 
 /******************************************
@@ -70,6 +85,7 @@
  ******************************************/
 
 .AEMBOT_RealTimeModelWidget {
+    -fx-background-color:       rgb(100, 100, 100);
     -fx-border-width:           10px;
     -fx-border-color:           black;
 }
@@ -81,6 +97,7 @@
  ******************************************/
 
 .AEMBOT_CameraFeedWidget {
+    -fx-background-color:       rgb(100, 100, 100);
     -fx-border-width:           10px;
     -fx-border-color:           black;
 }
@@ -104,9 +121,8 @@
 
     /**** TilePane ****/
     -fx-orientation:            vertical;
-    -fx-pref-rows:              0;
+    -fx-pref-rows:              2;
     -fx-pref-columns:           1;
-    -fx-vgap:                   50;
 }
 
 /******************************************
@@ -129,8 +145,8 @@
     /**** TilePane ****/
     -fx-orientation:            horizontal;
     -fx-pref-rows:              1;
-    -fx-pref-columns:           0;
-    -fx-hgap:                   50;
+    -fx-pref-columns:           5;
+/*    -fx-hgap:                   50;*/
 }
 
 /*******************************************************************************

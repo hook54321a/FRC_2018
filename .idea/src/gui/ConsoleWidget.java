@@ -110,10 +110,10 @@ class ConsoleWidget extends Pane {
 
     ConsoleWidget(WindowWidget win_widget) {
         getStyleClass().addAll(
-                "AEMBOT_Node",
-                "AEMBOT_Region",
-                "AEMBOT_ConsoleWidget",
-                "AEMBOT"
+//                "AEMBOT_Node",
+//                "AEMBOT_Region",
+                "AEMBOT_ConsoleWidget"
+//                "AEMBOT"
         );
 
         this.win_widget = win_widget;

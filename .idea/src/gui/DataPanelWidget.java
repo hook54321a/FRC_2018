@@ -29,28 +29,34 @@ class DataPanelWidget extends TitledPane {
 
     DataPanelWidget() {
         getStyleClass().addAll(
-                "AEMBOT_Node",
-                "AEMBOT_Region",
-                "AEMBOT_Control",
-                "AEMBOT_Labeled",
+//                "AEMBOT_Node",
+//                "AEMBOT_Region",
+//                "AEMBOT_Control",
+//                "AEMBOT_Labeled",
                 "AEMBOT_TitledPane",
-                "AEMBOT_DataPanelWidget",
-                "AEMBOT"
+                "AEMBOT_DataPanelWidget"
+//                "AEMBOT"
         );
 
         setText("Readouts");
-//
-//        tiles = new TilePane();
-//        tiles.getStyleClass().addAll("AEMBOT", "AEMBOT_TilePane", "AEMBOT_Panel_TilePane");
-//
-//        tiles.setPrefRows(1);
-//        tiles.setPrefColumns(2);
-//
-//        coords = new CoordinatesWidget();
-//        voltage = new BatteryVoltageGraphWidget();
-//
-//        tiles.getChildren().addAll(coords, voltage);
-//
+
+        tiles = new TilePane();
+        tiles.getStyleClass().addAll(
+//                "AEMBOT_Node",
+//                "AEMBOT_Region",
+//                "AEMBOT_Pane",
+                "AEMBOT_TilePane"
+//                "AEMBOT"
+        );
+
+        tiles.setPrefRows(1);
+        tiles.setPrefColumns(2);
+
+        coords = new CoordinatesWidget();
+        voltage = new BatteryVoltageGraphWidget();
+
+        tiles.getChildren().addAll(coords, voltage);
+
 //        setContent(tiles);
     }
 }

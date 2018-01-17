@@ -16,7 +16,11 @@ class CoordinatesWidget extends GridPane {
     Text theta = new Text("0");
 
     CoordinatesWidget() {
-        getStyleClass().addAll("AEMBOT", "AEMBOT_CoordinatesWidget");
+        getStyleClass().addAll(
+//                FIXME
+                "AEMBOT_CoordinatesWidget",
+                "AEMBOT"
+        );
 
         add(x_label, 0, 0);
         add(y_label, 0, 1);

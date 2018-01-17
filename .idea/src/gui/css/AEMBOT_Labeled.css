@@ -2,12 +2,16 @@
     Labeled > Control
 */
 
+FAIL: Using Modena defaults
+
 .AEMBOT_Labeled {
     -fx-alignment:           center-left;
     -fx-text-alignment:      left;
     -fx-text-overrun:        ellipsis;
     -fx-wrap-text:           false;
+
 /*    -fx-font                 ;      Default value is platform dependent. */
+
     -fx-underline:           false;
     -fx-graphic:             null;
     -fx-content-display:     left;

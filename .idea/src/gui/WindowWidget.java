@@ -242,31 +242,26 @@ class AEMBOTStylesheets {
              ****
             */
 
-            "Node",
-            "Parent",
-            "Region",
-
-            "Pane",
-            "StackPane",
+//            "Node",
+//            "Parent",
+//            "Region",
+//
+//            "Pane",
+//            "StackPane",
             "TilePane",
 
-            "Control",
-            "Labeled",
+//            "Control",
+//            "Labeled",
             "TitledPane",
-
-            "Chart",
-            "LineChart",
-            "XYChart",
-
             "Axis",
             "ValueAxis",
             "NumberAxis",
 
-            "Shape",
-            "Font",
-            "Text",
+//            "Shape",
+//            "Font",
+//            "Text",
 
-            "",                  // Special case for AEMBOT.css, because it does not follow the AEMBOT_ naming convention
+            ""      //  Special case for AEMBOT.css, because it does not follow the AEMBOT_ naming convention
     };
 
     static String URI_suffix = ".css";

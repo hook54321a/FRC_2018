@@ -3,15 +3,21 @@
 */
 
 .AEMBOT_TilePane {
-    -fx-background-color:   red;
+    -fx-background-radius:      0 0 2 2;
 
+/*
+    Using Modena defaults
     -fx-orientation:        horizontal;
-    -fx-pref-rows:          1;
-    -fx-pref-columns:       1;
+    -fx-pref-rows:          5;
+    -fx-pref-columns:       5;
     -fx-pref-tile-width:    -1;
     -fx-pref-tile-height:   -1;
-    -fx-hgap:               10;
-    -fx-vgap:               10;
+    -fx-hgap:               0;
+    -fx-vgap:               0;
+*/
     -fx-alignment:          center;
+/*
+    Using Modena defaults
     -fx-tile-alignment:     center;
+*/
 }

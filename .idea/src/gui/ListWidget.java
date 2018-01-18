@@ -25,6 +25,10 @@ class ListWidget extends GridPane {
     int num_rows;
 
     ListWidget(Node... nodes) {
+        getStyleClass().addAll(
+                "AEMBOT_ListWidget"
+        );
+
         num_rows = nodes.length;
 
         for (int i = 0; i < num_rows; i++) {
@@ -32,28 +36,30 @@ class ListWidget extends GridPane {
                 add(nodes[i], 0, i);
         }
 
-        setGridLinesVisible(true);
+//        setGridLinesVisible(true);
     }
 
-//    protected void layoutChildren() {
-//        double width = getWidth();
-//        double height = getHeight();
-//
-////        setMinSize(width, height);
-////        setPrefSize(width, height);
-////        setMaxSize(width, height);
-//
-//        double col_width = width;
-//
-//        ColumnConstraints c = new ColumnConstraints(col_width, col_width, col_width, NEVER, HPos.CENTER, false);
-//        getColumnConstraints().setAll(c);
-//
-//        getRowConstraints().setAll();
-//        double row_height = height / num_rows;
-//
-//        for (int i = 0; i < num_rows; i++) {
-//            RowConstraints r = new RowConstraints(row_height, row_height, row_height, NEVER, VPos.CENTER, false);
-//            getRowConstraints().add(r);
-//        }
-//    }
+    protected void layoutChildren() {
+        double width = getWidth();
+        double height = getHeight();
+
+//        setMinSize(width, height);
+//        setPrefSize(width, height);
+//        setMaxSize(width, height);
+
+        double col_width = width;
+
+        ColumnConstraints c = new ColumnConstraints(col_width, col_width, col_width, NEVER, HPos.CENTER, false);
+        getColumnConstraints().setAll(c);
+
+        getRowConstraints().setAll();
+        double row_height = height / num_rows;
+
+        for (int i = 0; i < num_rows; i++) {
+            RowConstraints r = new RowConstraints(row_height, row_height, row_height, NEVER, VPos.CENTER, false);
+            getRowConstraints().add(r);
+        }
+
+        super.layoutChildren();
+    }
 }

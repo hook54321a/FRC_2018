@@ -58,6 +58,7 @@ class ControlPanelWidget extends TitledPane {
 //        );
 
         list = new ListWidget(null, mode, null, bark_button, null, water_button, null);
+        list.setBackground(new Background(new BackgroundFill(RED, null, null)));
 
 //        GridPane gp = new GridPane();
 //        gp.setBackground(new Background(new BackgroundFill(RED, null, null)));

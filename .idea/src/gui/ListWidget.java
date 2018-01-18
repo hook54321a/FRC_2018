@@ -43,9 +43,9 @@ class ListWidget extends GridPane {
         double width = getWidth();
         double height = getHeight();
 
-//        setMinSize(width, height);
-//        setPrefSize(width, height);
-//        setMaxSize(width, height);
+        setMinSize(width, height);
+        setPrefSize(width, height);
+        setMaxSize(width, height);
 
         double col_width = width;
 
